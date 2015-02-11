@@ -20,7 +20,7 @@
 			      	"location": "",
 			      	"attributes":[{"name":"gps_accuracy", "type":"float", "value":5.7}]
 			    },
-		    	{
+		    	{ 
 		      		"id": 2,
 		      		"name": "Hospital Admission",
 		     	 	"date": "2014-12-14 00:00:00+Z",
