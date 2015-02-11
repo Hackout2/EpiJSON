@@ -1,9 +1,9 @@
-#' first go at getting JSON
+#' converting epiJSON into a list of lists
 #' 
-#' output an \code{obkData} object or part of one to a JSON string or file
+#' takes an epiJSON string or file and converts to a list of lists
 
 
-#' @param file an epijson filename to convert to R
+#' @param file an epiJSON filename or string to convert to R
 #' #@param file optional filename for JSON string
 #' 
 #' @return a list of lists of the epijson content
@@ -11,14 +11,14 @@
 #' 
 
 #example file file <- 'C://rsprojects//format//pkg//inst//extdata//example.JSON'
-epijson2r <- function(file)
+epiJSON2r <- function(file)
 {
   
   #first test output the string
   cat(file)
   
   ## convert from json to list
-  listjson <- fromJSON(file)
+  listJSON <- RJSONIO::fromJSON(file)
  
   
 # this might be needed later to get data into a dataframe
@@ -34,5 +34,5 @@ epijson2r <- function(file)
 #   names(dFindividuals) <- allfields
   
   
-  return(listjson)
+  return(listJSON)
 }
