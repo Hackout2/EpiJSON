@@ -1,16 +1,16 @@
 { 
-	metadata: [
+	"metadata": [
 	    {"name": "owner", "type": "string", "value": "hackout2 team"},
 	    {"name": "version", "type": "int", "value": 1}
 	],
-	individuals: [
+	"individuals": [
 		{
 			"id": "person1",
 			"attributes": [
 		  		{"name": "age", "type": "int", "value": 10},
 		    	{"name": "gender", "type": "string", "value": "male"}, 
   	    	{"name": "dob", "type": "date", "value": "2004-11-23"},
-          {"name": "bloodgroup", "type" "string": "B neg"}
+          {"name": "bloodgroup", "type": "string", "value": "B neg"}
 			],
 		  	"records":[
 				{
@@ -18,7 +18,7 @@
 			      	"name": "disease onset",
 			      	"date": "2014-12-12 00:00:00+Z",
 			      	"location": "",
-			      	"attributes":{"name":"gps_accuracy", "type":"float", "value":5.7}
+			      	"attributes":[{"name":"gps_accuracy", "type":"float", "value":5.7}]
 			    },
 		    	{
 		      		"id": 2,
@@ -35,15 +35,15 @@
                                       }
                             }
     },
-		      		"attributes":{"name":"gps_accuracy", "type":"float", "value":5.7}
+		      		"attributes":[{"name":"gps_accuracy", "type":"float", "value":5.7}]
 		    	},
 		    	{
 		      		"id": 3,
 		      		"name": "swab",
 		     	 	"date": "2014-12-15 00:00:00+Z",
 		      		"location": "",
-		      		"attributes":{"name":"gps_accuracy", "type":"float", "value":5.7},
-                           {"name": "antibodytitre", "type": "int", "value": "345.32"}
+		      		"attributes":[{"name":"gps_accuracy", "type":"float", "value":5.7},
+                           {"name": "antibodytitre", "type": "int", "value": "345.32"}]
 		    	},
 		    	{
 		      		"id": 4,
@@ -56,8 +56,8 @@
               "id": 5,
               "name": "dnaparasite",
               "date": "2015-01-01"
-              "attributes":{"name": "its1": "type":"string", "value": "ACCTCTTU"},
-                           {"name": "MHC": "type":"string", "value": "ACCTCTCU"}  
+              "attributes":[{"name": "its1": "type":"string", "value": "ACCTCTTU"},
+                           {"name": "MHC": "type":"string", "value": "ACCTCTCU"}  ]
           }
 		    ]
 }
@@ -74,21 +74,21 @@
 			      	"name": "disease onset",
 			      	"date": "2014-12-15 00:00:00+Z",
 			      	"location": "",
-			      	"attributes":{"name":"gps_accuracy", "type":"float", "value":5.3}
+			      	"attributes":[{"name":"gps_accuracy", "type":"float", "value":5.3}]
 			    },
 		    	{
 		      		"id": 2,
 		      		"name": "Hospital Admission",
 		     	 	"date": "2014-12-16 00:00:00+Z",
 		      		"location": "",
-		      		"attributes":{"name":"gps_accuracy", "type":"float", "value":5.8}
+		      		"attributes":[{"name":"gps_accuracy", "type":"float", "value":5.8}]
 		    	},
 		    	{
 		      		"id": 3,
 		      		"name": "swab",
 		     	 	"date": "2014-12-16 04:00:00+Z",
 		      		"location": "",
-		      		"attributes":{"name":"gps_accuracy", "type":"float", "value":5.7}
+		      		"attributes":[{"name":"gps_accuracy", "type":"float", "value":5.7}]
 		    	},
 		    	{
 		      		"id": 4,
@@ -96,7 +96,7 @@
 		     	 	"date": "2014-12-18 08:00:00+Z",
 		      		"location": "",
 		      		"descriptiveLocation": "",
-              "attributes":{"name":"outcome", "type":"int", "value":"died"}
+              "attributes":[{"name":"outcome", "type":"int", "value":"died"}]
 		    	}
         ]
 }
@@ -115,26 +115,26 @@
 			      	"name": "disease onset",
 			      	"date": "2014-12-30 00:00:00+Z",
 			      	"location": "",
-			      	"attributes":{"name":"gps_accuracy", "type":"float", "value":5.3},
-                           {"name":"contacts", "type":"int", "value":4}
+			      	"attributes":[{"name":"gps_accuracy", "type":"float", "value":5.3},
+                           {"name":"contacts", "type":"int", "value":"3"}]
 			    },
 		    	{
 		      		"id": 2,
 		      		"name": "Hospital Admission",
 		     	 	"date": "2014-12-31 08:00:00+Z",
 		      		"location": "",
-		      		"attributes":{"name":"gps_accuracy", "type":"float", "value":5.8},
-                           {"name":"contacts", "type":"int", "value":6},
-                           {"name":"duration", "type":"int", "value":3}
+		      		"attributes":[{"name":"gps_accuracy", "type":"float", "value":5.8},
+                           {"name":"contacts", "type":"int", "value":"6"},
+                           {"name":"duration", "type":"int", "value":"3"}]
 		    	},
 		    	{
 		      		"id": 3,
 		      		"name": "swab",
 		     	 	"date": "2015-01-01 04:00:00+Z",
 		      		"location": "",
-		      		"attributes":{"name":"gps_accuracy", "type":"float", "value":5.7},
-                           {"name":"contacts", "type":"int", "value":1},
-                           {"name":"reinfection", "type":"int", "value":no}
+		      		"attributes":[{"name":"gps_accuracy", "type":"float", "value":5.7},
+                           {"name":"contacts", "type":"int", "value":"1"},
+                           {"name":"reinfection", "type":"int", "value":"no"}]
 		    	},
 		    	{
 		      		"id": 4,
@@ -142,7 +142,7 @@
 		     	 	"date": "2015-01-01 16:00:00+Z",
 		      		"location": "",
 		      		"descriptiveLocation": "",
-              "attributes":{"name":"gps_accuracy", "type":"int", "value":"5.4"}
+              "attributes":[{"name":"gps_accuracy", "type":"float", "value":5.4}]
 		    	},
           {
   	      		"id": 5,
@@ -150,8 +150,9 @@
 		     	 	"date": "2014-12-18 08:00:00+Z",
 		      		"location": "",
 		      		"descriptiveLocation": "",
-              "attributes":{"name":"outcome", "type":"int", "value":"died"}
-		    	}
+              "attributes":[{"name":"outcome", "type":"int", "value":"died"}]
+}
 		    ]
 }
 ]
+}
