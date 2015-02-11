@@ -1,16 +1,3 @@
-print.ejAttribute <- function(x, ...){
-	cat("(name: ", x$name, " type:", x$type, " value:", x$value, ")\n")
-}
-
-print.ejRecord <- function(x, ...){
-	cat("Record:")
-	cat("id: ", x$id, "\n")
-	cat("name:", x$name, "\n")
-	cat("date: ", x$date, "\n")
-	cat("location: ", x$location, "\n")
-	for(attribute in x$attributes){print.ejAttribute(attribute)}
-}
-
 processIndividual <- function(x){
 	#get the individual ID
 	individualID <- row.names(x@individuals)
@@ -21,12 +8,15 @@ processIndividual <- function(x){
 	#process the recordFrames
 	recordFrames <- x@records
 	records<-c()
-	for(recordFrame in recordFrames){
+	for(recordFrame in names(recordFrames)){
 		#skip empty frames
-		if (nrow(recordFrame)!=0){
-			records
+		if (nrow(recordFrames[[recordFrame]])!=0){
+			records <- c(records, processRecordFrame(recordFrames[[recordFrame]], recordFrame))
 		}
 	}
+	#fix the record ids
+	records <- lapply(1:length(records), function(i){x<-records[[i]]; x$id <- i; x})
+	createIndividual(id=individualID, attributes, records)
 }
 
 #' Process an individual record frame
@@ -37,5 +27,7 @@ processRecordFrame <- function(x, recordFrameName){
 	})	
 }
 
-
+as.ejObject.obkData(x){
+	
+}
 

@@ -22,3 +22,12 @@ createRecord <- function(id=NA, name, date, location, attributes){
 					attributes=attributes
 			), class="ejRecord")
 }
+
+#' Create an individual
+createIndividual <- function(id, attributes, records){
+	structure(list(
+					id=id,
+					attributes=attributes,
+					records=records
+					), class="ejIndividual")
+}
