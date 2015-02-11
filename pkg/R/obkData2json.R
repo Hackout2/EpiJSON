@@ -1,9 +1,13 @@
-#' @description
-#' This function converts an \linkS4class{obkData} object to a json object storing outbreak data.
-#'
-#'
-#'
-#'
+#' output an \code{OutBreakTools::obkData} object to JSON
+#' 
+#' output an \code{obkData} object or part of one to a JSON string or file
+
+
+#' @param x an obkData object or part of one
+#' #@param file optional filename for JSON string
+#' 
+#' @return ?maybe a string of the JSON
+#' @export
 
 ##################
 ## obkData2json ##
