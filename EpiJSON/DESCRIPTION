@@ -1,0 +1,9 @@
+Package: EpiJSON
+Title: A data format for epidemiological data
+Version: 0.0.1
+Authors@R: person("First", "Last", , "first.last@example.com", role = c("aut", "cre"))
+Description: Supplies a class and conversion utilities for the representation of epi data.
+	Provides conversion functions for data.frame, sp, obkData and ts
+Depends: R (>= 3.1.2)
+License: GPL2
+LazyData: true
