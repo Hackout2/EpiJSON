@@ -17,3 +17,14 @@ print.ejIndividual <- function(x, ...){
 	for(attribute in x$attributes){print.ejAttribute(attribute)}
 	for(record in x$records){print.ejRecord(record)}
 }
+
+print.ejMetadata <- function(x,...){
+	cat("MetaData:\n")
+	for(attribute in x){print.ejAttribute(attribute)}
+}
+
+print.ejObject <- function(x, ...){
+	cat("EpiJSON object\n")
+	print.ejMetadata(x$metadata)
+	for(individual in x$individuals){print.ejIndividual(individual)}
+}

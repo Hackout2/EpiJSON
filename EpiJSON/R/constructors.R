@@ -31,3 +31,14 @@ createIndividual <- function(id, attributes, records){
 					records=records
 					), class="ejIndividual")
 }
+
+createEJObject <- function(metadata, individuals){
+	structure(list(
+					metadata=metadata,
+					individuals=individuals
+	), class="ejObject")
+}
+
+createMetadata <- function(attributes){
+	structure(attributes, class="ejMetadata")
+}
