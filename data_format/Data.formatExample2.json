@@ -4,7 +4,7 @@
 	    {"name": "version", "type": "int", "value": 1}
 	],
 	"individuals": [
-		{
+		{ 
 			"id": "person1",
 			"attributes": [
 		  		{"name": "age", "type": "int", "value": 10},
