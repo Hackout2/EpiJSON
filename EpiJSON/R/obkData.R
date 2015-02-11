@@ -19,3 +19,29 @@ processIndividual <- function(x){
 	), class="ejAttribute")
 	})
 }
+
+processRecord <- function(xx){
+	
+}
+
+processRecordFrame <- function(x){
+	
+}
+
+dataFrameToAttributes <- function(x){
+	attributeNames <- names(x)
+	attributeTypes <- as.vector(sapply(x, typeof))
+	
+	result <- apply(expand.grid(i=1:nrow(x), j=1:ncol(x)), 1, function(attpos){
+				createAttribute(attributeNames[attpos[2]], attributeTypes[attpos[2]], x[attpos[1],attpos[2]])
+			})
+		
+}
+
+createAttribute <- function (name, type, value){
+	structure(list(
+		name=name,
+		type=type,
+		value=value
+		), class="ejAttribute")
+}
