@@ -1,0 +1,26 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "attribute",
+    "description": "An attribute of a dataset, individual or record",
+    "type": "object",
+    "properties": {
+    	"name": {
+    		"description": "The name of the attribute",
+    		"type": "string"
+    	},
+    	"type": {
+    		"description": "The type of the attribute",
+    		"type": "string",
+    		"enum": [
+    			"string",
+    			"float",
+    			"integer",
+    			"boolean",
+    			"date"
+    		]
+    	},
+    	"value": {
+    		"type": ["string", "number"]
+    	}
+    }
+}

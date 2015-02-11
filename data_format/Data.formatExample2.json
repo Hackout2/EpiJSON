@@ -1,16 +1,16 @@
 { 
-	metadata: [
+	"metadata": [
 	    {"name": "owner", "type": "string", "value": "hackout2 team"},
 	    {"name": "version", "type": "int", "value": 1}
 	],
-	individuals: [
+	"individuals": [
 		{
 			"id": "person1",
 			"attributes": [
 		  		{"name": "age", "type": "int", "value": 10},
 		    	{"name": "gender", "type": "string", "value": "male"}, 
   	    	{"name": "dob", "type": "date", "value": "2004-11-23"},
-          {"name": "bloodgroup", "type" "string": "B neg"}
+          {"name": "bloodgroup", "type":"string", "value": "B neg"}
 			],
 		  	"records":[
 				{
