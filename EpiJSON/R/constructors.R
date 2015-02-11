@@ -8,6 +8,11 @@ createAttribute <- function (name, type, value){
 }
 
 #' Create a record
+#' 
+#' Paragraph of description
+#' @param id The id of the record
+#' @return A ejRecord object
+#' @export
 createRecord <- function(id=NA, name, date, location, attributes){
 	structure(list( 
 					id=id,
