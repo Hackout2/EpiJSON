@@ -15,12 +15,9 @@
 #'  simulated$gender <- c("male","female")[(runif(nrow(simulated))>0.5) +1]
 #'  simulated$date <- as.POSIXct("1854-04-05") + rnorm(nrow(simulated), 10) * 86400
 #'  simulated$pump <- ceiling(runif(nrow(simulated)) * 5)
-#' 
-#'  
-#' individualAttributes = c("gender")
-#' recordDefinitions = list(defineEJRecord(date="date", name=NA, location=list(x="x", y="y", proj4string=""), attributes="pump"))
-#' metadata=list()
-
+#'  as.ejObject(simulated, individualAttributes = c("gender"),
+#' 		recordDefinitions = list(defineEJRecord(date="date", name=NA, location=list(x="x", y="y", proj4string=""), attributes="pump")),
+#' 		metadata=list())
 as.ejObject.data.frame <- function(x, individualID=NA, individualAttributes, recordDefinitions, metadata=list()){
 	#iterate over the dataframe and create an individual record for each row
 	individuals <- lapply(1:nrow(x), function(i){
