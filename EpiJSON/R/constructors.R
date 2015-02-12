@@ -158,10 +158,32 @@ createIndividual <- function(id, attributes, records){
 #'                 rec2date=c("2015-01-02","2015-01-12","2015-01-09"),
 #'                 rec2risk=c("high","low","high"))
 #' 
-#' obj1<-createEJObject (metadata=dF, 
-#'              attributes=list(createAttribute(name="name",type="str",value=list(dF$rec1risk)),
-#'                              createAttribute(name="dob",type="int",value=list(dF$rec1temp)),
-#'                              createAttribute(name="gender",type="str",value=list(dF$gender))))     
+#' obj1<-createEJObject (metadata=list(list(name="ID",type="str",value=dF$id),
+#'                                     list(name="name",type="str",value=dF$name),
+#'                                     list(name="rec1contact",type="str",value=dF$rec1contact),
+#'                                     list(name="rec1date",type="date",value=dF$rec1date)),
+#'                                                  individuals=list(createIndividual(id=dF$id, 
+#'                                                            attributes=list(createAttribute(name="name",type="str",value=list(dF$name)),
+#'                                                                            createAttribute(name="dob",type="date",value=list(as.Date(dF$dob))),
+#'                                                                            createAttribute(name="gender",type="str",value=list(dF$gender))),
+#'                                                                    records=list(createRecord(id=NA, 
+#'                                                                                              name="rec1contact",
+#'                                                                                              date=as.Date(dF$rec1date),
+#'                                                                                              location="",
+#'                                                                                              attributes=list(createAttribute(name="rec1risk",type="str",value=list(dF$rec1risk)),
+#'                                                                                                              createAttribute(name="rec1temp",type="int",value=list(dF$rec1temp)))
+#'                                                                                                  ),
+#'                                                                                createRecord(id=NA, 
+#'                                                                                             name="rec2contact",
+#'                                                                                             date=as.Date(dF$rec2date),
+#'                                                                                             location="",
+#'                                                                                             attributes=list(createAttribute(name="rec2risk",type="str",value=list(dF$rec1risk)))
+#'                                                                                            )
+#'                                                                                )  
+#'                                                                            )
+#'                                                                )
+#'                    ) 
+#'                   
 #'               
 #' @return an \code{\link{ejRecord}} object
 #' @export
