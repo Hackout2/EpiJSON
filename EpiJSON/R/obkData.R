@@ -29,7 +29,7 @@ processRecordFrame <- function(x, recordFrameName){
 
 as.ejObject.obkData <- function(x, metadata=list()){
 	individuals <- lapply(get.individuals(x), function(xx){
-		processIndividual(subset(x, xx))		
+		processIndividual(OutbreakData::subset(x, xx))		
 	})
 
 	createEJObject(metadata=metadata, individuals=individuals)
