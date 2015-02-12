@@ -117,7 +117,7 @@ createRecord <- function(id=NA, name, date, location, attributes){
 #'                                       name="rec2contact",
 #'                                       date=as.Date(dF$rec2date),
 #'                                       location="",
-#'                                              attributes=list(createAttribute(name="rec2risk",type="str",value=list(dF$rec1risk)))
+#'                                              attributes=list(createAttribute(name="rec2risk",type="str",value=list(dF$rec2risk)))
 #'                                        )
 #'                              )  
 #'                      )     
@@ -189,7 +189,7 @@ createIndividual <- function(id, attributes, records){
 #' @export
 #' 
 
-#' Create individual data
+#' Create object
 #' @export
 #' 
 
