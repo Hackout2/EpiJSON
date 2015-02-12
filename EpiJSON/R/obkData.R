@@ -1,3 +1,26 @@
+
+#' This function takes a single individual from the obkClass data and 
+#' converts to the epiJSON format
+#' 
+#' @param x An individual from the obkData 
+#' 
+#' @example
+#' ##from utils.R run the dataFrameToAttributes function
+#' 
+#' ##install OutbreakTools package from CRAN repository
+#' install.packages(OutbreakTools)
+#' require('OutbreakTools')
+#' 
+#' ##An example dataset is available:
+#'      data(ToyOutbreak)
+#' 
+#'      x <- subset(ToyOutbreak,1)
+#'      
+#'      processIndividual(x)
+#' 
+#' @return an ejIndividual
+#'
+
 processIndividual <- function(x){
 	#get the individual ID
 	individualID <- row.names(x@individuals)
@@ -19,6 +42,30 @@ processIndividual <- function(x){
 	createIndividual(id=individualID, attributes, records)
 }
 
+
+#' This function processes Records from the obkClass data and 
+#' converts to the epiJSON format
+#' 
+#' @param x An individual from the obkData 
+#' @param recordFrameName The record of interest
+#' 
+#' @example
+#' ##from utils.R run the dataFrameToAttributes function
+#' 
+#' ##install OutbreakTools package from CRAN repository
+#' install.packages(OutbreakTools)
+#' require('OutbreakTools')
+#' 
+#' ##An example dataset is available:
+#'    data(ToyOutbreak)
+#'
+#'    x=subset(ToyOutbreak,2)@records[[1]]
+#' 
+#'    processRecordFrame(x,"Fever")
+#' 
+#' @return an ejRecord
+#' 
+
 #' Process an individual record frame
 processRecordFrame <- function(x, recordFrameName){	
 	lapply(1:nrow(x), function(i){
@@ -26,6 +73,30 @@ processRecordFrame <- function(x, recordFrameName){
 		createRecord(id=NA, date=x$date[i], name=recordFrameName, location=NA, attributes=recordAttributes)
 	})	
 }
+
+
+#' This function processes objects from the obkClass data and 
+#' converts to the epiJSON format
+#' 
+#' @param x An individual from the obkData 
+#' @param metadata The list of the components in the metadata
+#' 
+#' @example
+#' ##from utils.R run the dataFrameToAttributes function
+#' 
+#' ##install OutbreakTools package from CRAN repository
+#' install.packages(OutbreakTools)
+#' require('OutbreakTools')
+#' 
+#' ##An example dataset is available:
+#'    data(ToyOutbreak)
+#'
+#'    x=subset(ToyOutbreak,2)
+#' 
+#'    as.ejObject.obkData(x,metadata=list())
+#' 
+#' @return an ejObject
+#' 
 
 as.ejObject.obkData <- function(x, metadata=list()){
 	individuals <- lapply(get.individuals(x), function(xx){
