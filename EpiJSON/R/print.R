@@ -7,7 +7,7 @@ print.ejRecord <- function(x, ...){
 	cat("id: ", x$id, "\n")
 	cat("name:", x$name, "\n")
 	cat("date: ", x$date, "\n")
-	cat("location: ", x$location, "\n")
+	cat("location: ", coordinates(x$location)[1], ", ", coordinates(x$location)[2], "\n")
 	for(attribute in x$attributes){print.ejAttribute(attribute)}
 }
 
