@@ -27,9 +27,12 @@ processRecordFrame <- function(x, recordFrameName){
 	})	
 }
 
+#' Convert an obkData object to EpiJSON
+#' @method as.ejObject obkData
+#' @export 
 as.ejObject.obkData <- function(x, metadata=list()){
 	individuals <- lapply(get.individuals(x), function(xx){
-		processIndividual(subset(x, xx))		
+		processIndividual(OutbreakTools::subset(x, xx))		
 	})
 
 	createEJObject(metadata=metadata, individuals=individuals)
