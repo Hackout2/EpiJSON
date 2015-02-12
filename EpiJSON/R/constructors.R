@@ -25,6 +25,7 @@
 #' 
 
 #' Create an attribute
+#' @export
 createAttribute <- function (name, type, value){
 	structure(list(
 					name=name,
@@ -88,6 +89,8 @@ createRecord <- function(id=NA, name, date, location, attributes){
 #' 
 
 #' Create individual data
+#' @export
+
 createIndividual <- function(id, attributes, records){
 	structure(list(
 					id=id,
@@ -96,7 +99,7 @@ createIndividual <- function(id, attributes, records){
 					), class="ejIndividual")
 }
 
-#' output \code{ejObject} 
+
 createEJObject <- function(metadata, individuals){
 	structure(list(
 					metadata=metadata,
@@ -104,7 +107,7 @@ createEJObject <- function(metadata, individuals){
 	), class="ejObject")
 }
 
-#' output \code{ejMetadata}
+
 createMetadata <- function(attributes){
 	structure(attributes, class="ejMetadata")
 }
