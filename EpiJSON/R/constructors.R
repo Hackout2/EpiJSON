@@ -70,8 +70,8 @@ createEvent <- function(id=NA, name, dateStart, dateEnd, location, attributes){
 	structure(list( 
 					id=id,
 					name=name,
-					dateStart=strftime(date, "%Y-%m-%dT%H:%M:%S%z"),
-					dateEnd=strftime(date, "%Y-%m-%dT%H:%M:%S%z"),
+					dateStart=strftime(dateStart, "%Y-%m-%dT%H:%M:%S%z"),
+					dateEnd=strftime(dateEnd, "%Y-%m-%dT%H:%M:%S%z"),
 					location=location,
 					attributes=attributes
 			), class="ejEvent")
