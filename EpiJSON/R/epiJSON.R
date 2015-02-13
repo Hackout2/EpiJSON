@@ -2,7 +2,6 @@
 #'
 #' a JSON format for epidemiological data with functions to convert to and from other useful formats  
 #' @import OutbreakTools jsonlite sp
-#' @suggests HistData
 #' @docType package
 #' @name EpiJSON
 NULL
