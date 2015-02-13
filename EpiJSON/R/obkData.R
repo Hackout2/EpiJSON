@@ -7,7 +7,7 @@
 #' ##from utils.R run the dataFrameToAttributes function
 #' 
 #' ##install OutbreakTools package from CRAN repository
-#' install.packages(OutbreakTools)
+#' #install.packages('OutbreakTools')
 #' require('OutbreakTools')
 #' 
 #' ##An example dataset is available:
@@ -50,7 +50,7 @@ processRecord <- function(x){
 #' ##from utils.R run the dataFrameToAttributes function
 #' 
 #' ##install OutbreakTools package from CRAN repository
-#' install.packages(OutbreakTools)
+#' #install.packages('OutbreakTools')
 #' require('OutbreakTools')
 #' 
 #' ##An example dataset is available:
@@ -83,7 +83,7 @@ processRecordFrame <- function(x, recordFrameName){
 #' ##from utils.R run the dataFrameToAttributes function
 #' 
 #' ##install OutbreakTools package from CRAN repository
-#' install.packages(OutbreakTools)
+#' #install.packages('OutbreakTools')
 #' require('OutbreakTools')
 #' 
 #' ##An example dataset is available:
