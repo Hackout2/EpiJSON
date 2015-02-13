@@ -1,5 +1,5 @@
 { 
-  "metadata": [
+  "metadata": [ 
 	    {"name": "owner", "type": "string", "value": "hackout2 team"},
 	    {"name": "version", "type": "int", "value": 1}
 	],
