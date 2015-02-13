@@ -1,6 +1,7 @@
 #' converting epiJSON into a list of lists
 #' 
-#' takes an epiJSON string or file and converts to a list of lists
+#' takes an epiJSON string or file and converts to a list of lists  
+#' later this needs to be made more formal
 
 
 #' @param file an epiJSON filename or string to convert to R
@@ -23,19 +24,6 @@ epiJSON2r <- function(file)
   ## convert from json to list
   #listJSON <- RJSONIO::fromJSON(file)
   listJSON <- jsonlite::fromJSON(file) 
-  
-  
-# this might be needed later to get data into a dataframe
-# suitable for an obkData object
-#   ## get data into a data.frame ##
-#   ## get all fields
-#   temp <- lapply(listjson, unlist, recursive=TRUE)
-#   allfields <- unique(unlist(lapply(temp, names)))
-#   
-#   ## get data into a data.frame
-#   dFrecords <- matrix(unlist(lapply(temp, f1)), nrow=length(listjson), byrow=TRUE)
-#   dFrecords <- as.data.frame(dFrecords)
-#   names(dFrecords) <- allfields
   
   
   return(listJSON)
