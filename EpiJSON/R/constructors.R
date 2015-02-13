@@ -41,7 +41,10 @@ createAttribute <- function (name, type, value){
 #' 
 #' @param id This is the identifier for the event
 #' @param name This is the name of the event, usually a column name
-#' @param date This is the date on which this event (event) happened
+#' @param dateStart This is the (inclusive) date on which this event 
+#'  started (or occured).
+#' @param dateEnd This is the (exclusive) date on which this event finished. A
+#'  point event in time would have a dateStart and a dateEnd that are identical.
 #' @param location This is the location at which this event happened
 #' @param attributes This is a concatenated list of attributes associated with this event
 #' 
@@ -103,7 +106,7 @@ createEvent <- function(id=NA, name, dateStart, dateEnd, location, attributes){
 #'                 rec2dateStart=c("2015-01-02","2015-01-12","2015-01-09"),
 #'                 rec2risk=c("high","low","high"),stringsAsFactors=FALSE)
 #' 
-#' record1<-createrecord(id=dF$id[1], 
+#' record1<-createRecord(id=dF$id[1], 
 #'              attributes=list(createAttribute(name="name",type="str",value=dF$name[1]),
 #'                              createAttribute(name="dob",type="date",value=dF$dob[1]),
 #'                              createAttribute(name="gender",type="str",value=dF$gender[1])),
@@ -128,7 +131,7 @@ createEvent <- function(id=NA, name, dateStart, dateEnd, location, attributes){
 #' @return an ejEvent object
 #' @export
 #' 
-createrecord <- function(id, attributes, events){
+createRecord <- function(id, attributes, events){
 	structure(list(
 					id=id,
 					attributes=attributes,
@@ -163,7 +166,7 @@ createrecord <- function(id, attributes, events){
 #'                                     list(name="name",type="str",value=dF$name[1]),
 #'                                     list(name="rec1contact",type="str",value=dF$rec1contact[1]),
 #'                                     list(name="rec1date",type="date",value=dF$rec1date[1])),
-#'                                                  records=list(createrecord(id=dF$id[1], 
+#'                                                  records=list(createRecord(id=dF$id[1], 
 #'                                                                            attributes=list(createAttribute(name="name",type="str",value=dF$name[1]),
 #'                                                                                            createAttribute(name="dob",type="date",value=dF$dob[1]),
 #'                                                                                            createAttribute(name="gender",type="str",value=dF$gender[1])),
