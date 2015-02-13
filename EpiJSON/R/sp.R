@@ -1,9 +1,17 @@
 #' Create a SpatialPointsDataFrame from an ejObject
 #' 
 #' @param x An ejObject
-as.SpatialPointsDataFrame.ejObject<- function(x){
+as.SpatialPointsDataFrame.ejObject <- function(x){
 	#convert all the records to spatial points dataframes
+	recordList <- lapply(x$records, function(record){
+				as.SpatialPointsDataFrame.ejRecord(record)
+			})
+	#bind the spatial and non-spatial data separately
+	recordLocations <- do.call(rbind, lapply(recordList, function(x){x@coords}))
+	recordData <- do.call(plyr::rbind.fill, lapply(recordList, function(x){x@data}))
 	
+	#return the object
+	sp::SpatialPointsDataFrame(recordLocations, recordData)
 }
 
 #convert an ej attribute to a dataframe
