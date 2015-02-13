@@ -24,7 +24,7 @@
 #' 
 #' createAttribute(name="name",type="int",value=dF$name[1])
 #' 
-#' @return an \code{\link{ejAttribute}} object
+#' @return an ejAttribute object
 #' @export
 createAttribute <- function (name, type, value){
 	structure(list(
@@ -67,7 +67,7 @@ createAttribute <- function (name, type, value){
 #'                       attributes=list(createAttribute(name="rec1risk",type="str",value=dF$rec1risk[1]),
 #'                              createAttribute(name="rec1temp",type="int",value=dF$rec1temp[1])))
 #' 
-#' @return an \code{\link{ejEvent}} object
+#' @return an ejEvent object
 #' @export
 createEvent <- function(id=NA, name, dateStart, dateEnd, location, attributes){
 	structure(list( 
@@ -125,7 +125,7 @@ createEvent <- function(id=NA, name, dateStart, dateEnd, location, attributes){
 #'                              )  
 #'                      )     
 #'               
-#' @return an \code{\link{ejEvent}} object
+#' @return an ejEvent object
 #' @export
 #' 
 createrecord <- function(id, attributes, events){
@@ -188,7 +188,7 @@ createrecord <- function(id, attributes, events){
 #'                                                                              ) 
 #'                   
 #'               
-#' @return an \code{\link{ejObject}} object
+#' @return an ejObject object
 #' @export
 createEJObject <- function(metadata, records){
 	structure(list(
@@ -227,7 +227,7 @@ createEJObject <- function(metadata, records){
 #'                                            
 #'                              
 #'               
-#' @return an \code{\link{ejMetadata}} object
+#' @return an ejMetadata object
 #' @export
 createMetadata <- function(attributes){
 	structure(attributes, class="ejMetadata")
