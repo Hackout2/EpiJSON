@@ -15,15 +15,15 @@
 #' 
 #'      x <- subset(ToyOutbreak,1)
 #'      
-#'      processrecord(x)
+#'      processRecord(x)
 #' 
 #' @return an ejRecord
 processRecord <- function(x){
 	#get the record ID
-	recordID <- row.names(x@records)
+	recordID <- row.names(x@individuals)
 		
 	#convert to attributes
-	attributes <- dataFrameToAttributes(x@records)
+	attributes <- dataFrameToAttributes(x@individuals)
 	
 	#process the record frames to events
 	recordFrames <- x@records
@@ -36,7 +36,7 @@ processRecord <- function(x){
 	}
 	#fix the event ids
 	events <- lapply(seq_along(events), function(i){x<-events[[i]]; x$id <- i; x})
-	createrecord(id=recordID, attributes, events)
+	createRecord(id=recordID, attributes, events)
 }
 
 
@@ -65,7 +65,7 @@ processRecord <- function(x){
 processRecordFrame <- function(x, recordFrameName){	
 	lapply(1:nrow(x), function(i){
 		eventAttributes <- dataFrameToAttributes(x[i,3:ncol(x), drop=FALSE])
-		createEvent(id=NA, dateStart=x$date[i], dateEnd=x$date[i], name=eventFrameName, location=NA, attributes=eventAttributes)
+		createEvent(id=NA, dateStart=x$date[i], dateEnd=x$date[i], name=recordFrameName, location=NA, attributes=eventAttributes)
 	})	
 }
 
@@ -94,11 +94,11 @@ processRecordFrame <- function(x, recordFrameName){
 #'    as.ejObject.obkData(x,metadata=list())
 #' 
 #' @return an ejObject
-#' 
-
+#' @method as.ejObject obkData
+#' @export 
 as.ejObject.obkData <- function(x, metadata=list()){
-	records <- lapply(get.records(x), function(xx){
-		processrecord(OutbreakData::subset(x, xx))		
+	records <- lapply(OutbreakTools::get.individuals(x), function(xx){
+		processRecord(OutbreakTools::subset(x, xx))		
 	})
 
 	createEJObject(metadata=metadata, records=records)

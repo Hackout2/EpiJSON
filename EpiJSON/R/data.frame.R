@@ -53,8 +53,13 @@ as.ejObject.data.frame <- function(x, recordID=NA, recordAttributes, eventDefini
 #' Simplifies the definition of events from columns within a dataframe
 #' @param id A character string naming the column that defines the id for a
 #'  event. May be NA, and if so will be automatically generated.
-#' @param date A character string naming the column that defines the date for
-#'  a event. This should be in POSIXct format. May be NA.
+#' @param name The name of column that gives event names. Event names might be
+#'  things such as infection, swab, hospital admission,etc.
+#' @param dateStart A character string naming the column that defines the date 
+#'  an event started. This should be in POSIXct format. May be NA.
+#' @param dateEnd A character string naming the column that defines the date 
+#'  an event ended. This should be in POSIXct format. May be NA. For events that
+#'  occur in a single point in time then dateStart and dateEnd are identical.
 #' @param  location A list with entities x, y and proj4string. x and y should be 
 #'  character strings naming the columns where the x and y of the location are
 #'  defined. crs may be "" or a proj4string.
