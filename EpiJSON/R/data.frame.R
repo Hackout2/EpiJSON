@@ -88,7 +88,7 @@ defineEjEvent <- function(id=NA, name=NA, dateStart=NA, dateEnd, location=NA, at
 #' 
 #' att <- createAttribute(name="name",type="int",value=7)
 #' atts <- list(att)
-#' event <- createEvent(id=NA, name="event1", dateStart=NA, dateEnd=NA, attributes=atts )
+#' event <- createEvent(id=NA, name="event1", dateStart=NA, dateEnd=NA, location=list(x="x", y="y", proj4string=""), attributes=atts )
 #' #a single record
 #' #records <- list(createRecord(id="bob", attributes=atts, events=list(event)))
 #' ind1 <- createRecord(id="bob", attributes=atts, events=list(event))
