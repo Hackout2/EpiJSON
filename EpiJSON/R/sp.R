@@ -1,8 +1,9 @@
-#' Create a SpatialPointsDataframe from an ejObject
+#' Create a SpatialPointsDataFrame from an ejObject
 #' 
 #' @param x An ejObject
-as.SpatialPointsDataframe.ejObject(x){
-	#gather
+as.SpatialPointsDataFrame.ejObject<- function(x){
+	#convert all the records to spatial points dataframes
+	
 }
 
 #convert an ej attribute to a dataframe
@@ -12,27 +13,27 @@ as.data.frame.ejAttribute <- function(x){
 	return(result)
 }
 
-#'convert an ejEvent to a SpatialPointsDataframe
-as.SpatialPointsDataframe.ejEvent <- function(x){
+#'convert an ejEvent to a SpatialPointsDataFrame
+as.SpatialPointsDataFrame.ejEvent <- function(x){
 	#grab the columns
-	eventCols <- do.call(cbind, c(list(eventId=x$id, name=x$name, date=x$date),lapply(x$attributes, as.data.frame)))
-	SpatialPointsDataFrame(testevent$location, eventCols)
+	eventCols <- do.call(cbind, c(list(eventId=x$id, name=x$name, dateStart=x$dateStart, dateEnd=x$dateEnd),lapply(x$attributes, as.data.frame)))
+	sp::SpatialPointsDataFrame(x$location, eventCols)
 }
 
-#'convert an ejRecord to a SpatialPointsDataframe
-as.SpatialPointsDataframe.ejRecord <- function(x){
-	#convert all the events to SpatialPointsDataframes
+#'convert an ejRecord to a SpatialPointsDataFrame
+as.SpatialPointsDataFrame.ejRecord <- function(x){
+	#convert all the events to SpatialPointsDataFrames
 	eventList <- lapply(x$events, function(event){
 		#only work on those events with a location
 		result <- NULL
 		if(class(event$location) == "SpatialPoints"){
-			result <- as.SpatialPointsDataframe.ejEvent(event)
+			result <- as.SpatialPointsDataFrame.ejEvent(event)
 		}
 		result
 	})
 	
 	eventLocations <- do.call(rbind, lapply(eventList, function(x){x@coords}))
-	eventData <- do.call(rbind.fill, lapply(eventList, function(x){x@data}))
+	eventData <- do.call(plyr::rbind.fill, lapply(eventList, function(x){x@data}))
 
 	#convert the indicidual attributes to columns
 	recordAttributes <- do.call(cbind, c(list(recordId=x$id),lapply(x$attributes, as.data.frame)))
@@ -47,5 +48,5 @@ as.SpatialPointsDataframe.ejRecord <- function(x){
 	
 	resultDF <- cbind(recordAttributes, eventData)
 	#construct the Spatial points dataframe
-	SpatialPointsDataframe(eventLocations, resultDF)
+	sp::SpatialPointsDataFrame(eventLocations, resultDF)
 }
