@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/Hackout2/format.svg)](https://travis-ci.org/Hackout2/format)
 
-The aim of EpiJSON is to implementing a generic JSON format for storing line list case data for infectious disease epidemiology.
+The aim of EpiJSON is to implement a generic JSON format for storing line list case data for infectious disease epidemiology.
 
 
 
@@ -9,7 +9,8 @@ ____________________
 To install:
 
 - Download from https://github.com/Hackout2/format
-- Ensure that the following R packages, available from CRAN,are installed: OutbreakTools, jsonlite, plyr, sp 
+- Ensure that the following R packages, available from CRAN,are installed: OutbreakTools,          
+  jsonlite, plyr, sp  
 -
 
 ______________________________________________________________________
