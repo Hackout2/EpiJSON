@@ -17,7 +17,7 @@
 #'  simulated$date <- as.POSIXct("1854-04-05") + rnorm(nrow(simulated), 10) * 86400
 #'  simulated$pump <- ceiling(runif(nrow(simulated)) * 5)
 #'  as.ejObject(simulated, recordAttributes = c("gender"),
-#' 		eventDefinitions = list(defineejEvent(date="date", name=NA, location=list(x="x", y="y", proj4string=""), attributes="pump")),
+#' 		eventDefinitions = list(defineEjEvent(dateStart="date", dateEnd="date", name=NA, location=list(x="x", y="y", proj4string=""), attributes="pump")),
 #' 		metadata=list())
 as.ejObject.data.frame <- function(x, recordID=NA, recordAttributes, eventDefinitions, metadata=list()){
 	#iterate over the dataframe and create an record event for each row
@@ -27,11 +27,12 @@ as.ejObject.data.frame <- function(x, recordID=NA, recordAttributes, eventDefini
 				
 				#now work over the eventDefinitions to get the events
 				events <- lapply(eventDefinitions, function(rd){
-							createevent(
+							createEvent(
 									id=notNA(rd$id, x[i,rd$id]),
 									name=notNA(rd$name, x[i,rd$name]),
-									date=notNA(rd$date, x[i,rd$date]),
-									location=notNA(rd$location, SpatialPoints(x[i, unlist(rd$location[c("x","y"), drop=FALSE])], proj4string=CRS(rd$location$proj4string))),
+									dateStart=notNA(rd$dateStart, x[i,rd$dateStart]),
+									dateEnd=notNA(rd$dateEnd, x[i,rd$dateEnd]),
+									location=notNA(rd$location, sp::SpatialPoints(x[i, unlist(rd$location[c("x","y"), drop=FALSE])], proj4string=CRS(rd$location$proj4string))),
 									attributes=notNA(rd$attributes, dataFrameToAttributes(x[i,unlist(rd$attributes), drop=FALSE]))
 									)
 						})
@@ -60,11 +61,12 @@ as.ejObject.data.frame <- function(x, recordID=NA, recordAttributes, eventDefini
 #' @param attributes A character vector naming the columns for attributes of the
 #'  event. The attributes will be named after the columns, with type taken from
 #'  column type.
-defineejEvent <- function(id=NA, name=NA, date=NA, location=NA, attributes=NA){
+defineEjEvent <- function(id=NA, name=NA, dateStart=NA, dateEnd, location=NA, attributes=NA){
 	structure(list(
 					id=id,
 					name=name,
-					date=date,
+					dateStart=dateStart,
+					dateEnd=dateEnd,
 					location=location,
 					attributes=attributes
 					), class="ejDFeventDef")
