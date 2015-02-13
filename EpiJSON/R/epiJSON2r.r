@@ -4,7 +4,6 @@
 
 
 #' @param file an epiJSON filename or string to convert to R
-#' #@param file optional filename for JSON string
 #' 
 #' @return a list of lists of the epijson content
 #' @examples
@@ -15,7 +14,6 @@
 #'  
 #' @export
 #' 
-
 epiJSON2r <- function(file)
 {
   

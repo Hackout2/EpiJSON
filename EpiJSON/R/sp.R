@@ -1,6 +1,7 @@
 #' Create a SpatialPointsDataFrame from an ejObject
 #' 
 #' @param x An ejObject
+#' @export
 as.SpatialPointsDataFrame.ejObject <- function(x){
 	#convert all the records to spatial points dataframes
 	recordList <- lapply(x$records, function(record){
@@ -14,7 +15,9 @@ as.SpatialPointsDataFrame.ejObject <- function(x){
 	sp::SpatialPointsDataFrame(recordLocations, recordData)
 }
 
-#convert an ej attribute to a dataframe
+#' Convert an ej attribute to a dataframe
+#' 
+#' @param x An ejAttribute
 as.data.frame.ejAttribute <- function(x){
 	result <- data.frame(x$value)
 	names(result) <- x$name
@@ -22,6 +25,8 @@ as.data.frame.ejAttribute <- function(x){
 }
 
 #'convert an ejEvent to a SpatialPointsDataFrame
+#' 
+#' @param x An ejEvent object
 as.SpatialPointsDataFrame.ejEvent <- function(x){
 	#grab the columns
 	eventCols <- do.call(cbind, c(list(eventId=x$id, name=x$name, dateStart=x$dateStart, dateEnd=x$dateEnd),lapply(x$attributes, as.data.frame)))
@@ -29,6 +34,8 @@ as.SpatialPointsDataFrame.ejEvent <- function(x){
 }
 
 #'convert an ejRecord to a SpatialPointsDataFrame
+#' 
+#' @param x an ejRecord object
 as.SpatialPointsDataFrame.ejRecord <- function(x){
 	#convert all the events to SpatialPointsDataFrames
 	eventList <- lapply(x$events, function(event){
