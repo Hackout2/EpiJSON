@@ -3,7 +3,7 @@
 #' converts to the epiJSON format
 #' 
 #' @param x An record from the obkData 
-#' @example
+#' @examples
 #' ##from utils.R run the dataFrameToAttributes function
 #' 
 #' ##install OutbreakTools package from CRAN repository
@@ -18,7 +18,6 @@
 #'      processrecord(x)
 #' 
 #' @return an ejRecord
-#'
 processRecord <- function(x){
 	#get the record ID
 	recordID <- row.names(x@records)
@@ -47,7 +46,7 @@ processRecord <- function(x){
 #' @param x An record from the obkData 
 #' @param recordFrameName The event of interest
 #' 
-#' @example
+#' @examples
 #' ##from utils.R run the dataFrameToAttributes function
 #' 
 #' ##install OutbreakTools package from CRAN repository
@@ -80,7 +79,7 @@ processRecordFrame <- function(x, recordFrameName){
 #'  equivelent to EpiJSON records and obkData records are EpiJSON events. This
 #'  is beause in EpiJSON the unit of record is not necessarily an individual
 #'  (it could, for example, be a region or hospital, etc). 
-#' @example
+#' @examples
 #' ##from utils.R run the dataFrameToAttributes function
 #' 
 #' ##install OutbreakTools package from CRAN repository

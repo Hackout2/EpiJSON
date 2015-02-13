@@ -1,23 +1,14 @@
-#' first go at getting JSON from R list of lists
+#' Produce a JSON string from an EpiJSON object
 #' 
-#' output an \code{obkData} object or part of one to a JSON string or file
-
-
-#' @param file an R list of lists to an epiJSON file 
-#' #@param file optional filename for R list of lists
-#' 
-#' @return an epiJSON file
+#' Produce a JSON representation of an EpiJSON object. This should conform to
+#' the EpiJSON standard.
+#' @param x An EpiJSON object
+#' @return A character string in EpiJSON format.
 #' @export
-#' 
-
-
-## r2epiJSON = convert a list in R to JSON (a series of lists)
-
-
-r2epiJSON<- function(listJSON)
+r2epiJSON<- function(x)
 {
   ##convert from list to JSON
-  epiJSON<-RJSONIO::toJSON(listJSON)
+  epiJSON<-RJSONIO::toJSON(x)
   
   return(epiJSON)
 }

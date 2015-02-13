@@ -1,8 +1,7 @@
-#' This set of functions converts the outputs from the ej'Objects' to more user-friendly form
-#' 
-
+#This set of functions prints ej'Objects' to more friendly form
+ 
 #' Attributes
-#' @example
+#' @examples
 #' dF<- data.frame(id=c("A","B","3D"),
 #'                 name=c("tom","andy","ellie"),
 #'                 dob=c("1984-03-14","1985-11-13","1987-06-16"),
@@ -20,13 +19,12 @@
 #' print.ejAttribute(x)
 #' 
 #' @export 
-
 print.ejAttribute <- function(x, ...){
 	cat("(name: ", x$name, " type:", x$type, " value:", x$value, ")\n")
 }
 
 #' events
-#' @example
+#' @examples
 #' dF<- data.frame(id=c("A","B","3D"),
 #'                 name=c("tom","andy","ellie"),
 #'                 dob=c("1984-03-14","1985-11-13","1987-06-16"),
@@ -63,7 +61,7 @@ print.ejEvent <- function(x, ...){
 }
 
 #' record
-#' @example
+#' @examples
 #' dF<- data.frame(id=c("A","B","3D"),
 #'                 name=c("tom","andy","ellie"),
 #'                 dob=c("1984-03-14","1985-11-13","1987-06-16"),
@@ -113,7 +111,7 @@ print.ejRecord <- function(x, ...){
 }
 
 #' Metadata
-#' @example
+#' @examples
 #' dF<- data.frame(id=c("A","B","3D"),
 #'                 name=c("tom","andy","ellie"),
 #'                 dob=c("1984-03-14","1985-11-13","1987-06-16"),
@@ -146,7 +144,7 @@ print.ejMetadata <- function(x,...){
 }
 
 #' Object
-#' @example
+#' @examples
 #' dF<- data.frame(id=c("A","B","3D"),
 #'                 name=c("tom","andy","ellie"),
 #'                 dob=c("1984-03-14","1985-11-13","1987-06-16"),
