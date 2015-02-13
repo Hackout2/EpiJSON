@@ -37,7 +37,7 @@ as.ejObject.data.frame <- function(x, recordID=NA, recordAttributes, eventDefini
 									)
 						})
 				#fix the event ids
-				events <- lapply(1:length(events), function(i){x<-events[[i]]; x$id <- ifelse(is.na(x$id),i,x$id); x})
+				events <- lapply(seq_along(events), function(i){x<-events[[i]]; x$id <- ifelse(is.na(x$id),i,x$id); x})
 				
 				#grab the record id
 				id <- ifelse(is.na(recordID), i, x[i,recordID])

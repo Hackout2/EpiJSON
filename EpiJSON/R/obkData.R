@@ -35,7 +35,7 @@ processRecord <- function(x){
 		}
 	}
 	#fix the event ids
-	events <- lapply(1:length(events), function(i){x<-events[[i]]; x$id <- i; x})
+	events <- lapply(seq_along(events), function(i){x<-events[[i]]; x$id <- i; x})
 	createrecord(id=recordID, attributes, events)
 }
 
