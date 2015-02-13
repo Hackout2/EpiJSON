@@ -43,7 +43,7 @@ as.ejObject.data.frame <- function(x, recordID=NA, recordAttributes, eventDefini
 				id <- ifelse(is.na(recordID), i, x[i,recordID])
 				
 				#create and return the record
-				createrecord(id, attributes, events)
+				createRecord(id, attributes, events)
 			})
 	createEJObject(metadata, records)
 }
@@ -66,6 +66,7 @@ as.ejObject.data.frame <- function(x, recordID=NA, recordAttributes, eventDefini
 #' @param attributes A character vector naming the columns for attributes of the
 #'  event. The attributes will be named after the columns, with type taken from
 #'  column type.
+#' @export
 defineEjEvent <- function(id=NA, name=NA, dateStart=NA, dateEnd, location=NA, attributes=NA){
 	structure(list(
 					id=id,
