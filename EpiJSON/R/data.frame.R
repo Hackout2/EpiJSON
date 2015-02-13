@@ -2,6 +2,7 @@
 #' 
 #' 
 #' @param x The dataframe to convert
+#' @param recordID an ID for the record, if NA one is created
 #' @param recordAttributes A character vector containing the names of the 
 #'  columns in the dataframe that are attributes of the record
 #' @param eventDefinitions A list of event definitions
