@@ -57,7 +57,7 @@ createAttribute <- function (name, type, value){
 #'                 rec2date=c("2015-01-02","2015-01-12","2015-01-09"),
 #'                 rec2risk=c("high","low","high"))
 #' 
-#' event1<-createevent(id=NA, 
+#' event1<-createEvent(id=NA, 
 #'              name="rec1contact",
 #'              date=as.Date(dF$rec1date),
 #'              location="",
@@ -66,7 +66,7 @@ createAttribute <- function (name, type, value){
 #' 
 #' @return an \code{\link{ejEvent}} object
 #' @export
-createevent <- function(id=NA, name, dateStart, dateEnd, location, attributes){
+createEvent <- function(id=NA, name, dateStart, dateEnd, location, attributes){
 	structure(list( 
 					id=id,
 					name=name,
@@ -102,14 +102,14 @@ createevent <- function(id=NA, name, dateStart, dateEnd, location, attributes){
 #'              attributes=list(createAttribute(name="name",type="str",value=list(dF$name)),
 #'                              createAttribute(name="dob",type="date",value=list(as.Date(dF$dob))),
 #'                              createAttribute(name="gender",type="str",value=list(dF$gender))),
-#'              events=list(createevent(id=NA, 
+#'              events=list(createEvent(id=NA, 
 #'                                        name="rec1contact",
 #'                                        date=as.Date(dF$rec1date),
 #'                                        location="",
 #'                                              attributes=list(createAttribute(name="rec1risk",type="str",value=list(dF$rec1risk)),
 #'                                                              createAttribute(name="rec1temp",type="int",value=list(dF$rec1temp)))
 #'                                                                  ),
-#'                          createevent(id=NA, 
+#'                          createEvent(id=NA, 
 #'                                       name="rec2contact",
 #'                                       date=as.Date(dF$rec2date),
 #'                                       location="",
@@ -158,14 +158,14 @@ createrecord <- function(id, attributes, events){
 #'                                                            attributes=list(createAttribute(name="name",type="str",value=dF$name),
 #'                                                                            createAttribute(name="dob",type="date",value=as.Date(dF$dob)),
 #'                                                                            createAttribute(name="gender",type="str",value=dF$gender)),
-#'                                                                    events=list(createevent(id=NA, 
+#'                                                                    events=list(createEvent(id=NA, 
 #'                                                                                              name="rec1contact",
 #'                                                                                              date=as.Date(dF$rec1date),
 #'                                                                                              location="",
 #'                                                                                              attributes=list(createAttribute(name="rec1risk",type="str",value=dF$rec1risk),
 #'                                                                                                              createAttribute(name="rec1temp",type="int",value=dF$rec1temp))
 #'                                                                                                  ),
-#'                                                                                createevent(id=NA, 
+#'                                                                                createEvent(id=NA, 
 #'                                                                                             name="rec2contact",
 #'                                                                                             date=as.Date(dF$rec2date),
 #'                                                                                             location="",
