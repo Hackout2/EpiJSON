@@ -1,3 +1,4 @@
+#' Create an attribute
 #' This package outlines the aspects of the data for EpiJSON
 #' 
 #' This function defines attributes 
@@ -7,8 +8,8 @@
 #' @param type This is the type of information, either string, float, integer, boolean or date
 #' @param value This is the value that the data takes for the given attribute
 #' 
-#' @example
-#' dF<- data.frame(id=c("A","B","3D"),
+#' @examples
+#' dF <- data.frame(id=c("A","B","3D"),
 #'                 name=c("tom","andy","ellie"),
 #'                 dob=c("1984-03-14","1985-11-13","1987-06-16"),
 #'                 gender=c("male","male","female"),
@@ -24,10 +25,6 @@
 #' 
 #' @return an \code{\link{ejAttribute}} object
 #' @export
-#' 
-
-#' Create an attribute
-#' @export
 createAttribute <- function (name, type, value){
 	structure(list(
 					name=name,
@@ -35,7 +32,8 @@ createAttribute <- function (name, type, value){
 					value=value
 			), class="ejAttribute")
 }
- 
+
+#' Create a event
 #' 
 #' This function defines events 
 #' output \code{ejEvent}  
@@ -46,7 +44,7 @@ createAttribute <- function (name, type, value){
 #' @param location This is the location at which this event happened
 #' @param attributes This is a concatenated list of attributes associated with this event
 #' 
-#' @example
+#' @examples
 #' dF<- data.frame(id=c("A","B","3D"),
 #'                 name=c("tom","andy","ellie"),
 #'                 dob=c("1984-03-14","1985-11-13","1987-06-16"),
@@ -68,14 +66,12 @@ createAttribute <- function (name, type, value){
 #' 
 #' @return an \code{\link{ejEvent}} object
 #' @export
-#' 
-
-#' Create a event
-createevent <- function(id=NA, name, date, location, attributes){
+createevent <- function(id=NA, name, dateStart, dateEnd, location, attributes){
 	structure(list( 
 					id=id,
 					name=name,
-					date=strftime(date, "%Y-%m-%dT%H:%M:%S%z"),
+					dateStart=strftime(date, "%Y-%m-%dT%H:%M:%S%z"),
+					dateEnd=strftime(date, "%Y-%m-%dT%H:%M:%S%z"),
 					location=location,
 					attributes=attributes
 			), class="ejEvent")
@@ -89,7 +85,7 @@ createevent <- function(id=NA, name, date, location, attributes){
 #' @param attributes This is a list of attributes associated with this record
 #' @param events This is a list of all events associated with this record (see example)
 #' 
-#' @example
+#' @examples
 #' dF<- data.frame(id=c("A","B","3D"),
 #'                 name=c("tom","andy","ellie"),
 #'                 dob=c("1984-03-14","1985-11-13","1987-06-16"),
@@ -125,10 +121,6 @@ createevent <- function(id=NA, name, date, location, attributes){
 #' @return an \code{\link{ejEvent}} object
 #' @export
 #' 
-
-#' Create record data
-#' @export
-
 createrecord <- function(id, attributes, events){
 	structure(list(
 					id=id,
@@ -145,7 +137,7 @@ createrecord <- function(id, attributes, events){
 #' @param metadata This is the metadata information for the entire dataset
 #' @param records This is the unique records in the dataset
 #' 
-#' @example
+#' @examples
 #' dF<- data.frame(id=c("A","B","3D"),
 #'                 name=c("tom","andy","ellie"),
 #'                 dob=c("1984-03-14","1985-11-13","1987-06-16"),
@@ -187,12 +179,6 @@ createrecord <- function(id, attributes, events){
 #'               
 #' @return an \code{\link{ejObject}} object
 #' @export
-#' 
-
-#' Create object
-#' @export
-#' 
-
 createEJObject <- function(metadata, records){
 	structure(list(
 					metadata=metadata,
@@ -206,7 +192,7 @@ createEJObject <- function(metadata, records){
 #' 
 #' @param attributes These are the attributes of the metadata
 #' 
-#' @example
+#' @examples
 #' dF<- data.frame(id=c("A","B","3D"),
 #'                 name=c("tom","andy","ellie"),
 #'                 dob=c("1984-03-14","1985-11-13","1987-06-16"),
@@ -230,12 +216,6 @@ createEJObject <- function(metadata, records){
 #'               
 #' @return an \code{\link{ejMetadata}} object
 #' @export
-#' 
-
-#' Create Metadata
-#' @export
-#' 
-
 createMetadata <- function(attributes){
 	structure(attributes, class="ejMetadata")
 }
