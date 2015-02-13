@@ -8,7 +8,7 @@
 r2epiJSON<- function(x)
 {
   ##convert from list to JSON
-  epiJSON<-RJSONIO::toJSON(x)
+  epiJSON <- jsonlite::toJSON(x)
   
   return(epiJSON)
 }
