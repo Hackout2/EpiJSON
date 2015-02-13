@@ -1,9 +1,8 @@
-
 #' The general functions that are used in multiple sections of the epiJSON package
 #' 
 #' @param x A dataframe  
 #' 
-#' @example
+#' @examples
 #' dF<- data.frame(id=c("A","B","3D"),name=c("tom","andy","ellie"),
 #'                 dob=c("1984-03-14","1985-11-13","1987-06-16"),
 #'                 gender=c("male","male","female"),
@@ -45,20 +44,3 @@ notNA <- function(x, trueValue){
 	}
 }
 
-#' non-aligned rbind
-#' 
-#' Bind together two dataframes even if the dataframes are not aligned. Where
-#' There is data missing these will be filled with NAs
-#' @param x The first data.frame
-#' @param y The second data.frame
-nonAlignedRbind <- function(x, y){
-	#find what is missing from each dataframe
-	yMissing <- which(!(names(x) %in% names(y)))
-	xMissing <- which(!(names(y) %in% names(x)))
-	
-	#add the missing columns to x
-	for (i in 1:length(xMissing)){
-		x[names(x)[xMissing[i]]] <-
-	}
-	
-}
