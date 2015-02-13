@@ -7,10 +7,15 @@
 #' #@param file optional filename for JSON string
 #' 
 #' @return a list of lists of the epijson content
+#' @examples
+#' listJSON <- epiJSON2r( system.file("extdata//example.JSON", package="EpiJSON"))
+#' str(listJSON)
+#' #from within the package would do this
+#' #listJSON <- epiJSON2r("extdata//example.JSON")
+#'  
 #' @export
 #' 
 
-#example file file <- 'C://rsprojects//format//pkg//inst//extdata//example.JSON'
 epiJSON2r <- function(file)
 {
   
@@ -18,8 +23,9 @@ epiJSON2r <- function(file)
   cat(file)
   
   ## convert from json to list
-  listJSON <- RJSONIO::fromJSON(file)
- 
+  #listJSON <- RJSONIO::fromJSON(file)
+  listJSON <- jsonlite::fromJSON(file) 
+  
   
 # this might be needed later to get data into a dataframe
 # suitable for an obkData object
