@@ -2,11 +2,12 @@
 #' 
 #' 
 #' @param x The dataframe to convert
-#' @param individualAttributes A character vector containing the names of the 
-#'  columns in the dataframe that are attributes of the individual
-#' @param recordDefinitions A list of record definitions
+#' @param recordAttributes A character vector containing the names of the 
+#'  columns in the dataframe that are attributes of the record
+#' @param eventDefinitions A list of event definitions
 #' @param metadata A list of metadata ejAttribute objects describing the dataset
-#' @note We assume one row per individual.
+#' @note We assume one row per record.
+#' @export
 #' @examples 
 #'  library(HistData)
 #'  data(Snow.deaths)
@@ -15,18 +16,18 @@
 #'  simulated$gender <- c("male","female")[(runif(nrow(simulated))>0.5) +1]
 #'  simulated$date <- as.POSIXct("1854-04-05") + rnorm(nrow(simulated), 10) * 86400
 #'  simulated$pump <- ceiling(runif(nrow(simulated)) * 5)
-#'  as.ejObject(simulated, individualAttributes = c("gender"),
-#' 		recordDefinitions = list(defineEJRecord(date="date", name=NA, location=list(x="x", y="y", proj4string=""), attributes="pump")),
+#'  as.ejObject(simulated, recordAttributes = c("gender"),
+#' 		eventDefinitions = list(defineejEvent(date="date", name=NA, location=list(x="x", y="y", proj4string=""), attributes="pump")),
 #' 		metadata=list())
-as.ejObject.data.frame <- function(x, individualID=NA, individualAttributes, recordDefinitions, metadata=list()){
-	#iterate over the dataframe and create an individual record for each row
-	individuals <- lapply(1:nrow(x), function(i){
+as.ejObject.data.frame <- function(x, recordID=NA, recordAttributes, eventDefinitions, metadata=list()){
+	#iterate over the dataframe and create an record event for each row
+	records <- lapply(1:nrow(x), function(i){
 				#grab the attributes
-				attributes <- dataFrameToAttributes(x[i,individualAttributes, drop=FALSE])
+				attributes <- dataFrameToAttributes(x[i,recordAttributes, drop=FALSE])
 				
-				#now work over the recordDefinitions to get the records
-				records <- lapply(recordDefinitions, function(rd){
-							createRecord(
+				#now work over the eventDefinitions to get the events
+				events <- lapply(eventDefinitions, function(rd){
+							createevent(
 									id=notNA(rd$id, x[i,rd$id]),
 									name=notNA(rd$name, x[i,rd$name]),
 									date=notNA(rd$date, x[i,rd$date]),
@@ -34,37 +35,37 @@ as.ejObject.data.frame <- function(x, individualID=NA, individualAttributes, rec
 									attributes=notNA(rd$attributes, dataFrameToAttributes(x[i,unlist(rd$attributes), drop=FALSE]))
 									)
 						})
-				#fix the record ids
-				records <- lapply(1:length(records), function(i){x<-records[[i]]; x$id <- ifelse(is.na(x$id),i,x$id); x})
+				#fix the event ids
+				events <- lapply(1:length(events), function(i){x<-events[[i]]; x$id <- ifelse(is.na(x$id),i,x$id); x})
 				
-				#grab the individual id
-				id <- ifelse(is.na(individualID), i, x[i,individualID])
+				#grab the record id
+				id <- ifelse(is.na(recordID), i, x[i,recordID])
 				
-				#create and return the individual
-				createIndividual(id, attributes, records)
+				#create and return the record
+				createrecord(id, attributes, events)
 			})
-	createEJObject(metadata, individuals)
+	createEJObject(metadata, records)
 }
 
-#' Creates a record definition
+#' Creates a event definition
 #' 
-#' Simplifies the definition of records from columns within a dataframe
+#' Simplifies the definition of events from columns within a dataframe
 #' @param id A character string naming the column that defines the id for a
-#'  record. May be NA, and if so will be automatically generated.
+#'  event. May be NA, and if so will be automatically generated.
 #' @param date A character string naming the column that defines the date for
-#'  a record. This should be in POSIXct format. May be NA.
+#'  a event. This should be in POSIXct format. May be NA.
 #' @param  location A list with entities x, y and proj4string. x and y should be 
 #'  character strings naming the columns where the x and y of the location are
 #'  defined. crs may be "" or a proj4string.
 #' @param attributes A character vector naming the columns for attributes of the
-#'  record. The attributes will be named after the columns, with type taken from
+#'  event. The attributes will be named after the columns, with type taken from
 #'  column type.
-defineEJRecord <- function(id=NA, name=NA, date=NA, location=NA, attributes=NA){
+defineejEvent <- function(id=NA, name=NA, date=NA, location=NA, attributes=NA){
 	structure(list(
 					id=id,
 					name=name,
 					date=date,
 					location=location,
 					attributes=attributes
-					), class="ejDFRecordDef")
+					), class="ejDFeventDef")
 }

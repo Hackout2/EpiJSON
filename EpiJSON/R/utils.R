@@ -44,3 +44,21 @@ notNA <- function(x, trueValue){
 		return(NA)
 	}
 }
+
+#' non-aligned rbind
+#' 
+#' Bind together two dataframes even if the dataframes are not aligned. Where
+#' There is data missing these will be filled with NAs
+#' @param x The first data.frame
+#' @param y The second data.frame
+nonAlignedRbind <- function(x, y){
+	#find what is missing from each dataframe
+	yMissing <- which(!(names(x) %in% names(y)))
+	xMissing <- which(!(names(y) %in% names(x)))
+	
+	#add the missing columns to x
+	for (i in 1:length(xMissing)){
+		x[names(x)[xMissing[i]]] <-
+	}
+	
+}

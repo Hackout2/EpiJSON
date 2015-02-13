@@ -2,7 +2,7 @@
 
 #' convert an \code{\link{ejObject}} to a dataframe
 #' 
-#' convert an \code{\link{ejObject}} (a list of lists) to a dataframe with one row per individual
+#' convert an \code{\link{ejObject}} (a list of lists) to a dataframe with one row per record
 
 
 #' @param ejOb an \code{\link{ejObject}}
@@ -12,14 +12,14 @@
 #' 
 #' att <- createAttribute(name="name",type="int",value=7)
 #' atts <- list(att)
-#' record <- createRecord(id=NA, name="rec1", date=NA, location=NA, attributes=atts )
-#' individuals <- list(createIndividual(id="bob", attributes=atts, records=list(record)))
-#' ind1 <- createIndividual(id="bob", attributes=atts, records=list(record))
-#' ind2 <- createIndividual(id="pat", attributes=atts, records=list(record))
-#' individuals <- list(ind1,ind2)
-#' ejOb <- createEJObject(metadata=atts, individuals=individuals)
+#' event <- createevent(id=NA, name="rec1", date=NA, location=NA, attributes=atts )
+#' records <- list(createrecord(id="bob", attributes=atts, events=list(event)))
+#' ind1 <- createrecord(id="bob", attributes=atts, events=list(event))
+#' ind2 <- createrecord(id="pat", attributes=atts, events=list(event))
+#' records <- list(ind1,ind2)
+#' ejOb <- createEJObject(metadata=atts, records=records)
 #' 
-#' #ejOb <- createEJObject(metadata=NULL, individuals=NULL)
+#' #ejOb <- createEJObject(metadata=NULL, records=NULL)
 #' as.data.frame.ejObject(ejOb)
 #' 
 #'  #see eg from as.ejObject.data.frame for more complex example
@@ -30,8 +30,8 @@
 #'  simulated$gender <- c("male","female")[(runif(nrow(simulated))>0.5) +1]
 #'  simulated$date <- as.POSIXct("1854-04-05") + rnorm(nrow(simulated), 10) * 86400
 #'  simulated$pump <- ceiling(runif(nrow(simulated)) * 5)
-#'  ejOb2 <- as.ejObject(simulated, individualAttributes = c("gender"),
-#'   	recordDefinitions = list(defineEJRecord(date="date", name=NA, location=list(x="x", y="y", proj4string=""), attributes="pump")),
+#'  ejOb2 <- as.ejObject(simulated, recordAttributes = c("gender"),
+#'   	eventDefinitions = list(defineejEvent(date="date", name=NA, location=list(x="x", y="y", proj4string=""), attributes="pump")),
 #' 		metadata=list())
 #'  as.data.frame.ejObject(ejOb2)
 #'      
@@ -42,13 +42,13 @@ as.data.frame.ejObject <- function(ejOb){
   #not sure whether we can put metadata into the df
   #ejOb$metadata
   
-  #individuals
-  #want to create one row for each individual
-  indivs <- ejOb$individuals
-  #BUT need to go for each individual, 
+  #records
+  #want to create one row for each record
+  indivs <- ejOb$records
+  #BUT need to go for each record, 
   
   #add row to dF
-  #for each record name
+  #for each event name
   #if name is new
   #  add column to dF, named name
   #  add value at row,col
@@ -63,14 +63,14 @@ as.data.frame.ejObject <- function(ejOb){
   {
     #cat(iNum)
     
-    #class ejIndividual
+    #class ejRecord
     indiv <- indivs[[iNum]]
     
 
-    #set id for this individual
+    #set id for this record
     dF$id[iNum] <- indiv$id
     
-    #to do I will also need to get the attributes of the individuals
+    #to do I will also need to get the attributes of the records
     #and put them into columns
     for( aNum in 1:length(indiv$attributes))
     {
@@ -80,25 +80,25 @@ as.data.frame.ejObject <- function(ejOb){
     }
     
     
-    records <- indiv$records
-    for( recNum in 1:length(records))
+    events <- indiv$events
+    for( recNum in 1:length(events))
     {
-      #class ejRecord
-      record <- records[[recNum]]
+      #class ejEvent
+      event <- events[[recNum]]
       
-      #first get record name, date and location
-      #name date and location columns by pasting on recordName
+      #first get event name, date and location
+      #name date and location columns by pasting on eventName
       #will need a function that accepts a dataframe, and a name
       #if the name is already a column name, use it
       #otherwise add a new column
-      nameDate <- paste("date",dF[[record$name]])
-      nameX <- paste("x",dF[[record$name]]) 
-      nameY <- paste("y",dF[[record$name]]) 
-      nameCRS <- paste("CRS",dF[[record$name]]) 
+      nameDate <- paste("date",dF[[event$name]])
+      nameX <- paste("x",dF[[event$name]]) 
+      nameY <- paste("y",dF[[event$name]]) 
+      nameCRS <- paste("CRS",dF[[event$name]]) 
       
-      dF <- findOrAdd(dF, name=nameDate, rowNum=iNum, value=record$date)
+      dF <- findOrAdd(dF, name=nameDate, rowNum=iNum, value=event$date)
       #todo this will need to get x,y,CRS from location
-      #dF <- findOrAdd(dF, name=nameX, rowNum=iNum, value=record$location)
+      #dF <- findOrAdd(dF, name=nameX, rowNum=iNum, value=event$location)
       
 
     }
@@ -108,7 +108,7 @@ as.data.frame.ejObject <- function(ejOb){
   
   
 #   blank <- NULL
-#   tst <- lapply(ejOb$individuals, function(x) blank <- rbind(blank,unlist(x))
+#   tst <- lapply(ejOb$records, function(x) blank <- rbind(blank,unlist(x))
   
   
   return(dF)

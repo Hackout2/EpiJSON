@@ -3,14 +3,14 @@
 	    {"name": "owner", "type": "string", "value": "hackout2 team"},
 	    {"name": "version", "type": "int", "value": 1}
 	],
-	"individuals": [
+	"records": [
 		{
 			"id": "person1",
 			"attributes": [
 		  		{"name": "age", "type": "int", "value": 10},
 		    	{"name": "gender", "type": "string", "value": "male"}
 			],
-		  	"records":[
+		  	"events":[
 				{
 			    	"id": 1,
 			      	"name": "disease onset",

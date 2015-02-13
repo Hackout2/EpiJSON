@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "title": "attribute",
-    "description": "An attribute of a dataset, individual or record",
+    "description": "An attribute of a dataset, record or event",
     "type": "object",
     "properties": {
     	"name": {

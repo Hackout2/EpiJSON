@@ -24,7 +24,7 @@ print.ejAttribute <- function(x, ...){
 	cat("(name: ", x$name, " type:", x$type, " value:", x$value, ")\n")
 }
 
-#' Records
+#' events
 #' @example
 #' dF<- data.frame(id=c("A","B","3D"),
 #'                 name=c("tom","andy","ellie"),
@@ -38,19 +38,19 @@ print.ejAttribute <- function(x, ...){
 #'                 rec2date=c("2015-01-02","2015-01-12","2015-01-09"),
 #'                 rec2risk=c("high","low","high"))
 #' 
-#' x <- createRecord(id=NA, 
+#' x <- createevent(id=NA, 
 #'              name="rec1contact",
 #'              date=as.POSIXct(dF$rec1date[1]),
 #'              location=NA,
 #'              attributes=list(createAttribute(name="rec1risk",type="str",value=c(as.character(dF$rec1risk[1]))),
 #'                              createAttribute(name="rec1temp",type="int",value=c(as.character(dF$rec1temp[1])))))
 #'
-#' print.ejRecord(x)
+#' print.ejEvent(x)
 #' 
 #' @export 
 #' 
-print.ejRecord <- function(x, ...){
-	cat("Record:\n")
+print.ejEvent <- function(x, ...){
+	cat("event:\n")
 	cat("id: ", x$id, "\n")
 	cat("name:", x$name, "\n")
 	cat("date: ", x$date, "\n")
@@ -58,7 +58,7 @@ print.ejRecord <- function(x, ...){
 	for(attribute in x$attributes){print.ejAttribute(attribute)}
 }
 
-#' Individual
+#' record
 #' @example
 #' dF<- data.frame(id=c("A","B","3D"),
 #'                 name=c("tom","andy","ellie"),
@@ -72,17 +72,17 @@ print.ejRecord <- function(x, ...){
 #'                 rec2date=c("2015-01-02","2015-01-12","2015-01-09"),
 #'                 rec2risk=c("high","low","high"))
 #' 
-#' x <- createIndividual(id=dF$id[1], 
+#' x <- createrecord(id=dF$id[1], 
 #'              attributes=list(createAttribute(name="name",type="str",value=c(as.character(dF$name[1]))),
 #'                              createAttribute(name="gender",type="str",value=c(as.character(dF$gender[1])))),
-#'              records=list(createRecord(id=NA, 
+#'              events=list(createevent(id=NA, 
 #'                                        name="rec1contact",
 #'                                        date=as.POSIXct(dF$rec1date[1]),
 #'                                        location="",
 #'                                              attributes=list(createAttribute(name="rec1risk",type="str",value=c(as.character(dF$rec1risk[1]))),
 #'                                                              createAttribute(name="rec1temp",type="int",value=dF$rec1temp[1]))
 #'                                                                  ),
-#'                          createRecord(id=NA, 
+#'                          createevent(id=NA, 
 #'                                       name="rec2contact",
 #'                                       date=as.POSIXct(dF$rec2date[1]),
 #'                                       location="",
@@ -91,15 +91,15 @@ print.ejRecord <- function(x, ...){
 #'                              )  
 #'                    
 #'
-#' print.ejIndividual(x)
+#' print.ejRecord(x)
 #' 
 #' @export 
 #'  
-print.ejIndividual <- function(x, ...){
-	cat("Individual:\n")
+print.ejRecord <- function(x, ...){
+	cat("record:\n")
 	cat("id:", x$id,"\n")
 	for(attribute in x$attributes){print.ejAttribute(attribute)}
-	for(record in x$records){print.ejRecord(record)}
+	for(event in x$events){print.ejEvent(event)}
 }
 
 #' Metadata
@@ -153,17 +153,17 @@ print.ejMetadata <- function(x,...){
 #'                                            createAttribute(name="rec1risk",type="str",value=as.character(dF$rec1risk[1])),
 #'                                            createAttribute(name="rec1temp",type="int",value=dF$rec1temp[1]),
 #'                                            createAttribute(name="rec2risk",type="str",value=as.character(dF$rec2risk[1]))  ),
-#'                                                  individuals=list(createIndividual(id=as.character(dF$id[1]), 
+#'                                                  records=list(createrecord(id=as.character(dF$id[1]), 
 #'              attributes=list(createAttribute(name="name",type="str",value=c(as.character(dF$name[1]))),
 #'                              createAttribute(name="gender",type="str",value=c(as.character(dF$gender[1])))),
-#'              records=list(createRecord(id=NA, 
+#'              events=list(createevent(id=NA, 
 #'                                        name="rec1contact",
 #'                                        date=as.POSIXct(dF$rec1date[1]),
 #'                                        location="",
 #'                                              attributes=list(createAttribute(name="rec1risk",type="str",value=c(as.character(dF$rec1risk[1]))),
 #'                                                              createAttribute(name="rec1temp",type="int",value=dF$rec1temp[1]))
 #'                                                                  ),
-#'                          createRecord(id=NA, 
+#'                          createevent(id=NA, 
 #'                                       name="rec2contact",
 #'                                       date=as.POSIXct(dF$rec2date[1]),
 #'                                       location="",
@@ -179,5 +179,5 @@ print.ejMetadata <- function(x,...){
 print.ejObject <- function(x, ...){
 	cat("EpiJSON object\n")
 	print.ejMetadata(x$metadata)
-	for(individual in x$individuals){print.ejIndividual(individual)}
+	for(record in x$records){print.ejRecord(record)}
 }
