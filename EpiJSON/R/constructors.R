@@ -9,19 +9,20 @@
 #' @param value This is the value that the data takes for the given attribute
 #' 
 #' @examples
-#' dF <- data.frame(id=c("A","B","3D"),
+#' dF<- data.frame(id=c("A","B","3D"),
 #'                 name=c("tom","andy","ellie"),
 #'                 dob=c("1984-03-14","1985-11-13","1987-06-16"),
 #'                 gender=c("male","male","female"),
 #'                 rec1contact=c(2,1,5),
-#'                 rec1date=c("2014-12-28","2014-12-29","2015-01-03"),
+#'                 rec1dateStart=c("2014-12-28","2014-12-29","2015-01-03"),
+#'                 rec1dateEnd=c("2014-12-30","2015-01-04","2015-01-07"),
 #'                 rec1risk=c("high","high","low"),  
 #'                 rec1temp=c(39,41,41),
 #'                 rec2contact=c(4,1,1),
 #'                 rec2date=c("2015-01-02","2015-01-12","2015-01-09"),
-#'                 rec2risk=c("high","low","high"))
+#'                 rec2risk=c("high","low","high"),stringsAsFactors=FALSE)
 #' 
-#' createAttribute(name="name",type="int",value=list(dF$name))
+#' createAttribute(name="name",type="int",value=dF$name[1])
 #' 
 #' @return an \code{\link{ejAttribute}} object
 #' @export
@@ -33,7 +34,7 @@ createAttribute <- function (name, type, value){
 			), class="ejAttribute")
 }
 
-#' Create a event
+#' Create an event
 #' 
 #' This function defines events 
 #' output \code{ejEvent}  
@@ -50,19 +51,21 @@ createAttribute <- function (name, type, value){
 #'                 dob=c("1984-03-14","1985-11-13","1987-06-16"),
 #'                 gender=c("male","male","female"),
 #'                 rec1contact=c(2,1,5),
-#'                 rec1date=c("2014-12-28","2014-12-29","2015-01-03"),
+#'                 rec1dateStart=c(as.POSIXct(tz="GMT","2014-12-28"),as.POSIXct(tz="GMT","2014-12-29"),as.POSIXct(tz="GMT","2015-01-03")),
+#'                 rec1dateEnd=c(as.POSIXct(tz="GMT","2014-12-30"),as.POSIXct(tz="GMT","2015-01-04"),as.POSIXct(tz="GMT","2015-01-09")),
 #'                 rec1risk=c("high","high","low"),  
 #'                 rec1temp=c(39,41,41),
 #'                 rec2contact=c(4,1,1),
 #'                 rec2date=c("2015-01-02","2015-01-12","2015-01-09"),
-#'                 rec2risk=c("high","low","high"))
-#' 
+#'                 rec2risk=c("high","low","high"),stringsAsFactors=FALSE)
+#'                 
 #' event1<-createEvent(id=NA, 
-#'              name="rec1contact",
-#'              date=as.Date(dF$rec1date),
-#'              location="",
-#'              attributes=list(createAttribute(name="rec1risk",type="str",value=list(dF$rec1risk)),
-#'                              createAttribute(name="rec1temp",type="int",value=list(dF$rec1temp))))
+#'                       name="rec1contact",
+#'                       dateStart=dF$rec1dateStart[1],
+#'                       dateEnd=dF$rec1dateEnd[1],
+#'                       location="",
+#'                       attributes=list(createAttribute(name="rec1risk",type="str",value=dF$rec1risk[1]),
+#'                              createAttribute(name="rec1temp",type="int",value=dF$rec1temp[1])))
 #' 
 #' @return an \code{\link{ejEvent}} object
 #' @export
@@ -77,6 +80,7 @@ createEvent <- function(id=NA, name, dateStart, dateEnd, location, attributes){
 			), class="ejEvent")
 }
 
+#' Create a record
 #' 
 #' This function defines records 
 #' output \code{ejRecord}  
@@ -91,29 +95,32 @@ createEvent <- function(id=NA, name, dateStart, dateEnd, location, attributes){
 #'                 dob=c("1984-03-14","1985-11-13","1987-06-16"),
 #'                 gender=c("male","male","female"),
 #'                 rec1contact=c(2,1,5),
-#'                 rec1date=c("2014-12-28","2014-12-29","2015-01-03"),
+#'                 rec1dateStart=c("2014-12-28","2014-12-29","2015-01-03"),
+#'                 rec1dateEnd=c("2014-12-30","2015-01-04","2015-01-07"),
 #'                 rec1risk=c("high","high","low"),  
 #'                 rec1temp=c(39,41,41),
 #'                 rec2contact=c(4,1,1),
-#'                 rec2date=c("2015-01-02","2015-01-12","2015-01-09"),
-#'                 rec2risk=c("high","low","high"))
+#'                 rec2dateStart=c("2015-01-02","2015-01-12","2015-01-09"),
+#'                 rec2risk=c("high","low","high"),stringsAsFactors=FALSE)
 #' 
-#' indiv1<-createrecord(id=dF$id, 
-#'              attributes=list(createAttribute(name="name",type="str",value=list(dF$name)),
-#'                              createAttribute(name="dob",type="date",value=list(as.Date(dF$dob))),
-#'                              createAttribute(name="gender",type="str",value=list(dF$gender))),
+#' record1<-createrecord(id=dF$id[1], 
+#'              attributes=list(createAttribute(name="name",type="str",value=dF$name[1]),
+#'                              createAttribute(name="dob",type="date",value=dF$dob[1]),
+#'                              createAttribute(name="gender",type="str",value=dF$gender[1])),
 #'              events=list(createEvent(id=NA, 
 #'                                        name="rec1contact",
-#'                                        date=as.Date(dF$rec1date),
+#'                                        dateStart=as.POSIXct(dF$rec1dateStart[1]),
+#'                                        dateEnd=as.POSIXct(dF$rec1dateEnd[1]),
 #'                                        location="",
-#'                                              attributes=list(createAttribute(name="rec1risk",type="str",value=list(dF$rec1risk)),
-#'                                                              createAttribute(name="rec1temp",type="int",value=list(dF$rec1temp)))
-#'                                                                  ),
+#'                                        attributes=list(createAttribute(name="rec1risk",type="str",value=dF$rec1risk[1]),
+#'                                                        createAttribute(name="rec1temp",type="int",value=dF$rec1temp[1])
+#'                                                                  )),
 #'                          createEvent(id=NA, 
 #'                                       name="rec2contact",
-#'                                       date=as.Date(dF$rec2date),
+#'                                       dateStart=dF$rec2dateStart[1],
+#'                                       dateEnd=dF$rec2dateStart[1],
 #'                                       location="",
-#'                                              attributes=list(createAttribute(name="rec2risk",type="str",value=list(dF$rec2risk)))
+#'                                              attributes=list(createAttribute(name="rec2risk",type="str",value=dF$rec2risk[1]))
 #'                                        )
 #'                              )  
 #'                      )     
@@ -130,6 +137,7 @@ createrecord <- function(id, attributes, events){
 }
 
 
+#' Create an object
 #' 
 #' This function defines epiJSON objects 
 #' output \code{ejObject}  
@@ -143,38 +151,41 @@ createrecord <- function(id, attributes, events){
 #'                 dob=c("1984-03-14","1985-11-13","1987-06-16"),
 #'                 gender=c("male","male","female"),
 #'                 rec1contact=c(2,1,5),
-#'                 rec1date=c("2014-12-28","2014-12-29","2015-01-03"),
+#'                 rec1dateStart=c("2014-12-28","2014-12-29","2015-01-03"),
+#'                 rec1dateEnd=c("2014-12-30","2015-01-04","2015-01-07"),
 #'                 rec1risk=c("high","high","low"),  
 #'                 rec1temp=c(39,41,41),
 #'                 rec2contact=c(4,1,1),
-#'                 rec2date=c("2015-01-02","2015-01-12","2015-01-09"),
-#'                 rec2risk=c("high","low","high"))
+#'                 rec2dateStart=c("2015-01-02","2015-01-12","2015-01-09"),
+#'                 rec2risk=c("high","low","high"),stringsAsFactors=FALSE)
 #' 
-#' obj1<-createEJObject (metadata=list(list(name="ID",type="str",value=dF$id),
-#'                                     list(name="name",type="str",value=dF$name),
-#'                                     list(name="rec1contact",type="str",value=dF$rec1contact),
-#'                                     list(name="rec1date",type="date",value=dF$rec1date)),
-#'                                                  records=list(createrecord(id=dF$id, 
-#'                                                            attributes=list(createAttribute(name="name",type="str",value=dF$name),
-#'                                                                            createAttribute(name="dob",type="date",value=as.Date(dF$dob)),
-#'                                                                            createAttribute(name="gender",type="str",value=dF$gender)),
-#'                                                                    events=list(createEvent(id=NA, 
-#'                                                                                              name="rec1contact",
-#'                                                                                              date=as.Date(dF$rec1date),
-#'                                                                                              location="",
-#'                                                                                              attributes=list(createAttribute(name="rec1risk",type="str",value=dF$rec1risk),
-#'                                                                                                              createAttribute(name="rec1temp",type="int",value=dF$rec1temp))
-#'                                                                                                  ),
-#'                                                                                createEvent(id=NA, 
-#'                                                                                             name="rec2contact",
-#'                                                                                             date=as.Date(dF$rec2date),
-#'                                                                                             location="",
-#'                                                                                             attributes=list(createAttribute(name="rec2risk",type="str",value=dF$rec2risk))
-#'                                                                                            )
-#'                                                                                )  
-#'                                                                            )
-#'                                                                )
-#'                    ) 
+#' obj1<-createEJObject (metadata=list(list(name="ID",type="str",value=dF$id[1]),
+#'                                     list(name="name",type="str",value=dF$name[1]),
+#'                                     list(name="rec1contact",type="str",value=dF$rec1contact[1]),
+#'                                     list(name="rec1date",type="date",value=dF$rec1date[1])),
+#'                                                  records=list(createrecord(id=dF$id[1], 
+#'                                                                            attributes=list(createAttribute(name="name",type="str",value=dF$name[1]),
+#'                                                                                            createAttribute(name="dob",type="date",value=dF$dob[1]),
+#'                                                                                            createAttribute(name="gender",type="str",value=dF$gender[1])),
+#'                                                                            events=list(createEvent(id=NA, 
+#'                                                                                                    name="rec1contact",
+#'                                                                                                    dateStart=as.POSIXct(dF$rec1dateStart[1]),
+#'                                                                                                    dateEnd=as.POSIXct(dF$rec1dateEnd[1]),
+#'                                                                                                    location="",
+#'                                                                                                    attributes=list(createAttribute(name="rec1risk",type="str",value=dF$rec1risk[1]),
+#'                                                                                                                    createAttribute(name="rec1temp",type="int",value=dF$rec1temp[1])
+#'                                                                                                                 )),
+#'                                                                                        createEvent(id=NA, 
+#'                                                                                                    name="rec2contact",
+#'                                                                                                    dateStart=dF$rec2dateStart[1],
+#'                                                                                                    dateEnd=dF$rec2dateStart[1],
+#'                                                                                                    location="",
+#'                                                                                                    attributes=list(createAttribute(name="rec2risk",type="str",value=dF$rec2risk[1]))
+#'                                                                                                      )
+#'                                                                                                )  
+#'                                                                                          )
+#'                                                                                    )
+#'                                                                              ) 
 #'                   
 #'               
 #' @return an \code{\link{ejObject}} object
@@ -186,6 +197,7 @@ createEJObject <- function(metadata, records){
 	), class="ejObject")
 }
 
+#' Create metadata
 #' 
 #' This function defines epiJSON Metadata 
 #' output \code{ejMetadata}  
@@ -198,19 +210,20 @@ createEJObject <- function(metadata, records){
 #'                 dob=c("1984-03-14","1985-11-13","1987-06-16"),
 #'                 gender=c("male","male","female"),
 #'                 rec1contact=c(2,1,5),
-#'                 rec1date=c("2014-12-28","2014-12-29","2015-01-03"),
+#'                 rec1dateStart=c("2014-12-28","2014-12-29","2015-01-03"),
+#'                 rec1dateEnd=c("2014-12-30","2015-01-04","2015-01-07"),
 #'                 rec1risk=c("high","high","low"),  
 #'                 rec1temp=c(39,41,41),
 #'                 rec2contact=c(4,1,1),
-#'                 rec2date=c("2015-01-02","2015-01-12","2015-01-09"),
-#'                 rec2risk=c("high","low","high"))
+#'                 rec2dateStart=c("2015-01-02","2015-01-12","2015-01-09"),
+#'                 rec2risk=c("high","low","high"),stringsAsFactors=FALSE)
 #' 
-#' metadata1<-createMetadata (attributes=list(createAttribute(name="name",type="str",value=list(dF$name)),
-#'                                            createAttribute(name="dob",type="date",value=list(as.Date(dF$dob))),
-#'                                            createAttribute(name="gender",type="str",value=list(dF$gender)),
-#'                                            createAttribute(name="rec1risk",type="str",value=list(dF$rec1risk)),
-#'                                            createAttribute(name="rec1temp",type="int",value=list(dF$rec1temp)),
-#'                                            createAttribute(name="rec2risk",type="str",value=list(dF$rec2risk))  ))
+#' metadata1<-createMetadata (attributes=list(createAttribute(name="name",type="str",value=dF$name),
+#'                                            createAttribute(name="dob",type="date",value=dF$dob),
+#'                                            createAttribute(name="gender",type="str",value=dF$gender),
+#'                                            createAttribute(name="rec1risk",type="str",value=dF$rec1risk),
+#'                                            createAttribute(name="rec1temp",type="int",value=dF$rec1temp),
+#'                                            createAttribute(name="rec2risk",type="str",value=dF$rec2risk)))
 #'                                            
 #'                              
 #'               

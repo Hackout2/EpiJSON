@@ -3,7 +3,6 @@
 #' converts to the epiJSON format
 #' 
 #' @param x An record from the obkData 
-#' 
 #' @example
 #' ##from utils.R run the dataFrameToAttributes function
 #' 
@@ -20,21 +19,20 @@
 #' 
 #' @return an ejRecord
 #'
-
-processrecord <- function(x){
+processRecord <- function(x){
 	#get the record ID
 	recordID <- row.names(x@records)
 		
 	#convert to attributes
 	attributes <- dataFrameToAttributes(x@records)
 	
-	#process the eventFrames
-	eventFrames <- x@events
+	#process the record frames to events
+	recordFrames <- x@records
 	events<-c()
-	for(eventFrame in names(eventFrames)){
+	for(recordFrame in names(recordFrames)){
 		#skip empty frames
-		if (nrow(eventFrames[[eventFrame]])!=0){
-			events <- c(events, processeventFrame(eventFrames[[eventFrame]], eventFrame))
+		if (nrow(recordFrames[[recordFrame]])!=0){
+			events <- c(events, processRecordFrame(recordFrames[[recordFrame]], recordFrame))
 		}
 	}
 	#fix the event ids
@@ -47,7 +45,7 @@ processrecord <- function(x){
 #' converts to the epiJSON format
 #' 
 #' @param x An record from the obkData 
-#' @param eventFrameName The event of interest
+#' @param recordFrameName The event of interest
 #' 
 #' @example
 #' ##from utils.R run the dataFrameToAttributes function
@@ -59,18 +57,16 @@ processrecord <- function(x){
 #' ##An example dataset is available:
 #'    data(ToyOutbreak)
 #'
-#'    x=subset(ToyOutbreak,2)@events[[1]]
+#'    x=subset(ToyOutbreak,2)@@events[[1]]
 #' 
 #'    processeventFrame(x,"Fever")
 #' 
 #' @return an ejEvent
-#' 
-
 #' Process an record event frame
-processeventFrame <- function(x, eventFrameName){	
+processRecordFrame <- function(x, recordFrameName){	
 	lapply(1:nrow(x), function(i){
 		eventAttributes <- dataFrameToAttributes(x[i,3:ncol(x), drop=FALSE])
-		createevent(id=NA, date=x$date[i], name=eventFrameName, location=NA, attributes=eventAttributes)
+		createEvent(id=NA, dateStart=x$date[i], dateEnd=x$date[i], name=eventFrameName, location=NA, attributes=eventAttributes)
 	})	
 }
 
@@ -80,7 +76,10 @@ processeventFrame <- function(x, eventFrameName){
 #' 
 #' @param x An record from the obkData 
 #' @param metadata The list of the components in the metadata
-#' 
+#' @note There is a slight mismatch in symantics here obkData individuals are
+#'  equivelent to EpiJSON records and obkData records are EpiJSON events. This
+#'  is beause in EpiJSON the unit of record is not necessarily an individual
+#'  (it could, for example, be a region or hospital, etc). 
 #' @example
 #' ##from utils.R run the dataFrameToAttributes function
 #' 
