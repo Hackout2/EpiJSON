@@ -122,23 +122,15 @@ as.data.frame.ejObject <- function(ejOb){
   
   for( iNum in 1:length(records))
   {
-    #cat(iNum)
     
     #class ejRecord
     record <- records[[iNum]]
-    
-    
+       
     #set id for this record
     dF$id[iNum] <- record$id
     
-    #to do I will also need to get the attributes of the records
-    #and put them into columns
-    for( aNum in 1:length(record$attributes))
-    {
-      att <- record$attributes[[aNum]]
-      #browser()
-      dF <- findOrAdd(dF, name=att$name, rowNum=iNum, value=att$value)      
-    }    
+    #get the attributes of the records and put them into columns
+    dF <- findOrAddAttributes(dF, atts=record$attributes)  
     
     events <- record$events
     for( eventNum in 1:length(events))
@@ -165,17 +157,7 @@ as.data.frame.ejObject <- function(ejOb){
       }
       
       #for attributes of events
-      #todo put this into a function, called above as well
-      #I don't know why the functio gives the error
-      #In `[<-.data.frame`(`*tmp*`, name, value = list(pump = c(NA, NA,  :
-      #provided 2 variables to replace 1 variables
-      #dF <- findOrAddAttributes(dF, atts=record$attributes)      
-      for( aNum in 1:length(event$attributes))
-      {
-        att <- event$attributes[[aNum]]
-        #browser()
-        dF <- findOrAdd(dF, name=att$name, rowNum=iNum, value=att$value)      
-      }
+      dF <- findOrAddAttributes(dF, atts=event$attributes)    
     } 
   } 
   return(dF)
@@ -184,7 +166,6 @@ as.data.frame.ejObject <- function(ejOb){
 
 #'helper func to go through all attributes and add them to a dataframe
 #'
-#'DOESN'T WORK at the moment, so not called
 #'adds 'new' attributes to a new column, existing attributes to existing column
 #' @param dF a dataframe
 #' @param atts an ejAttributes object
@@ -194,7 +175,7 @@ findOrAddAttributes <- function(dF, atts)
   {
     att <- atts[[aNum]]
     #browser()
-    dF <- findOrAdd(dF, name=att$name, rowNum=iNum, value=att$value)      
+    dF <- findOrAdd(dF, name=att$name, rowNum=aNum, value=att$value)      
   }
   
   return(dF)
