@@ -37,14 +37,14 @@ createAttribute <- function (name, type, value){
 }
  
 #' 
-#' This function defines records 
-#' output \code{ejRecord}  
+#' This function defines events 
+#' output \code{ejEvent}  
 #' 
-#' @param id This is the identifier for the record
-#' @param name This is the name of the record, usually a column name
-#' @param date This is the date on which this record (event) happened
-#' @param location This is the location at which this record happened
-#' @param attributes This is a concatenated list of attributes associated with this record
+#' @param id This is the identifier for the event
+#' @param name This is the name of the event, usually a column name
+#' @param date This is the date on which this event (event) happened
+#' @param location This is the location at which this event happened
+#' @param attributes This is a concatenated list of attributes associated with this event
 #' 
 #' @example
 #' dF<- data.frame(id=c("A","B","3D"),
@@ -59,35 +59,35 @@ createAttribute <- function (name, type, value){
 #'                 rec2date=c("2015-01-02","2015-01-12","2015-01-09"),
 #'                 rec2risk=c("high","low","high"))
 #' 
-#' record1<-createRecord(id=NA, 
+#' event1<-createevent(id=NA, 
 #'              name="rec1contact",
 #'              date=as.Date(dF$rec1date),
 #'              location="",
 #'              attributes=list(createAttribute(name="rec1risk",type="str",value=list(dF$rec1risk)),
 #'                              createAttribute(name="rec1temp",type="int",value=list(dF$rec1temp))))
 #' 
-#' @return an \code{\link{ejRecord}} object
+#' @return an \code{\link{ejEvent}} object
 #' @export
 #' 
 
-#' Create a record
-createRecord <- function(id=NA, name, date, location, attributes){
+#' Create a event
+createevent <- function(id=NA, name, date, location, attributes){
 	structure(list( 
 					id=id,
 					name=name,
 					date=strftime(date, "%Y-%m-%dT%H:%M:%S%z"),
 					location=location,
 					attributes=attributes
-			), class="ejRecord")
+			), class="ejEvent")
 }
 
 #' 
-#' This function defines individuals 
-#' output \code{ejIndividual}  
+#' This function defines records 
+#' output \code{ejRecord}  
 #' 
-#' @param id This is the unique identifier of the individual, usually a column name and the essential information for any data
-#' @param attributes This is a list of attributes associated with this individual
-#' @param records This is a list of all records associated with this individual (see example)
+#' @param id This is the unique identifier of the record, usually a column name and the essential information for any data
+#' @param attributes This is a list of attributes associated with this record
+#' @param events This is a list of all events associated with this record (see example)
 #' 
 #' @example
 #' dF<- data.frame(id=c("A","B","3D"),
@@ -102,18 +102,18 @@ createRecord <- function(id=NA, name, date, location, attributes){
 #'                 rec2date=c("2015-01-02","2015-01-12","2015-01-09"),
 #'                 rec2risk=c("high","low","high"))
 #' 
-#' indiv1<-createIndividual(id=dF$id, 
+#' indiv1<-createrecord(id=dF$id, 
 #'              attributes=list(createAttribute(name="name",type="str",value=list(dF$name)),
 #'                              createAttribute(name="dob",type="date",value=list(as.Date(dF$dob))),
 #'                              createAttribute(name="gender",type="str",value=list(dF$gender))),
-#'              records=list(createRecord(id=NA, 
+#'              events=list(createevent(id=NA, 
 #'                                        name="rec1contact",
 #'                                        date=as.Date(dF$rec1date),
 #'                                        location="",
 #'                                              attributes=list(createAttribute(name="rec1risk",type="str",value=list(dF$rec1risk)),
 #'                                                              createAttribute(name="rec1temp",type="int",value=list(dF$rec1temp)))
 #'                                                                  ),
-#'                          createRecord(id=NA, 
+#'                          createevent(id=NA, 
 #'                                       name="rec2contact",
 #'                                       date=as.Date(dF$rec2date),
 #'                                       location="",
@@ -122,19 +122,19 @@ createRecord <- function(id=NA, name, date, location, attributes){
 #'                              )  
 #'                      )     
 #'               
-#' @return an \code{\link{ejRecord}} object
+#' @return an \code{\link{ejEvent}} object
 #' @export
 #' 
 
-#' Create individual data
+#' Create record data
 #' @export
 
-createIndividual <- function(id, attributes, records){
+createrecord <- function(id, attributes, events){
 	structure(list(
 					id=id,
 					attributes=attributes,
-					records=records
-					), class="ejIndividual")
+					events=events
+					), class="ejRecord")
 }
 
 
@@ -143,7 +143,7 @@ createIndividual <- function(id, attributes, records){
 #' output \code{ejObject}  
 #' 
 #' @param metadata This is the metadata information for the entire dataset
-#' @param individuals This is the unique individuals in the dataset
+#' @param records This is the unique records in the dataset
 #' 
 #' @example
 #' dF<- data.frame(id=c("A","B","3D"),
@@ -162,18 +162,18 @@ createIndividual <- function(id, attributes, records){
 #'                                     list(name="name",type="str",value=dF$name),
 #'                                     list(name="rec1contact",type="str",value=dF$rec1contact),
 #'                                     list(name="rec1date",type="date",value=dF$rec1date)),
-#'                                                  individuals=list(createIndividual(id=dF$id, 
+#'                                                  records=list(createrecord(id=dF$id, 
 #'                                                            attributes=list(createAttribute(name="name",type="str",value=dF$name),
 #'                                                                            createAttribute(name="dob",type="date",value=as.Date(dF$dob)),
 #'                                                                            createAttribute(name="gender",type="str",value=dF$gender)),
-#'                                                                    records=list(createRecord(id=NA, 
+#'                                                                    events=list(createevent(id=NA, 
 #'                                                                                              name="rec1contact",
 #'                                                                                              date=as.Date(dF$rec1date),
 #'                                                                                              location="",
 #'                                                                                              attributes=list(createAttribute(name="rec1risk",type="str",value=dF$rec1risk),
 #'                                                                                                              createAttribute(name="rec1temp",type="int",value=dF$rec1temp))
 #'                                                                                                  ),
-#'                                                                                createRecord(id=NA, 
+#'                                                                                createevent(id=NA, 
 #'                                                                                             name="rec2contact",
 #'                                                                                             date=as.Date(dF$rec2date),
 #'                                                                                             location="",
@@ -193,10 +193,10 @@ createIndividual <- function(id, attributes, records){
 #' @export
 #' 
 
-createEJObject <- function(metadata, individuals){
+createEJObject <- function(metadata, records){
 	structure(list(
 					metadata=metadata,
-					individuals=individuals
+					records=records
 	), class="ejObject")
 }
 

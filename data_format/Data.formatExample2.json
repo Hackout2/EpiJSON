@@ -3,7 +3,7 @@
 	    {"name": "owner", "type": "string", "value": "hackout2 team"},
 	    {"name": "version", "type": "int", "value": 1}
 	],
-	"individuals": [
+	"records": [
 		{ 
 			"id": "person1",
 			"attributes": [
@@ -12,7 +12,7 @@
   	    	{"name": "dob", "type": "date", "value": "2004-11-23"},
           {"name": "bloodgroup", "type":"string", "value": "B neg"}
 			],
-		  	"records":[
+		  	"events":[
 				{
 			    	"id": 1,
 			      	"name": "disease onset",
@@ -68,7 +68,7 @@
           {"name": "sexual orientation", "type": "int", "value": "Heterosexual"},
 		    	{"name": "gender", "type": "string", "value": "male"}
 			],
-		  	"records":[
+		  	"events":[
 				{
 			    	"id": 1,
 			      	"name": "disease onset",
@@ -109,7 +109,7 @@
 		    	{"name": "gender", "type": "string", "value": "male"},
   	    	{"name": "ethnicity", "type": "string", "value": "white"}
 			],
-		  	"records":[
+		  	"events":[
 				{
 			    	"id": 1,
 			      	"name": "disease onset",

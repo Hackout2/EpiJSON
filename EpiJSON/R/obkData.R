@@ -1,8 +1,8 @@
 
-#' This function takes a single individual from the obkClass data and 
+#' This function takes a single record from the obkClass data and 
 #' converts to the epiJSON format
 #' 
-#' @param x An individual from the obkData 
+#' @param x An record from the obkData 
 #' 
 #' @example
 #' ##from utils.R run the dataFrameToAttributes function
@@ -16,38 +16,38 @@
 #' 
 #'      x <- subset(ToyOutbreak,1)
 #'      
-#'      processIndividual(x)
+#'      processrecord(x)
 #' 
-#' @return an ejIndividual
+#' @return an ejRecord
 #'
 
-processIndividual <- function(x){
-	#get the individual ID
-	individualID <- row.names(x@individuals)
+processrecord <- function(x){
+	#get the record ID
+	recordID <- row.names(x@records)
 		
 	#convert to attributes
-	attributes <- dataFrameToAttributes(x@individuals)
+	attributes <- dataFrameToAttributes(x@records)
 	
-	#process the recordFrames
-	recordFrames <- x@records
-	records<-c()
-	for(recordFrame in names(recordFrames)){
+	#process the eventFrames
+	eventFrames <- x@events
+	events<-c()
+	for(eventFrame in names(eventFrames)){
 		#skip empty frames
-		if (nrow(recordFrames[[recordFrame]])!=0){
-			records <- c(records, processRecordFrame(recordFrames[[recordFrame]], recordFrame))
+		if (nrow(eventFrames[[eventFrame]])!=0){
+			events <- c(events, processeventFrame(eventFrames[[eventFrame]], eventFrame))
 		}
 	}
-	#fix the record ids
-	records <- lapply(1:length(records), function(i){x<-records[[i]]; x$id <- i; x})
-	createIndividual(id=individualID, attributes, records)
+	#fix the event ids
+	events <- lapply(1:length(events), function(i){x<-events[[i]]; x$id <- i; x})
+	createrecord(id=recordID, attributes, events)
 }
 
 
-#' This function processes Records from the obkClass data and 
+#' This function processes events from the obkClass data and 
 #' converts to the epiJSON format
 #' 
-#' @param x An individual from the obkData 
-#' @param recordFrameName The record of interest
+#' @param x An record from the obkData 
+#' @param eventFrameName The event of interest
 #' 
 #' @example
 #' ##from utils.R run the dataFrameToAttributes function
@@ -59,18 +59,18 @@ processIndividual <- function(x){
 #' ##An example dataset is available:
 #'    data(ToyOutbreak)
 #'
-#'    x=subset(ToyOutbreak,2)@records[[1]]
+#'    x=subset(ToyOutbreak,2)@events[[1]]
 #' 
-#'    processRecordFrame(x,"Fever")
+#'    processeventFrame(x,"Fever")
 #' 
-#' @return an ejRecord
+#' @return an ejEvent
 #' 
 
-#' Process an individual record frame
-processRecordFrame <- function(x, recordFrameName){	
+#' Process an record event frame
+processeventFrame <- function(x, eventFrameName){	
 	lapply(1:nrow(x), function(i){
-		recordAttributes <- dataFrameToAttributes(x[i,3:ncol(x), drop=FALSE])
-		createRecord(id=NA, date=x$date[i], name=recordFrameName, location=NA, attributes=recordAttributes)
+		eventAttributes <- dataFrameToAttributes(x[i,3:ncol(x), drop=FALSE])
+		createevent(id=NA, date=x$date[i], name=eventFrameName, location=NA, attributes=eventAttributes)
 	})	
 }
 
@@ -78,7 +78,7 @@ processRecordFrame <- function(x, recordFrameName){
 #' This function processes objects from the obkClass data and 
 #' converts to the epiJSON format
 #' 
-#' @param x An individual from the obkData 
+#' @param x An record from the obkData 
 #' @param metadata The list of the components in the metadata
 #' 
 #' @example
@@ -99,9 +99,9 @@ processRecordFrame <- function(x, recordFrameName){
 #' 
 
 as.ejObject.obkData <- function(x, metadata=list()){
-	individuals <- lapply(get.individuals(x), function(xx){
-		processIndividual(OutbreakData::subset(x, xx))		
+	records <- lapply(get.records(x), function(xx){
+		processrecord(OutbreakData::subset(x, xx))		
 	})
 
-	createEJObject(metadata=metadata, individuals=individuals)
+	createEJObject(metadata=metadata, records=records)
 }

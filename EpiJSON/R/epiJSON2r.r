@@ -29,9 +29,9 @@ epiJSON2r <- function(file)
 #   allfields <- unique(unlist(lapply(temp, names)))
 #   
 #   ## get data into a data.frame
-#   dFindividuals <- matrix(unlist(lapply(temp, f1)), nrow=length(listjson), byrow=TRUE)
-#   dFindividuals <- as.data.frame(dFindividuals)
-#   names(dFindividuals) <- allfields
+#   dFrecords <- matrix(unlist(lapply(temp, f1)), nrow=length(listjson), byrow=TRUE)
+#   dFrecords <- as.data.frame(dFrecords)
+#   names(dFrecords) <- allfields
   
   
   return(listJSON)
