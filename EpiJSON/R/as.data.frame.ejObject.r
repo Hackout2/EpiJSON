@@ -100,9 +100,24 @@ as.data.frame.ejObject <- function(ejOb){
       
       dF <- findOrAdd(dF, name=nameDateStart, rowNum=iNum, value=event$dateStart)
       dF <- findOrAdd(dF, name=nameDateEnd, rowNum=iNum, value=event$dateEnd)
-      #todo this will need to get x,y,CRS from location
-      #dF <- findOrAdd(dF, name=nameX, rowNum=iNum, value=event$location)
+      #get x,y,CRS from location
+      dF <- findOrAdd(dF, name=nameX, rowNum=iNum, value=event$location$x)
+      dF <- findOrAdd(dF, name=nameY, rowNum=iNum, value=event$location$y)
+      dF <- findOrAdd(dF, name=nameCRS, rowNum=iNum, value=proj4string(event$location))
       
+      
+      #for attributes of events
+      #todo put this into a function, called above as well
+      #I don't know why the functio gives the error
+      #In `[<-.data.frame`(`*tmp*`, name, value = list(pump = c(NA, NA,  :
+      #provided 2 variables to replace 1 variables
+      #dF <- findOrAddAttributes(dF, atts=record$attributes)      
+      for( aNum in 1:length(event$attributes))
+      {
+        att <- event$attributes[[aNum]]
+        #browser()
+        dF <- findOrAdd(dF, name=att$name, rowNum=iNum, value=att$value)      
+      }
 
     }
     
@@ -116,6 +131,23 @@ as.data.frame.ejObject <- function(ejOb){
   
   return(dF)
 
+}
+
+
+#'helper func to go through all attributes and add them to a dataframe
+#'
+#'adds 'new' attributes to a new column, existing attributes to existing column
+
+findOrAddAttributes <- function(dF, atts)
+{
+  for( aNum in 1:length(atts))
+  {
+    att <- atts[[aNum]]
+    #browser()
+    dF <- findOrAdd(dF, name=att$name, rowNum=iNum, value=att$value)      
+  }
+  
+  return(dF)
 }
 
 #'helper func to find a col name in a dataframe or add a new one
