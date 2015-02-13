@@ -12,7 +12,7 @@
 
 <meta name="date" content="2015-02-13" />
 
-<title>EpiJSON Vignette</title>
+<title>EpiJSON_Vignette</title>
 
 
 
@@ -52,7 +52,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 
 
 <div id="header">
-<h1 class="title">EpiJSON Vignette</h1>
+<h1 class="title">EpiJSON_Vignette</h1>
 <h4 class="author"><em>Team Hackout2: Thomas Finnae; Andy South; Ellie Sherrard-Smith; Ana Bento</em></h4>
 <h4 class="date"><em>2015-02-13</em></h4>
 </div>
@@ -61,9 +61,8 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>This is a demonstration of the package EpiJSON and how you can use the functions provided to change the format of data for use in different analyses.</p>
 <div id="validation" class="section level1">
 <h1>Validation</h1>
-</div>
-<div id="checking-that-we-can-go-from-a-json-to-df-to-obkdata" class="section level1">
-<h1>checking that we can go from a JSON to dF to obkData</h1>
+<p>Demonstating how we can go from a JSON character string or object to data frame to an obkData object</p>
+<p>Load the required packages as necessary</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(devtools)</code></pre>
 <pre><code>## WARNING: Rtools is required to build R packages, but is not currently installed.
 ## 
@@ -83,31 +82,258 @@ code > span.er { color: #ff0000; font-weight: bold; }
 ## 
 ## Loading required package: knitr
 ##  OutbreakTools 0.1-12 has been loaded</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># These data are in obkData format</span>
-<span class="kw">data</span>(ToyOutbreak) 
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(sp)
+<span class="kw">library</span>(HistData)
+<span class="kw">library</span>(EpiJSON)</code></pre>
+<p>These are example data in obkData format</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(ToyOutbreak) </code></pre>
+<p>These are example data in data.frame format</p>
+</div>
+<div id="example-data-frame-1" class="section level1">
+<h1>Example: data frame 1</h1>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(Snow.deaths)</code></pre>
+<p>Adding some dates, pumps, some genders</p>
+<pre class="sourceCode r"><code class="sourceCode r">simulated &lt;-<span class="st"> </span>Snow.deaths
+simulated$gender &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;male&quot;</span>,<span class="st">&quot;female&quot;</span>)[(<span class="kw">runif</span>(<span class="kw">nrow</span>(simulated))&gt;<span class="fl">0.5</span>) +<span class="dv">1</span>]
+simulated$date &lt;-<span class="st"> </span><span class="kw">as.POSIXct</span>(<span class="st">&quot;1854-04-05&quot;</span>) +<span class="st"> </span><span class="kw">rnorm</span>(<span class="kw">nrow</span>(simulated), <span class="dv">10</span>) *<span class="st"> </span><span class="dv">86400</span>
+simulated$pump &lt;-<span class="st"> </span><span class="kw">ceiling</span>(<span class="kw">runif</span>(<span class="kw">nrow</span>(simulated)) *<span class="st"> </span><span class="dv">5</span>)
 
-<span class="co"># These data are in data.frame r format</span>
-dF&lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">id=</span><span class="kw">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>,<span class="st">&quot;3D&quot;</span>),
-                 <span class="dt">name=</span><span class="kw">c</span>(<span class="st">&quot;tom&quot;</span>,<span class="st">&quot;andy&quot;</span>,<span class="st">&quot;ellie&quot;</span>),
-                 <span class="dt">dob=</span><span class="kw">c</span>(<span class="st">&quot;1984-03-14&quot;</span>,<span class="st">&quot;1985-11-13&quot;</span>,<span class="st">&quot;1987-06-16&quot;</span>),
-                 <span class="dt">gender=</span><span class="kw">c</span>(<span class="st">&quot;male&quot;</span>,<span class="st">&quot;male&quot;</span>,<span class="st">&quot;female&quot;</span>),
-                 <span class="dt">rec1contact=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">5</span>),
-                 <span class="dt">rec1dateStart=</span><span class="kw">c</span>(<span class="st">&quot;2014-12-28&quot;</span>,<span class="st">&quot;2014-12-29&quot;</span>,<span class="st">&quot;2015-01-03&quot;</span>),
-                 <span class="dt">rec1dateEnd=</span><span class="kw">c</span>(<span class="st">&quot;2014-12-30&quot;</span>,<span class="st">&quot;2015-01-04&quot;</span>,<span class="st">&quot;2015-01-07&quot;</span>),
-                 <span class="dt">rec1risk=</span><span class="kw">c</span>(<span class="st">&quot;high&quot;</span>,<span class="st">&quot;high&quot;</span>,<span class="st">&quot;low&quot;</span>),  
-                 <span class="dt">rec1temp=</span><span class="kw">c</span>(<span class="dv">39</span>,<span class="dv">41</span>,<span class="dv">41</span>),
-                 <span class="dt">rec2contact=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">1</span>,<span class="dv">1</span>),
-                 <span class="dt">rec2dateStart=</span><span class="kw">c</span>(<span class="st">&quot;2015-01-02&quot;</span>,<span class="st">&quot;2015-01-12&quot;</span>,<span class="st">&quot;2015-01-09&quot;</span>),
-                 <span class="dt">rec2risk=</span><span class="kw">c</span>(<span class="st">&quot;high&quot;</span>,<span class="st">&quot;low&quot;</span>,<span class="st">&quot;high&quot;</span>),<span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>)
+exampledata1&lt;-<span class="kw">head</span>(simulated)
+exampledata1</code></pre>
+<pre><code>##   case         x         y gender                date pump
+## 1    1 13.588010 11.095600   male 1854-04-16 03:17:55    4
+## 2    2  9.878124 12.559180 female 1854-04-15 08:06:54    5
+## 3    3 14.653980 10.180440   male 1854-04-15 19:00:04    2
+## 4    4 15.220570  9.993003   male 1854-04-14 15:35:15    4
+## 5    5 13.162650 12.963190   male 1854-04-13 09:56:49    3
+## 6    6 13.806170  8.889046 female 1854-04-16 16:57:53    4</code></pre>
+</div>
+<div id="example-data.frame-2" class="section level1">
+<h1>Example: data.frame 2</h1>
+<pre class="sourceCode r"><code class="sourceCode r">exampledata2&lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">id=</span><span class="kw">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>,<span class="st">&quot;3D&quot;</span>,<span class="st">&quot;4d&quot;</span>),
+                 <span class="dt">name=</span><span class="kw">c</span>(<span class="st">&quot;tom&quot;</span>,<span class="st">&quot;andy&quot;</span>,<span class="st">&quot;ellie&quot;</span>,<span class="st">&quot;Ana&quot;</span>),
+                 <span class="dt">dob=</span><span class="kw">c</span>(<span class="st">&quot;1984-03-14&quot;</span>,<span class="st">&quot;1985-11-13&quot;</span>,<span class="st">&quot;1987-06-16&quot;</span>,<span class="st">&quot;1987-06-16&quot;</span>),
+                 <span class="dt">gender=</span><span class="kw">c</span>(<span class="st">&quot;male&quot;</span>,<span class="st">&quot;male&quot;</span>,<span class="st">&quot;female&quot;</span>,<span class="st">&quot;female&quot;</span>),
+                 <span class="dt">rec1contact=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">1</span>),
+                 <span class="dt">rec1dateStart=</span><span class="kw">c</span>(<span class="st">&quot;2014-12-28&quot;</span>,<span class="st">&quot;2014-12-29&quot;</span>,<span class="st">&quot;2015-01-03&quot;</span>,<span class="st">&quot;2015-01-08&quot;</span>),
+                 <span class="dt">rec1dateEnd=</span><span class="kw">c</span>(<span class="st">&quot;2014-12-30&quot;</span>,<span class="st">&quot;2015-01-04&quot;</span>,<span class="st">&quot;2015-01-07&quot;</span>,<span class="st">&quot;2015-01-14&quot;</span>),
+                 <span class="dt">rec1risk=</span><span class="kw">c</span>(<span class="st">&quot;high&quot;</span>,<span class="st">&quot;high&quot;</span>,<span class="st">&quot;low&quot;</span>,<span class="st">&quot;high&quot;</span>),  
+                 <span class="dt">rec1temp=</span><span class="kw">c</span>(<span class="dv">39</span>,<span class="dv">41</span>,<span class="dv">41</span>,<span class="dv">39</span>),
+                 <span class="dt">rec2contact=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>),
+                 <span class="dt">rec2dateStart=</span><span class="kw">c</span>(<span class="st">&quot;2015-01-02&quot;</span>,<span class="st">&quot;2015-01-12&quot;</span>,<span class="st">&quot;2015-01-09&quot;</span>,<span class="st">&quot;2015-01-09&quot;</span>),
+                 <span class="dt">rec2risk=</span><span class="kw">c</span>(<span class="st">&quot;high&quot;</span>,<span class="st">&quot;low&quot;</span>,<span class="st">&quot;high&quot;</span>,<span class="st">&quot;low&quot;</span>),<span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>)
+exampledata2</code></pre>
+<pre><code>##   id  name        dob gender rec1contact rec1dateStart rec1dateEnd
+## 1  A   tom 1984-03-14   male           2    2014-12-28  2014-12-30
+## 2  B  andy 1985-11-13   male           1    2014-12-29  2015-01-04
+## 3 3D ellie 1987-06-16 female           5    2015-01-03  2015-01-07
+## 4 4d   Ana 1987-06-16 female           1    2015-01-08  2015-01-14
+##   rec1risk rec1temp rec2contact rec2dateStart rec2risk
+## 1     high       39           4    2015-01-02     high
+## 2     high       41           1    2015-01-12      low
+## 3      low       41           1    2015-01-09     high
+## 4     high       39           1    2015-01-09      low</code></pre>
+<div id="section" class="section level48">
+<p></p>
+</div>
+<div id="transition-1-data.frame-to-epijson-format" class="section level2">
+<h2>Transition 1: data.frame to EpiJSON format</h2>
+<div id="section-1" class="section level48">
+<p></p>
+<p>Use the EpiJSON package to convert a data.frame object into a EpiJSON object within R:</p>
+<pre class="sourceCode r"><code class="sourceCode r">defineEjEvent &lt;-<span class="st"> </span>function(<span class="dt">id=</span><span class="ot">NA</span>, <span class="dt">name=</span><span class="ot">NA</span>, <span class="dt">dateStart=</span><span class="ot">NA</span>, dateEnd, <span class="dt">location=</span><span class="ot">NA</span>, <span class="dt">attributes=</span><span class="ot">NA</span>){
+  <span class="kw">structure</span>(<span class="kw">list</span>(
+                    <span class="dt">id=</span>id,
+                    <span class="dt">name=</span>name,
+                    <span class="dt">dateStart=</span>dateStart,
+                    <span class="dt">dateEnd=</span>dateEnd,
+                    <span class="dt">location=</span>location,
+                    <span class="dt">attributes=</span>attributes
+                    ), <span class="dt">class=</span><span class="st">&quot;ejDFeventDef&quot;</span>)
+}
 
-<span class="co"># These data are in JSON format</span>
-<span class="kw">install_github</span>(<span class="st">&quot;Hackout2/format/EpiJSON&quot;</span>)</code></pre>
-<pre><code>## Downloading github repo Hackout2/format@master
-## Installing EpiJSON
-## &quot;C:/PROGRA~1/R/R-31~1.2/bin/x64/R&quot; --vanilla CMD INSTALL  \
-##   &quot;C:/Users/Ellie/AppData/Local/Temp/Rtmpakd66b/devtoolsa6875a425b8/Hackout2-format-871dafb/EpiJSON&quot;  \
-##   --library=&quot;C:/Users/Ellie/Documents/R/win-library/3.1&quot; --install-tests</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(EpiJSON)</code></pre>
+eg1 &lt;-<span class="st"> </span><span class="kw">as.ejObject</span>(exampledata1, <span class="dt">recordAttributes =</span> <span class="kw">c</span>(<span class="st">&quot;gender&quot;</span>),
+    <span class="dt">eventDefinitions =</span> <span class="kw">list</span>(<span class="kw">defineEjEvent</span>(<span class="dt">dateStart=</span><span class="st">&quot;date&quot;</span>, <span class="dt">dateEnd=</span><span class="st">&quot;date&quot;</span>, <span class="dt">name=</span><span class="ot">NA</span>, <span class="dt">location=</span><span class="kw">list</span>(<span class="dt">x=</span><span class="st">&quot;x&quot;</span>, <span class="dt">y=</span><span class="st">&quot;y&quot;</span>, <span class="dt">proj4string=</span><span class="st">&quot;&quot;</span>), <span class="dt">attributes=</span><span class="st">&quot;pump&quot;</span>)),
+        <span class="dt">metadata=</span><span class="kw">list</span>())
+eg1</code></pre>
+<pre><code>## EpiJSON object
+## MetaData:
+## record:
+## id: 1 
+## (name:  gender  type: character  value: male )
+## event:
+## id:  1 
+## name: NA 
+## dateStart:  1854-04-16T03:17:55+0000 
+## dateEnd:  1854-04-16T03:17:55+0000 
+## (name:  pump  type: double  value: 4 )
+## record:
+## id: 2 
+## (name:  gender  type: character  value: female )
+## event:
+## id:  1 
+## name: NA 
+## dateStart:  1854-04-15T08:06:54+0000 
+## dateEnd:  1854-04-15T08:06:54+0000 
+## (name:  pump  type: double  value: 5 )
+## record:
+## id: 3 
+## (name:  gender  type: character  value: male )
+## event:
+## id:  1 
+## name: NA 
+## dateStart:  1854-04-15T19:00:04+0000 
+## dateEnd:  1854-04-15T19:00:04+0000 
+## (name:  pump  type: double  value: 2 )
+## record:
+## id: 4 
+## (name:  gender  type: character  value: male )
+## event:
+## id:  1 
+## name: NA 
+## dateStart:  1854-04-14T15:35:15+0000 
+## dateEnd:  1854-04-14T15:35:15+0000 
+## (name:  pump  type: double  value: 4 )
+## record:
+## id: 5 
+## (name:  gender  type: character  value: male )
+## event:
+## id:  1 
+## name: NA 
+## dateStart:  1854-04-13T09:56:49+0000 
+## dateEnd:  1854-04-13T09:56:49+0000 
+## (name:  pump  type: double  value: 3 )
+## record:
+## id: 6 
+## (name:  gender  type: character  value: female )
+## event:
+## id:  1 
+## name: NA 
+## dateStart:  1854-04-16T16:57:53+0000 
+## dateEnd:  1854-04-16T16:57:53+0000 
+## (name:  pump  type: double  value: 4 )</code></pre>
+<p>Convert this into a JSON character string using: eg1a&lt;-r2epiJSON(eg1)</p>
+<p>Convert this to a EpiJSON object in R using: epiJSON2r(eg1a)</p>
+<pre class="sourceCode r"><code class="sourceCode r">eg2 &lt;-<span class="st"> </span><span class="kw">as.ejObject</span>(exampledata2, <span class="dt">recordAttributes =</span> <span class="kw">c</span>(<span class="st">&quot;name&quot;</span>,<span class="st">&quot;dob&quot;</span>,<span class="st">&quot;gender&quot;</span>),
+     <span class="dt">eventDefinitions =</span> <span class="kw">list</span>(<span class="kw">defineEjEvent</span>(<span class="dt">name=</span><span class="st">&quot;rec1contact&quot;</span>,<span class="dt">dateStart=</span><span class="st">&quot;rec1dateStart&quot;</span>, <span class="dt">dateEnd=</span><span class="st">&quot;rec1dateEnd&quot;</span>, <span class="dt">attributes=</span><span class="kw">list</span>(<span class="st">&quot;rec1risk&quot;</span>,<span class="st">&quot;rec1temp&quot;</span>)),
+                             <span class="kw">defineEjEvent</span>(<span class="dt">name=</span><span class="st">&quot;rec2contact&quot;</span>,<span class="dt">dateStart=</span><span class="st">&quot;rec2dateStart&quot;</span>, <span class="dt">dateEnd=</span><span class="st">&quot;rec2dateStart&quot;</span>, <span class="dt">attributes=</span><span class="st">&quot;rec2risk&quot;</span>)),
+        <span class="dt">metadata=</span><span class="kw">list</span>())
+eg2</code></pre>
+<pre><code>## EpiJSON object
+## MetaData:
+## record:
+## id: 1 
+## (name:  name  type: character  value: tom )
+## (name:  dob  type: character  value: 1984-03-14 )
+## (name:  gender  type: character  value: male )
+## event:
+## id:  1 
+## name: 2 
+## dateStart:  2014-12-28T00:00:00+0000 
+## dateEnd:  2014-12-30T00:00:00+0000 
+## (name:  rec1risk  type: character  value: high )
+## (name:  rec1temp  type: double  value: 39 )
+## event:
+## id:  2 
+## name: 4 
+## dateStart:  2015-01-02T00:00:00+0000 
+## dateEnd:  2015-01-02T00:00:00+0000 
+## (name:  rec2risk  type: character  value: high )
+## record:
+## id: 2 
+## (name:  name  type: character  value: andy )
+## (name:  dob  type: character  value: 1985-11-13 )
+## (name:  gender  type: character  value: male )
+## event:
+## id:  1 
+## name: 1 
+## dateStart:  2014-12-29T00:00:00+0000 
+## dateEnd:  2015-01-04T00:00:00+0000 
+## (name:  rec1risk  type: character  value: high )
+## (name:  rec1temp  type: double  value: 41 )
+## event:
+## id:  2 
+## name: 1 
+## dateStart:  2015-01-12T00:00:00+0000 
+## dateEnd:  2015-01-12T00:00:00+0000 
+## (name:  rec2risk  type: character  value: low )
+## record:
+## id: 3 
+## (name:  name  type: character  value: ellie )
+## (name:  dob  type: character  value: 1987-06-16 )
+## (name:  gender  type: character  value: female )
+## event:
+## id:  1 
+## name: 5 
+## dateStart:  2015-01-03T00:00:00+0000 
+## dateEnd:  2015-01-07T00:00:00+0000 
+## (name:  rec1risk  type: character  value: low )
+## (name:  rec1temp  type: double  value: 41 )
+## event:
+## id:  2 
+## name: 1 
+## dateStart:  2015-01-09T00:00:00+0000 
+## dateEnd:  2015-01-09T00:00:00+0000 
+## (name:  rec2risk  type: character  value: high )
+## record:
+## id: 4 
+## (name:  name  type: character  value: Ana )
+## (name:  dob  type: character  value: 1987-06-16 )
+## (name:  gender  type: character  value: female )
+## event:
+## id:  1 
+## name: 1 
+## dateStart:  2015-01-08T00:00:00+0000 
+## dateEnd:  2015-01-14T00:00:00+0000 
+## (name:  rec1risk  type: character  value: high )
+## (name:  rec1temp  type: double  value: 39 )
+## event:
+## id:  2 
+## name: 1 
+## dateStart:  2015-01-09T00:00:00+0000 
+## dateEnd:  2015-01-09T00:00:00+0000 
+## (name:  rec2risk  type: character  value: low )</code></pre>
+<p>Convert this into a JSON character string using: eg2a&lt;-r2epiJSON(eg2)</p>
+<p>Convert this to a EpiJSON object in R using: epiJSON2r(eg2a)</p>
+<div id="section-2" class="section level55">
+<p></p>
+</div>
+</div>
+</div>
+<div id="transition-2-epijson-object-to-data.frame-format" class="section level2">
+<h2>Transition 2: EpiJSON object to data.frame format</h2>
+<div id="section-3" class="section level55">
+<p></p>
+<p>Use the EpiJSON package to convert a JSON object into a data.frame object:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">as.data.frame</span>(eg1)</code></pre>
+<pre><code>##   id gender               dateStart                  dateEnd         x 
+## 1  1   male 1854-04-16T03:17:55+0000 1854-04-16T03:17:55+0000 13.588010
+## 2  2 female 1854-04-15T08:06:54+0000 1854-04-15T08:06:54+0000  9.878124
+## 3  3   male 1854-04-15T19:00:04+0000 1854-04-15T19:00:04+0000 14.653980
+## 4  4   male 1854-04-14T15:35:15+0000 1854-04-14T15:35:15+0000 15.220570
+## 5  5   male 1854-04-13T09:56:49+0000 1854-04-13T09:56:49+0000 13.162650
+## 6  6 female 1854-04-16T16:57:53+0000 1854-04-16T16:57:53+0000 13.806170
+##          y  CRS  pump
+## 1 11.095600 &lt;NA&gt;    4
+## 2 12.559180 &lt;NA&gt;    5
+## 3 10.180440 &lt;NA&gt;    2
+## 4  9.993003 &lt;NA&gt;    4
+## 5 12.963190 &lt;NA&gt;    3
+## 6  8.889046 &lt;NA&gt;    4</code></pre>
+</div>
+<div id="section-4" class="section level55">
+<p></p>
+</div>
+</div>
+<div id="transition-3-epijson-object-to-obkdata-format" class="section level2">
+<h2>Transition 3: EpiJSON object to obkData format</h2>
+<div id="section-5" class="section level55">
+<p></p>
+<p>Use the EpiJSON package to convert a JSON object into an obkData object:</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(ToyOutbreak)
+x=<span class="kw">subset</span>(ToyOutbreak,<span class="dv">1</span>)</code></pre>
+</div>
+</div>
 <div id="figures" class="section level2">
 <h2>Figures</h2>
 <p>The figure sizes have been customised so that you can easily put two images side-by-side.</p>
