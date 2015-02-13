@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Hackout2/format.svg)](https://travis-ci.org/Hackout2/format)
+
 # Implementing a generic json format for storing record case data for infectious disease epidemiology.
 
 
