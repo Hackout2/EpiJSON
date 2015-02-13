@@ -1,6 +1,9 @@
 #This set of functions prints ej'Objects' to more friendly form
  
-#' Attributes
+#' print an ejAttribute object
+#' 
+#' @param x An ejAttribute object
+#' @param ... Other arguments to print (not used)
 #' @examples
 #' dF<- data.frame(id=c("A","B","3D"),
 #'                 name=c("tom","andy","ellie"),
@@ -23,7 +26,10 @@ print.ejAttribute <- function(x, ...){
 	cat("(name: ", x$name, " type:", x$type, " value:", x$value, ")\n")
 }
 
-#' events
+#' print an ejEvent object
+#' 
+#' @param x An ejEvent object
+#' @param ... Other arguments to print (not used)
 #' @examples
 #' dF<- data.frame(id=c("A","B","3D"),
 #'                 name=c("tom","andy","ellie"),
@@ -48,8 +54,7 @@ print.ejAttribute <- function(x, ...){
 #'
 #' print.ejEvent(x)
 #' 
-#' @export 
-#' 
+#' @export  
 print.ejEvent <- function(x, ...){
 	cat("event:\n")
 	cat("id: ", x$id, "\n")
@@ -60,7 +65,10 @@ print.ejEvent <- function(x, ...){
 	for(attribute in x$attributes){print.ejAttribute(attribute)}
 }
 
-#' record
+#' print an ejRecord object
+#' 
+#' @param x An ejRecord object
+#' @param ... Other arguments to print (not used)
 #' @examples
 #' dF<- data.frame(id=c("A","B","3D"),
 #'                 name=c("tom","andy","ellie"),
@@ -102,7 +110,6 @@ print.ejEvent <- function(x, ...){
 #' print.ejRecord(x)
 #' 
 #' @export 
-#'  
 print.ejRecord <- function(x, ...){
 	cat("record:\n")
 	cat("id:", x$id,"\n")
@@ -110,7 +117,10 @@ print.ejRecord <- function(x, ...){
 	for(event in x$events){print.ejEvent(event)}
 }
 
-#' Metadata
+#' print an ejMetadata object
+#' 
+#' @param x An ejMetadata object
+#' @param ... Other arguments to print (not used)
 #' @examples
 #' dF<- data.frame(id=c("A","B","3D"),
 #'                 name=c("tom","andy","ellie"),
@@ -136,14 +146,15 @@ print.ejRecord <- function(x, ...){
 #' print.ejMetadata(x)
 #' 
 #' @export 
-#' 
-
 print.ejMetadata <- function(x,...){
 	cat("MetaData:\n")
 	for(attribute in x){print.ejAttribute(attribute)}
 }
 
-#' Object
+#' print an ejObject object
+#' 
+#' @param x An ejObject object
+#' @param ... Other arguments to print (not used)
 #' @examples
 #' dF<- data.frame(id=c("A","B","3D"),
 #'                 name=c("tom","andy","ellie"),
@@ -185,11 +196,9 @@ print.ejMetadata <- function(x,...){
 #'                                                                                    )
 #'                                                                              ) 
 #'                                                                      
-
 #' print.ejObject(x)
 #' 
 #' @export 
-#' 
 print.ejObject <- function(x, ...){
 	cat("EpiJSON object\n")
 	print.ejMetadata(x$metadata)
