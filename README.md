@@ -9,7 +9,8 @@ ____________________
 To install:
 
 - Download from https://github.com/Hackout2/format
-- Ensure that the following R packages, available from CRAN,are installed: OutbreakTools, jsonlite, plyr, sp 
+- Ensure that the following R packages, available from CRAN,are installed: OutbreakTools,          
+  jsonlite, plyr, sp  
 -
 
 ______________________________________________________________________
