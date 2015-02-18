@@ -26,17 +26,9 @@ There is a slight mismatch in symantics here obkData individuals are
  (it could, for example, be a region or hospital, etc).
 }
 \examples{
-##from utils.R run the dataFrameToAttributes function
-
-##install OutbreakTools package from CRAN repository
-#install.packages('OutbreakTools')
 require('OutbreakTools')
-
-##An example dataset is available:
-   data(ToyOutbreak)
-
-   x=subset(ToyOutbreak,2)
-
-   as.ejObject.obkData(x,metadata=list())
+data(ToyOutbreak)
+x=subset(ToyOutbreak,2)
+as.ejObject(x, metadata=list())
 }
 
