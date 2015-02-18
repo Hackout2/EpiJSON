@@ -2,18 +2,24 @@
 % Please edit documentation in R/data.frame.R
 \name{as.data.frame.ejObject}
 \alias{as.data.frame.ejObject}
-\title{convert an \code{\link{ejObject}} to a dataframe with one row per record}
+\title{convert an ejObject to a dataframe with one row per record}
 \usage{
-as.data.frame.ejObject(ejOb)
+as.data.frame.ejObject(x, row.names = NULL, optional = FALSE, ...)
 }
 \arguments{
-\item{ejOb}{an \code{\link{ejObject}}}
+\item{x}{an ejObject}
+
+\item{row.names}{NULL or a character vector giving the row names for the data frame. Missing values are not allowed.}
+
+\item{optional}{not used.}
+
+\item{...}{other parameters passed to \code{\link{data.frame}}.}
 }
 \value{
 dataframe
 }
 \description{
-convert an \code{\link{ejObject}} to a dataframe with one row per record
+convert an ejObject to a dataframe with one row per record
 }
 \examples{
 att <- createAttribute(name="name",type="int",value=7)

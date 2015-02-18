@@ -80,9 +80,13 @@ defineEjEvent <- function(id=NA, name=NA, dateStart=NA, dateEnd, location=NA, at
 }
 
 
-#' convert an \code{\link{ejObject}} to a dataframe with one row per record
+#' convert an ejObject to a dataframe with one row per record
 
-#' @param ejOb an \code{\link{ejObject}}
+#' @param x an ejObject
+#' @param row.names NULL or a character vector giving the row names for the data frame. Missing values are not allowed.
+#' @param optional not used.
+#' @param ... other parameters passed to \code{\link{data.frame}}.
+#'
 #' 
 #' @return dataframe
 #' @examples
@@ -116,13 +120,13 @@ defineEjEvent <- function(id=NA, name=NA, dateStart=NA, dateEnd, location=NA, at
 #'      
 #' @export
 #' 
-as.data.frame.ejObject <- function(ejOb){
+as.data.frame.ejObject <- function(x, row.names = NULL, optional = FALSE, ...){
   
   #not sure whether we can put metadata into the df
-  #ejOb$metadata
+  #x$metadata
   
   #want to create one row for each record
-  records <- ejOb$records
+  records <- x$records
   
   #create blank dataFrame with a single column to start
   dF <- data.frame(id=rep(NA,length(records)))
@@ -167,6 +171,13 @@ as.data.frame.ejObject <- function(ejOb){
       dF <- findOrAddAttributes(dF, atts=event$attributes)    
     } 
   } 
+  
+  #this is only included becuase the generic function has a row.names arg
+  #and this is needed to pass check
+  if(!missing(row.names)) {
+    row.names(dF) <- row.names
+  }
+  
   return(dF)
 }
 
