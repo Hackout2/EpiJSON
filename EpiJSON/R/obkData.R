@@ -80,18 +80,10 @@ processRecordFrame <- function(x, recordFrameName){
 #'  is beause in EpiJSON the unit of record is not necessarily an individual
 #'  (it could, for example, be a region or hospital, etc). 
 #' @examples
-#' ##from utils.R run the dataFrameToAttributes function
-#' 
-#' ##install OutbreakTools package from CRAN repository
-#' #install.packages('OutbreakTools')
 #' require('OutbreakTools')
-#' 
-#' ##An example dataset is available:
-#'    data(ToyOutbreak)
-#'
-#'    x=subset(ToyOutbreak,2)
-#' 
-#'    as.ejObject.obkData(x,metadata=list())
+#' data(ToyOutbreak)
+#' x=subset(ToyOutbreak,2)
+#' as.ejObject(x, metadata=list())
 #' 
 #' @return an ejObject
 #' @method as.ejObject obkData
@@ -104,7 +96,7 @@ as.ejObject.obkData <- function(x, metadata=list()){
 	createEJObject(metadata=metadata, records=records)
 }
 
-#' Create an objData object from an ejObject
+#' Create an obkData object from an ejObject
 #' 
 #' @export 
 as.obkData.ejObject <-function(){}
