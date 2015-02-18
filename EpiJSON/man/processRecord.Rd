@@ -18,17 +18,12 @@ This function takes a single record from the obkClass data and
 converts to the epiJSON format
 }
 \examples{
-##from utils.R run the dataFrameToAttributes function
-
-##install OutbreakTools package from CRAN repository
-#install.packages('OutbreakTools')
+\dontrun{
+#because this function is not exported this example won't work outside the package
 require('OutbreakTools')
-
-##An example dataset is available:
-     data(ToyOutbreak)
-
-     x <- subset(ToyOutbreak,1)
-
-     processRecord(x)
+data(ToyOutbreak)
+x <- subset(ToyOutbreak,1)
+processRecord(x)
+}
 }
 

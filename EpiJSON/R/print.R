@@ -80,7 +80,8 @@ print.ejEvent <- function(x, ...){
 #'                 rec1risk=c("high","high","low"),  
 #'                 rec1temp=c(39,41,41),
 #'                 rec2contact=c(4,1,1),
-#'                 rec2date=c("2015-01-02","2015-01-12","2015-01-09"),
+#'                 rec2dateStart=c("2015-01-02","2015-01-12","2015-01-09"),
+#'                 rec2dateEnd=c("2015-01-02","2015-01-12","2015-01-09"),
 #'                 rec2risk=c("high","low","high"),stringsAsFactors=FALSE)
 #' 
 #' 
@@ -98,8 +99,8 @@ print.ejEvent <- function(x, ...){
 #'                                                                  )),
 #'                          createEvent(id=NA, 
 #'                                       name="rec2contact",
-#'                                       dateStart=dF$rec2dateStart[1],
-#'                                       dateEnd=dF$rec2dateStart[1],
+#'                                       dateStart=as.POSIXct(dF$rec2dateStart[1]),
+#'                                       dateEnd=as.POSIXct(dF$rec2dateStart[1]),
 #'                                       location="",
 #'                                              attributes=list(createAttribute(name="rec2risk",type="str",value=dF$rec2risk[1]))
 #'                                        )
@@ -133,6 +134,7 @@ print.ejRecord <- function(x, ...){
 #'                 rec1temp=c(39,41,41),
 #'                 rec2contact=c(4,1,1),
 #'                 rec2dateStart=c("2015-01-02","2015-01-12","2015-01-09"),
+#'                 rec2dateEnd=c("2015-01-02","2015-01-12","2015-01-09"),
 #'                 rec2risk=c("high","low","high"),stringsAsFactors=FALSE)
 #' 
 #' 
@@ -161,11 +163,13 @@ print.ejMetadata <- function(x,...){
 #'                 dob=c("1984-03-14","1985-11-13","1987-06-16"),
 #'                 gender=c("male","male","female"),
 #'                 rec1contact=c(2,1,5),
-#'                 rec1date=c("2014-12-28","2014-12-29","2015-01-03"),
+#'                 rec1dateStart=c("2014-12-28","2014-12-29","2015-01-03"),
+#'                 rec1dateEnd=c("2014-12-30","2015-01-04","2015-01-07"),
 #'                 rec1risk=c("high","high","low"),  
 #'                 rec1temp=c(39,41,41),
 #'                 rec2contact=c(4,1,1),
-#'                 rec2date=c("2015-01-02","2015-01-12","2015-01-09"),
+#'                 rec2dateStart=c("2015-01-02","2015-01-12","2015-01-09"),
+#'                 rec2dateEnd=c("2015-01-02","2015-01-12","2015-01-09"),
 #'                 rec2risk=c("high","low","high"))
 #'                 
 #' x <- createEJObject (metadata=list(list(name="ID",type="str",value=dF$id[1]),
@@ -186,8 +190,8 @@ print.ejMetadata <- function(x,...){
 #'                                                                                                                 )),
 #'                                                                                        createEvent(id=NA, 
 #'                                                                                                    name="rec2contact",
-#'                                                                                                    dateStart=dF$rec2dateStart[1],
-#'                                                                                                    dateEnd=dF$rec2dateStart[1],
+#'                                                                                                    dateStart=as.POSIXct(dF$rec2dateStart[1]),
+#'                                                                                                    dateEnd=as.POSIXct(dF$rec2dateStart[1]),
 #'                                                                                                    location="",
 #'                                                                                                    attributes=list(createAttribute(name="rec2risk",type="str",value=dF$rec2risk[1]))
 #'                                                                                                      )

@@ -25,7 +25,8 @@ dF<- data.frame(id=c("A","B","3D"),
                 rec1risk=c("high","high","low"),
                 rec1temp=c(39,41,41),
                 rec2contact=c(4,1,1),
-                rec2date=c("2015-01-02","2015-01-12","2015-01-09"),
+                rec2dateStart=c("2015-01-02","2015-01-12","2015-01-09"),
+                rec2dateEnd=c("2015-01-02","2015-01-12","2015-01-09"),
                 rec2risk=c("high","low","high"),stringsAsFactors=FALSE)
 
 
@@ -43,8 +44,8 @@ x <- createRecord(id=dF$id[1],
                                                                  )),
                          createEvent(id=NA,
                                       name="rec2contact",
-                                      dateStart=dF$rec2dateStart[1],
-                                      dateEnd=dF$rec2dateStart[1],
+                                      dateStart=as.POSIXct(dF$rec2dateStart[1]),
+                                      dateEnd=as.POSIXct(dF$rec2dateStart[1]),
                                       location="",
                                              attributes=list(createAttribute(name="rec2risk",type="str",value=dF$rec2risk[1]))
                                        )

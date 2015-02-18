@@ -26,6 +26,7 @@ dF<- data.frame(id=c("A","B","3D"),
                 rec1temp=c(39,41,41),
                 rec2contact=c(4,1,1),
                 rec2dateStart=c("2015-01-02","2015-01-12","2015-01-09"),
+                rec2dateEnd=c("2015-01-02","2015-01-12","2015-01-09"),
                 rec2risk=c("high","low","high"),stringsAsFactors=FALSE)
 
 
