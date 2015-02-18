@@ -26,11 +26,6 @@ library(EpiJSON)
 ```
 
 
-These are example data in obkData format
-```{r}
-data(ToyOutbreak) 
-```
-
 These are example data in data.frame format
 
 #Example: data frame 1
@@ -72,19 +67,7 @@ exampledata2
 Use the EpiJSON package to convert a data.frame object into a EpiJSON object within R:
 
 ```{r}
-defineEjEvent <- function(id=NA, name=NA, dateStart=NA, dateEnd, location=NA, attributes=NA){
-  structure(list(
-					id=id,
-					name=name,
-					dateStart=dateStart,
-					dateEnd=dateEnd,
-					location=location,
-					attributes=attributes
-					), class="ejDFeventDef")
-}
-
-eg1 <- as.ejObject(exampledata1, recordAttributes = c("gender"),
-   	eventDefinitions = list(defineEjEvent(dateStart="date", dateEnd="date", name=NA, location=list(x="x", y="y", proj4string=""), attributes="pump")),
+eg1 <- as.ejObject(exampledata1, recordAttributes = c("gender"), eventDefinitions = list(defineEjEvent(dateStart="date", dateEnd="date", name=NA, location=list(x="x", y="y", proj4string=""), attributes="pump")),
  		metadata=list())
 eg1
 ```
@@ -125,11 +108,14 @@ as.data.frame(eg1)
 ## Transition 3: From obkData to an EpiJSON object   ##
 #######################################################
 
+These are example data in obkData format
+```{r}
+data(ToyOutbreak) 
+```
+
 Use the EpiJSON package to convert an obkData object to JSON object into :
 ```{r}
-data(ToyOutbreak)
 eg3 <- as.ejObject.obkData(ToyOutbreak)
-
 ```
 
 #######################################################
