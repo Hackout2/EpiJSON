@@ -11,6 +11,16 @@ defineEjEvent(id = NA, name = NA, dateStart = NA, dateEnd,
 \item{id}{A character string naming the column that defines the id for a
 event. May be NA, and if so will be automatically generated.}
 
+\item{name}{The name of column that gives event names. Event names might be
+things such as infection, swab, hospital admission,etc.}
+
+\item{dateStart}{A character string naming the column that defines the date
+an event started. This should be in POSIXct format. May be NA.}
+
+\item{dateEnd}{A character string naming the column that defines the date
+an event ended. This should be in POSIXct format. May be NA. For events that
+occur in a single point in time then dateStart and dateEnd are identical.}
+
 \item{location}{A list with entities x, y and proj4string. x and y should be
 character strings naming the columns where the x and y of the location are
 defined. crs may be "" or a proj4string.}
@@ -18,9 +28,6 @@ defined. crs may be "" or a proj4string.}
 \item{attributes}{A character vector naming the columns for attributes of the
 event. The attributes will be named after the columns, with type taken from
 column type.}
-
-\item{date}{A character string naming the column that defines the date for
-a event. This should be in POSIXct format. May be NA.}
 }
 \description{
 Simplifies the definition of events from columns within a dataframe

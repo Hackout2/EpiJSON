@@ -24,7 +24,7 @@ converts to the epiJSON format
 ##from utils.R run the dataFrameToAttributes function
 
 ##install OutbreakTools package from CRAN repository
-install.packages(OutbreakTools)
+#install.packages('OutbreakTools')
 require('OutbreakTools')
 
 ##An example dataset is available:

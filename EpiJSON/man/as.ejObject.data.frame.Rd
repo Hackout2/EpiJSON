@@ -10,6 +10,8 @@
 \arguments{
 \item{x}{The dataframe to convert}
 
+\item{recordID}{an ID for the record, if NA one is created}
+
 \item{recordAttributes}{A character vector containing the names of the
 columns in the dataframe that are attributes of the record}
 

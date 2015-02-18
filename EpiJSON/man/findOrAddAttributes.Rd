@@ -12,7 +12,6 @@ findOrAddAttributes(dF, atts)
 \item{atts}{an ejAttributes object}
 }
 \description{
-DOESN'T WORK at the moment, so not called
 adds 'new' attributes to a new column, existing attributes to existing column
 }
 
