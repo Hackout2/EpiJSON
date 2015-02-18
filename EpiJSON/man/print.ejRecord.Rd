@@ -29,7 +29,7 @@ dF<- data.frame(id=c("A","B","3D"),
                 rec2risk=c("high","low","high"),stringsAsFactors=FALSE)
 
 
-x <- createrecord(id=dF$id[1],
+x <- createRecord(id=dF$id[1],
              attributes=list(createAttribute(name="name",type="str",value=dF$name[1]),
                              createAttribute(name="dob",type="date",value=dF$dob[1]),
                              createAttribute(name="gender",type="str",value=dF$gender[1])),

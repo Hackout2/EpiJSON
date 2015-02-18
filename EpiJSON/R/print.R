@@ -84,7 +84,7 @@ print.ejEvent <- function(x, ...){
 #'                 rec2risk=c("high","low","high"),stringsAsFactors=FALSE)
 #' 
 #' 
-#' x <- createrecord(id=dF$id[1], 
+#' x <- createRecord(id=dF$id[1], 
 #'              attributes=list(createAttribute(name="name",type="str",value=dF$name[1]),
 #'                              createAttribute(name="dob",type="date",value=dF$dob[1]),
 #'                              createAttribute(name="gender",type="str",value=dF$gender[1])),
@@ -172,7 +172,7 @@ print.ejMetadata <- function(x,...){
 #'                                     list(name="name",type="str",value=dF$name[1]),
 #'                                     list(name="rec1contact",type="str",value=dF$rec1contact[1]),
 #'                                     list(name="rec1date",type="date",value=dF$rec1date[1])),
-#'                                                  records=list(createrecord(id=dF$id[1], 
+#'                                                  records=list(createRecord(id=dF$id[1], 
 #'                                                                            attributes=list(createAttribute(name="name",type="str",value=dF$name[1]),
 #'                                                                                            createAttribute(name="dob",type="date",value=dF$dob[1]),
 #'                                                                                            createAttribute(name="gender",type="str",value=dF$gender[1])),
