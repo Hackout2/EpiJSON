@@ -96,7 +96,7 @@ as.ejObject.obkData <- function(x, metadata=list()){
 	createEJObject(metadata=metadata, records=records)
 }
 
-#' Create an obkData object from an ejObject
-#' 
-#' @export 
-as.obkData.ejObject <-function(){}
+# #' Create an obkData object from an ejObject
+# #' 
+# #' @export 
+# as.obkData.ejObject <-function(){}
