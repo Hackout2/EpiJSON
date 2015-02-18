@@ -14,24 +14,19 @@ processRecordFrame(x, recordFrameName)
 }
 \value{
 an ejEvent
-Process an record event frame
 }
 \description{
 This function processes events from the obkClass data and
 converts to the epiJSON format
 }
 \examples{
-##from utils.R run the dataFrameToAttributes function
-
-##install OutbreakTools package from CRAN repository
-#install.packages('OutbreakTools')
+\dontrun{
+#because this function is not exported this example won't work outside the package
 require('OutbreakTools')
 
-##An example dataset is available:
-   data(ToyOutbreak)
-
-   x=subset(ToyOutbreak,2)@events[[1]]
-
-   processeventFrame(x,"Fever")
+data(ToyOutbreak)
+x=subset(ToyOutbreak,2)@records[[1]]
+processeventFrame(x,"Fever")
+}
 }
 

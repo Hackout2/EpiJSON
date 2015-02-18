@@ -42,21 +42,15 @@ processRecord <- function(x){
 #' @param recordFrameName The event of interest
 #' 
 #' @examples
-#' ##from utils.R run the dataFrameToAttributes function
-#' 
-#' ##install OutbreakTools package from CRAN repository
-#' #install.packages('OutbreakTools')
+#' \dontrun{
+#' #because this function is not exported this example won't work outside the package
 #' require('OutbreakTools')
-#' 
-#' ##An example dataset is available:
-#'    data(ToyOutbreak)
 #'
-#'    x=subset(ToyOutbreak,2)@@events[[1]]
-#' 
-#'    processeventFrame(x,"Fever")
-#' 
+#' data(ToyOutbreak)
+#' x=subset(ToyOutbreak,2)@@records[[1]]
+#' processeventFrame(x,"Fever")
+#' }
 #' @return an ejEvent
-#' Process an record event frame
 processRecordFrame <- function(x, recordFrameName){	
 	lapply(1:nrow(x), function(i){
 		eventAttributes <- dataFrameToAttributes(x[i,3:ncol(x), drop=FALSE])
