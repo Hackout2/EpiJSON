@@ -19,7 +19,7 @@
 #'                 rec2risk=c("high","low","high"),stringsAsFactors=FALSE)
 #' 
 #' x <- createAttribute(name="name",type="string",value=dF$name[1])
-#' print.ejAttribute(x)
+#' print(x)
 #' 
 #' @export 
 print.ejAttribute <- function(x, ...){
@@ -52,7 +52,7 @@ print.ejAttribute <- function(x, ...){
 #'              attributes=list(createAttribute(name="rec1risk",type="str",value=c(as.character(dF$rec1risk[1]))),
 #'                              createAttribute(name="rec1temp",type="int",value=c(as.character(dF$rec1temp[1])))))
 #'
-#' print.ejEvent(x)
+#' print(x)
 #' 
 #' @export  
 print.ejEvent <- function(x, ...){
@@ -107,7 +107,7 @@ print.ejEvent <- function(x, ...){
 #'                      )   
 #'                    
 #'
-#' print.ejRecord(x)
+#' print(x)
 #' 
 #' @export 
 print.ejRecord <- function(x, ...){
@@ -143,7 +143,7 @@ print.ejRecord <- function(x, ...){
 #'                                            createAttribute(name="rec1temp",type="int",value=dF$rec1temp),
 #'                                            createAttribute(name="rec2risk",type="str",value=dF$rec2risk)))
 #'                      
-#' print.ejMetadata(x)
+#' print(x)
 #' 
 #' @export 
 print.ejMetadata <- function(x,...){
@@ -196,7 +196,7 @@ print.ejMetadata <- function(x,...){
 #'                                                                                    )
 #'                                                                              ) 
 #'                                                                      
-#' print.ejObject(x)
+#' print(x)
 #' 
 #' @export 
 print.ejObject <- function(x, ...){

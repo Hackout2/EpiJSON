@@ -36,6 +36,6 @@ x <- createMetadata (attributes=list(createAttribute(name="name",type="str",valu
                                            createAttribute(name="rec1temp",type="int",value=dF$rec1temp),
                                            createAttribute(name="rec2risk",type="str",value=dF$rec2risk)))
 
-print.ejMetadata(x)
+print(x)
 }
 

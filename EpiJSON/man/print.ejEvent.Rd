@@ -36,6 +36,6 @@ x <- createEvent(id=NA,
              attributes=list(createAttribute(name="rec1risk",type="str",value=c(as.character(dF$rec1risk[1]))),
                              createAttribute(name="rec1temp",type="int",value=c(as.character(dF$rec1temp[1])))))
 
-print.ejEvent(x)
+print(x)
 }
 

@@ -55,6 +55,6 @@ x <- createEJObject (metadata=list(list(name="ID",type="str",value=dF$id[1]),
                                                                                    )
                                                                              )
 
-print.ejObject(x)
+print(x)
 }
 

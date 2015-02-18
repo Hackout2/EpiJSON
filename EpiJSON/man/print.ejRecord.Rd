@@ -52,6 +52,6 @@ x <- createrecord(id=dF$id[1],
                      )
 
 
-print.ejRecord(x)
+print(x)
 }
 

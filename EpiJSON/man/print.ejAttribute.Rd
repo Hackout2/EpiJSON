@@ -29,6 +29,6 @@ dF<- data.frame(id=c("A","B","3D"),
                 rec2risk=c("high","low","high"),stringsAsFactors=FALSE)
 
 x <- createAttribute(name="name",type="string",value=dF$name[1])
-print.ejAttribute(x)
+print(x)
 }
 
