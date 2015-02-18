@@ -5,12 +5,14 @@
 \title{This function processes objects from the obkClass data and
 converts to the epiJSON format}
 \usage{
-\method{as.ejObject}{obkData}(x, metadata = list())
+\method{as.ejObject}{obkData}(x, metadata = list(), ...)
 }
 \arguments{
 \item{x}{An record from the obkData}
 
 \item{metadata}{The list of the components in the metadata}
+
+\item{...}{other parameters (to maintain consistency with the generic)}
 }
 \value{
 an ejObject

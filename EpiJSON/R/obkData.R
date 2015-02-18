@@ -64,6 +64,7 @@ processRecordFrame <- function(x, recordFrameName){
 #' 
 #' @param x An record from the obkData 
 #' @param metadata The list of the components in the metadata
+#' @param ... other parameters (to maintain consistency with the generic)
 #' @note There is a slight mismatch in symantics here obkData individuals are
 #'  equivelent to EpiJSON records and obkData records are EpiJSON events. This
 #'  is beause in EpiJSON the unit of record is not necessarily an individual
@@ -77,7 +78,7 @@ processRecordFrame <- function(x, recordFrameName){
 #' @return an ejObject
 #' @method as.ejObject obkData
 #' @export 
-as.ejObject.obkData <- function(x, metadata=list()){
+as.ejObject.obkData <- function(x, metadata=list(), ...){
 	records <- lapply(OutbreakTools::get.individuals(x), function(xx){
 		processRecord(OutbreakTools::subset(x, xx))		
 	})

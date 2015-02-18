@@ -7,6 +7,7 @@
 #'  columns in the dataframe that are attributes of the record
 #' @param eventDefinitions A list of event definitions
 #' @param metadata A list of metadata ejAttribute objects describing the dataset
+#' @param ... other parameters (to maintain consistency with the generic)
 #' @note We assume one row per record.
 #' @export
 #' @examples 
@@ -20,7 +21,7 @@
 #'  as.ejObject(simulated, recordAttributes = c("gender"),
 #' 		eventDefinitions = list(defineEjEvent(dateStart="date", dateEnd="date", name=NA, location=list(x="x", y="y", proj4string=""), attributes="pump")),
 #' 		metadata=list())
-as.ejObject.data.frame <- function(x, recordID=NA, recordAttributes, eventDefinitions, metadata=list()){
+as.ejObject.data.frame <- function(x, recordID=NA, recordAttributes, eventDefinitions, metadata=list(), ...){
 	#iterate over the dataframe and create an record event for each row
 	records <- lapply(1:nrow(x), function(i){
 				#grab the attributes

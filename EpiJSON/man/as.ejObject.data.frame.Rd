@@ -5,7 +5,7 @@
 \title{Convert a dataframe to an ejObject}
 \usage{
 \method{as.ejObject}{data.frame}(x, recordID = NA, recordAttributes,
-  eventDefinitions, metadata = list())
+  eventDefinitions, metadata = list(), ...)
 }
 \arguments{
 \item{x}{The dataframe to convert}
@@ -18,6 +18,8 @@ columns in the dataframe that are attributes of the record}
 \item{eventDefinitions}{A list of event definitions}
 
 \item{metadata}{A list of metadata ejAttribute objects describing the dataset}
+
+\item{...}{other parameters (to maintain consistency with the generic)}
 }
 \description{
 Convert a dataframe to an ejObject
