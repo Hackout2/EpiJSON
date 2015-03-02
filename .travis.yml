@@ -18,6 +18,9 @@ after_failure:
 
 env:
   - WARNINGS_ARE_ERRORS=1
+#below to avoid warning:"Package vignette without corresponding PDF/HTML", recomended here:http://ipub.ch/continuous-integration-for-r/
+  - R_BUILD_ARGS=--no-manual
+  - R_CHECK_ARGS=--no-manual --as-cran
 
 notifications:
   email:
