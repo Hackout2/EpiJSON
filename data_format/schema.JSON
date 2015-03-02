@@ -4,6 +4,7 @@
     "description":"Epidemiological data in JSON format",
     "definitions":{
         "attribute":{
+            "description":"Attribute of the parent",
             "type":"object",
             "properties":{
                 "name":{
@@ -22,26 +23,66 @@
                     ]
                 },
                 "value":{
+                    "description":"The actual value of the attribute",
                     "type":[
                         "string",
                         "number"
                     ]
                 }
+            },
+            "required": ["name", "type","value"]
+        },
+        "event":{
+            "description":"An incident that occured to the parent record",
+            "type":"object",
+            "properties":{
+                "id":{
+                    "description": "An integer event number (counts from zero)",
+                    "type": "integer",
+                    "minimum": 0   
+                },
+                "name":{
+                    "description":"The event name",
+                    "type":"string"
+                },
+                "date":{
+                    "description":"The date and time on which the event occured (in ISO 8601 format)",
+                    "type":"string",
+                    "format":"date-time"
+                },
+                "location":{
+                    "description":"The place where the event happened (MUST be valid GeoJSON object TODO:Validate against GeoJSON schema)",
+                },
+                "attributes":{
+                    "description":"Attributes of the events",
+                    "type":"array",
+                    "items":{
+                        "$ref":"#/definitions/attribute"
+                    }
+                }
             }
         },
         "record":{
+            "description":"A record for an entity (E.g. a person, geographic locality, etc)",
             "type":"object",
             "properties":{
                 "id": {
+                    "description":"A unique identifier for this record",
                     "type": "string"
                 },
                 "attributes":{
+                    "description":"Attributes for this record",
                     "type":"array",
                     "items":{
                         "$ref":"#/definitions/attribute"
                     }
                 },
-            "events": {}    
+                "events": {
+                    "type":"array",
+                    "items":{
+                        "$ref":"#/definitions/event"
+                    }
+                }   
             }
         }
     },
