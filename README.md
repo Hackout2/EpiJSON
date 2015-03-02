@@ -2,21 +2,14 @@
 
 The aim of EpiJSON is to implement a generic JSON format for storing line list case data for infectious disease epidemiology.
 
+```
+## install package
+library(devtools)
+install_github("Hackout2/format/EpiJSON" ,build_vignettes=TRUE)
 
-
-GENERAL USAGE NOTES
-____________________
-To install:
-
-- Download from https://github.com/Hackout2/format
-- Ensure that the following R packages, available from CRAN,are installed: OutbreakTools,          
-  jsonlite, plyr, sp  
--
-
-______________________________________________________________________
-
-
-
+## view vignette
+vignette( "EpiJSON_Vignette", package = "EpiJSON")
+```
 
 Created at Hackout2, Feb 2015.
 
