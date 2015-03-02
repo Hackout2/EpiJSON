@@ -18,7 +18,6 @@ Demonstrating how we can go from a JSON character string or object to data frame
 Load the required packages as necessary
 ```{r}
 
-library(devtools)
 library(OutbreakTools)
 library(sp)
 library(HistData)
