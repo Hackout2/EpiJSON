@@ -1,31 +1,63 @@
 {
     "$schema":"http://json-schema.org/draft-04/schema#",
-    "title":"attribute",
-    "description":"An attribute of a dataset, record or event",
+    "title":"EpiJSON Schema V0.5",
+    "description":"Epidemiological data in JSON format",
+    "definitions":{
+        "attribute":{
+            "type":"object",
+            "properties":{
+                "name":{
+                    "description":"The name of the attribute",
+                    "type":"string"
+                },
+                "type":{
+                    "description":"The type of the attribute",
+                    "type":"string",
+                    "enum":[
+                        "string",
+                        "number",
+                        "integer",
+                        "boolean",
+                        "date"
+                    ]
+                },
+                "value":{
+                    "type":[
+                        "string",
+                        "number"
+                    ]
+                }
+            }
+        },
+        "record":{
+            "type":"object",
+            "properties":{
+                "id": {
+                    "type": "string"
+                },
+                "attributes":{
+                    "type":"array",
+                    "items":{
+                        "$ref":"#/definitions/attribute"
+                    }
+                },
+            "events": {}    
+            }
+        }
+    },
     "type":"object",
     "properties":{
-        "name":{
-            "description":"The name of the attribute",
-            "type":"string"
+        "metadata":{
+            "type":"array",
+            "items":{
+                "$ref":"#/definitions/attribute"
+            }
         },
-        "type":{
-            "description":"The type of the attribute",
-            "type":"string",
-            "enum":[
-                "string",
-                "float",
-                "integer",
-                "boolean",
-                "date"
-            ]
-            
-        },
-        "value":{
-            "type":[
-                "string",
-                "number"
-            ]
-            
+        "records":{
+            "type":"array",
+            "items":{
+                "$ref":"#/definitions/record"
+            }
         }
     }
 }
