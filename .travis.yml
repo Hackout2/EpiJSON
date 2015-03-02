@@ -2,4 +2,7 @@
 
 language: r
 
+before_install:
+  - cd EpiJSON
+
 warnings_are_errors: true
