@@ -13,12 +13,11 @@ This is a demonstration of the package EpiJSON and how you can use the functions
 
 # Validation
 
-Demonstating how we can go from a JSON character string or object to data frame to an obkData object
+Demonstrating how we can go from a JSON character string or object to data frame to an obkData object
 
 Load the required packages as necessary
 ```{r}
 
-library(devtools)
 library(OutbreakTools)
 library(sp)
 library(HistData)
@@ -115,7 +114,7 @@ data(ToyOutbreak)
 
 Use the EpiJSON package to convert an obkData object to JSON object into :
 ```{r}
-eg3 <- as.ejObject.obkData(ToyOutbreak)
+eg3 <- as.ejObject(ToyOutbreak)
 ```
 
 #######################################################
@@ -135,10 +134,13 @@ example1 <- as.ejObject(simulated, recordAttributes = c("gender"),
      eventDefinitions = list(defineEjEvent(dateStart="date", dateEnd="date", name=NA, location=list(x="x", y="y", proj4string=""), attributes="pump")),
  		metadata=list())
 
-sp_eg1 <- as.SpatialPointsDataFrame.ejObject(example1)
+#this is causing failure with
+#Error in as.data.frame.default(X[[1L]], ...) : 
+#  cannot coerce class ""ejAttribute"" to a data.frame
+#sp_eg1 <- as.SpatialPointsDataFrame.ejObject(example1)
 
-plot(sp_eg1,pch=20,col="green")
-text(10,17,"Example from Snow Deaths data")
+#plot(sp_eg1,pch=20,col="green")
+#text(10,17,"Example from Snow Deaths data")
 
 ```
 
