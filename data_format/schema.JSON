@@ -30,7 +30,8 @@
                     ]
                 }
             },
-            "required": ["name", "type","value"]
+            "required": ["name", "type","value"],
+            "additionalProperties":false
         },
         "event":{
             "description":"An incident that occured to the parent record",
@@ -51,16 +52,23 @@
                     "format":"date-time"
                 },
                 "location":{
-                    "description":"The place where the event happened (MUST be valid GeoJSON object TODO:Validate against GeoJSON schema)",
+                    "description":"The place where the event happened (MUST be valid GeoJSON object TODO:Validate against GeoJSON schema)"
                 },
                 "attributes":{
                     "description":"Attributes of the events",
                     "type":"array",
                     "items":{
                         "$ref":"#/definitions/attribute"
-                    }
+                    },
+                    "uniqueItems": true
                 }
-            }
+            },
+            "additionalProperties": false,
+            "anyOf": [
+                { "required": ["id", "name", "date", "location"] },
+                { "required": ["id", "name", "date"] },
+                { "required": ["id", "name", "location"] }
+            ]
         },
         "record":{
             "description":"A record for an entity (E.g. a person, geographic locality, etc)",
@@ -68,7 +76,10 @@
             "properties":{
                 "id": {
                     "description":"A unique identifier for this record",
-                    "type": "string"
+                    "oneOf": [
+                        { "type": "string"},
+                        { "type": "integer"}
+                    ]
                 },
                 "attributes":{
                     "description":"Attributes for this record",
@@ -83,7 +94,12 @@
                         "$ref":"#/definitions/event"
                     }
                 }   
-            }
+            },
+            "additionalProperties": false,
+            "anyOf": [
+                { "required": ["id", "attributes"] },
+                { "required": ["id", "events"] }
+            ]
         }
     },
     "type":"object",
@@ -100,5 +116,6 @@
                 "$ref":"#/definitions/record"
             }
         }
-    }
+    },
+    "additionalProperties": false
 }
