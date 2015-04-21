@@ -7,6 +7,7 @@
 #' @export
 epijsonObjectVis <- function(){
 
+  #todo : this could be refactored with pipes %>%
   
   gg <- box2(xmin=0.01, xmax=0.99, ymin=0.01, ymax=0.99, label='EpiJSON file')
   gg <- box2(xmin=0.05, xmax=0.95, ymin=0.70, ymax=0.90, label='Metadata', gg=gg)
