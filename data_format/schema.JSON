@@ -1,6 +1,6 @@
 {
     "$schema":"http://json-schema.org/draft-04/schema#",
-    "title":"EpiJSON Schema V0.5",
+    "title":"EpiJSON Schema V0.6",
     "description":"Epidemiological data in JSON format",
     "definitions":{
         "attribute":{
@@ -19,15 +19,21 @@
                         "number",
                         "integer",
                         "boolean",
-                        "date"
+                        "date",
+                        "base64"
                     ]
                 },
                 "value":{
                     "description":"The actual value of the attribute",
                     "type":[
                         "string",
-                        "number"
+                        "number",
+                        "boolean"
                     ]
+                },
+                "units":{
+                    "description":"A string containing the units name, preferably compatible with UDUNITS2",
+                    "type":"string"
                 }
             },
             "required": ["name", "type","value"],
@@ -71,15 +77,13 @@
             ]
         },
         "record":{
-            "description":"A record for an entity (E.g. a person, geographic locality, etc)",
+            "description":"A record for an entity (e.g. a person, geographic locality, etc)",
             "type":"object",
             "properties":{
-                "id": {
-                    "description":"A unique identifier for this record",
-                    "oneOf": [
-                        { "type": "string"},
-                        { "type": "integer"}
-                    ]
+                "id":{
+                    "description": "A unique record identifier (counts from zero)",
+                    "type": "integer",
+                    "minimum": 0   
                 },
                 "attributes":{
                     "description":"Attributes for this record",
@@ -105,6 +109,7 @@
     "type":"object",
     "properties":{
         "metadata":{
+            "description":"Attributes for this dataset",
             "type":"array",
             "items":{
                 "$ref":"#/definitions/attribute"
@@ -117,5 +122,6 @@
             }
         }
     },
-    "additionalProperties": false
+    "additionalProperties": false,
+    "required": ["metadata", "records"]
 }
