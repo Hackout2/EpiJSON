@@ -1,5 +1,6 @@
 # http://docs.travis-ci.com/user/languages/r/
 
+sudo: required
 language: r
 
 before_install:
