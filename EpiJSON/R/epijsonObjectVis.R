@@ -106,9 +106,12 @@ epijsonObjectVis2 <- function(){
 #' #this gives the base schema
 #' epijsonObjectVis3()
 #' #this gives a diagram with named attributes
-#' epijsonObjectVis3( attribMeta = c("attribute:disease","attribute:data provider"),
-#'                    attribRecord = c("attribute:gender","attribute:date of birth"),
-#'                    attribEvent = c("attribute:recorder","attribute:test used") )
+#' epijsonObjectVis3( attribMeta = c("attribute: disease","attribute: data provider"),
+#'                    attribRecord = c("attribute: gender","attribute: date of birth"),
+#'                    attribEvent = c("attribute: recorder","attribute: test used") )
+#' epijsonObjectVis3( attribMeta = c("a"),
+#'                    attribRecord = c("b","c"),
+#'                    attribEvent = c("d","e","f") )
 #' @export
 epijsonObjectVis3 <- function( attribMeta = 'Attribute [name, type, value, units]',
                                attribRecord = 'Attribute [name, type, value, units]',
@@ -116,7 +119,6 @@ epijsonObjectVis3 <- function( attribMeta = 'Attribute [name, type, value, units
   
 {
   
-  #todo : this could be refactored with pipes %>%
   
   #count number of attributes
   nattM <- length(attribMeta)
@@ -137,19 +139,24 @@ epijsonObjectVis3 <- function( attribMeta = 'Attribute [name, type, value, units
   #could us these spacings below too 
   xgap <- 0.04
   ygap <- 0.02
+  #todo below it's not quite consistent whether ylab includes gap or not
   ylab <- 0.04  #spacing for label text, includes gap could base on font size
   
   #spacing for containers
   yM <- ylab + nattM*(yatt+ygap) + sheetsAttM*ysheets 
   yE <- ylab + nattE*(yatt+ygap) + sheetsAttE*ysheets #+ ygap
   #yR for Record (not records)
-  yR <- ylab + nattR*(yatt+ygap) + sheetsAttR*ysheets + yE + ysheets + ygap + ygap #todo this last ygap is a fudge  
+  yR <- ylab + nattR*(yatt+ygap) + sheetsAttR*ysheets + yE + ysheets + ygap + ygap #todo this last ygap is a fudge because addSheets is 2 when it should be 1 for sizing  
+  yRs <- ylab+yR+ygap+ysheets+ygap
+  
+  yAll <- ylab + ygap + yM + ygap + yRs + ygap
   
   #cat("yatt:",yatt," yM:",yM," yE:",yE,"yR:",yR,"\n")
   
+  #ymax set to total height of plot
+  xmin=0.01; xmax=0.99; ymin=0.01; ymax=ymin+yAll 
   
-  #here ymin set to 0.01 later can be set ac to num objects & can be set to < 1 to make plot bigger
-  xmin=0.01; xmax=0.99; ymin=0.01; ymax=0.99
+  #todo : gg use could be refactored with pipes %>%
   
   gg <- box2(xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax, label='EpiJSON file')
   
@@ -162,7 +169,7 @@ epijsonObjectVis3 <- function( attribMeta = 'Attribute [name, type, value, units
   
   ##Records
   #set ymax from ymin of Metadata
-  xmin=xmin; xmax=xmax; ymax=ymin-ygap; ymin=ymax-(ylab+yR+ygap+ysheets+ygap)   
+  xmin=xmin; xmax=xmax; ymax=ymin-ygap; ymin=ymax-yRs   
   gg <- box2(xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax, label='Records', gg=gg)
   
   ##Record
