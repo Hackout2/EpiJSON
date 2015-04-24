@@ -97,9 +97,9 @@ epijsonObjectVis2 <- function(){
 
 #' allowing multiple attribute boxes with different labels
 
-#' @param attributeMeta label(s) for Metadata attributes
-#' @param attributeRecord label(s) for Record attributes
-#' @param attributeEvent label(s) for Event attributes
+#' @param attribMeta label(s) for Metadata attributes
+#' @param attribRecord label(s) for Record attributes
+#' @param attribEvent label(s) for Event attributes
 #' 
 #' @return a ggplot object
 #' @examples 

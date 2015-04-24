@@ -10,11 +10,11 @@ epijsonObjectVis3(attribMeta = "Attribute [name, type, value, units]",
   attribEvent = "Attribute [name, type, value, units]")
 }
 \arguments{
-\item{attributeMeta}{label(s) for Metadata attributes}
+\item{attribMeta}{label(s) for Metadata attributes}
 
-\item{attributeRecord}{label(s) for Record attributes}
+\item{attribRecord}{label(s) for Record attributes}
 
-\item{attributeEvent}{label(s) for Event attributes}
+\item{attribEvent}{label(s) for Event attributes}
 }
 \value{
 a ggplot object
