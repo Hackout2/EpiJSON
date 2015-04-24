@@ -1,7 +1,7 @@
 #' A data format for epidemiological data
 #'
 #' a JSON format for epidemiological data with functions to convert to and from other useful formats  
-#' @import OutbreakTools jsonlite sp
+#' @import OutbreakTools jsonlite sp plyr ggplot2
 #' @docType package
 #' @name EpiJSON
 NULL
