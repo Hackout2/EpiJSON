@@ -100,6 +100,10 @@ epijsonObjectVis2 <- function(){
 #' @param attribMeta label(s) for Metadata attributes
 #' @param attribRecord label(s) for Record attributes
 #' @param attribEvent label(s) for Event attributes
+#' @param labelObject label for the overall object 
+#' @param labelMeta label for Metadata attributes
+#' @param labelRecord label for Record attributes
+#' @param labelEvent label for Event attributes 
 #' 
 #' @return a ggplot object
 #' @examples 
@@ -112,10 +116,22 @@ epijsonObjectVis2 <- function(){
 #' epijsonObjectVis3( attribMeta = c("a"),
 #'                    attribRecord = c("b","c"),
 #'                    attribEvent = c("d","e","f") )
+#' #the R objects
+#' epijsonObjectVis3( attribMeta = 'ejAttribute createAttribute()',
+#'                    attribRecord = 'ejAttribute createAttribute()',
+#'                    attribEvent = 'ejAttribute createAttribute()',
+#'                    labelObject = 'R objects and constructors : ejObject createEJObject()',
+#'                    labelMeta = '?Metadata',
+#'                    labelRecord = 'ejRecord createRecord()',
+#'                    labelEvent = 'ejEvent createEvent()') 
 #' @export
 epijsonObjectVis3 <- function( attribMeta = 'Attribute [name, type, value, units]',
                                attribRecord = 'Attribute [name, type, value, units]',
-                               attribEvent = 'Attribute [name, type, value, units]' )
+                               attribEvent = 'Attribute [name, type, value, units]',
+                               labelObject = 'EpiJSON file',
+                               labelMeta = 'Metadata',
+                               labelRecord = 'Record[id]',
+                               labelEvent = 'Event [id, name, date, location]')
   
 {
   
@@ -158,12 +174,12 @@ epijsonObjectVis3 <- function( attribMeta = 'Attribute [name, type, value, units
   
   #todo : gg use could be refactored with pipes %>%
   
-  gg <- box2(xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax, label='EpiJSON file')
+  gg <- box2(xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax, label=labelObject)
   
   ## Metadata
   #work down, set ymax first, then ymin from ymax
   xmin=xmin+xgap; xmax=xmax-xgap; ymax=ymax-(ylab+ygap); ymin=ymax-yM; 
-  gg <- box2(xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax, label='Metadata', gg=gg)
+  gg <- box2(xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax, label=labelMeta, gg=gg)
   #saving metadata dims to use later
   mxmin=xmin; mxmax=xmax; mymin=ymin; mymax=ymax
   
@@ -175,7 +191,7 @@ epijsonObjectVis3 <- function( attribMeta = 'Attribute [name, type, value, units
   ##Record
   #record is simpler because it just fits in records
   xmin=xmin+xgap; xmax=xmax-xgap; ymax=ymax-(ylab+ygap); ymin=ymin+(ygap+ysheets);    
-  gg <- box2(xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax, label='Record [id]', gg=gg, addSheets=2, colour="blue")
+  gg <- box2(xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax, label=labelRecord, gg=gg, addSheets=2, colour="blue")
   #saving record dims to use later
   rxmin=xmin; rxmax=xmax; rymin=ymin; rymax=ymax
   
@@ -195,7 +211,7 @@ epijsonObjectVis3 <- function( attribMeta = 'Attribute [name, type, value, units
   
   #Event needs to go below the last attribute of Record
   xmin=rxmin+xgap; xmax=rxmax-(xgap+xsheets); ymax=ymin-ygap-(sheetsAttR*ysheets); ymin=ymax-yE    
-  gg <- box2(xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax, label='Event [id, name, date, location]', gg=gg, addSheets=2, colour="red")  
+  gg <- box2(xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax, label=labelEvent, gg=gg, addSheets=2, colour="red")  
   #saving event dims to use later
   exmin=xmin; exmax=xmax; eymin=ymin; eymax=ymax
   
