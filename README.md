@@ -3,7 +3,7 @@
 ------------------------------------------------------------------
 
 The following resources are available:
-- the *EpiJSON* website (under construction)
-- *repijson*, a R package implementing *EpiJson* 
+- the *EpiJSON* website (under construction): 
+- *repijson*, a R package implementing *EpiJson*: https://github.com/Hackout2/repijson
 
 Created at Hackout2, Feb 2015 (https://sites.google.com/site/hackout2/home)
