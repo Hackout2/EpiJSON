@@ -1,0 +1,41 @@
+{ 
+	"metadata": [
+	    {"name": "owner", "type": "string", "value": "hackout2 team"},
+	    {"name": "version", "type": "integer", "value": 1}
+	],
+	"records": [
+		{
+			"id": "person1",
+			"attributes": [
+		  		{"name": "age", "type": "integer", "value": 10},
+		    	{"name": "gender", "type": "string", "value": "male"}
+			],
+		  	"events":[
+				{
+			    	"id": 1,
+			      	"name": "disease onset",
+			      	"date": "2014-12-12T00:00:00Z",
+			      	"attributes": [{"name":"gps_accuracy", "type":"number", "value":5.7}]
+			    },
+		    	{
+		      		"id": 2,
+		      		"name": "Hospital Admission",
+		     	 	"date": "2014-12-14T00:00:00Z",
+		      		"attributes": [{"name":"gps_accuracy", "type":"number", "value":5.7}]
+		    	},
+		    	{
+		      		"id": 3,
+		      		"name": "swab",
+		     	 	"date": "2014-12-15T00:00:00Z",
+		      		"attributes": [{"name":"descriptiveLocation", "type":"string", "value":"St Mary's Hospital"}]
+		    	},
+		    	{
+		      		"id": 4,
+		      		"name": "swab",
+		     	 	"date": "2014-12-16T00:00:00Z",
+		      		"attributes": [{"name":"descriptiveLocation", "type":"string", "value":"St Mary's Hospital"}]
+		    	}
+		    ]
+		}
+	]
+}

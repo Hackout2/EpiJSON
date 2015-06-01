@@ -1,0 +1,127 @@
+{
+    "$schema":"http://json-schema.org/draft-04/schema#",
+    "title":"EpiJSON Schema V0.6",
+    "description":"Epidemiological data in JSON format",
+    "definitions":{
+        "attribute":{
+            "description":"Attribute of the parent",
+            "type":"object",
+            "properties":{
+                "name":{
+                    "description":"The name of the attribute",
+                    "type":"string"
+                },
+                "type":{
+                    "description":"The type of the attribute",
+                    "type":"string",
+                    "enum":[
+                        "string",
+                        "number",
+                        "integer",
+                        "boolean",
+                        "date",
+                        "base64"
+                    ]
+                },
+                "value":{
+                    "description":"The actual value of the attribute",
+                    "type":[
+                        "string",
+                        "number",
+                        "boolean"
+                    ]
+                },
+                "units":{
+                    "description":"A string containing the units name, preferably compatible with UDUNITS2",
+                    "type":"string"
+                }
+            },
+            "required": ["name", "type","value"],
+            "additionalProperties":false
+        },
+        "event":{
+            "description":"An incident that occured to the parent record",
+            "type":"object",
+            "properties":{
+                "id":{
+                    "description": "An integer event number (counts from zero)",
+                    "type": "integer",
+                    "minimum": 0   
+                },
+                "name":{
+                    "description":"The event name",
+                    "type":"string"
+                },
+                "date":{
+                    "description":"The date and time on which the event occured (in ISO 8601 format)",
+                    "type":"string",
+                    "format":"date-time"
+                },
+                "location":{
+                    "description":"The place where the event happened (MUST be valid GeoJSON object TODO:Validate against GeoJSON schema)"
+                },
+                "attributes":{
+                    "description":"Attributes of the events",
+                    "type":"array",
+                    "items":{
+                        "$ref":"#/definitions/attribute"
+                    },
+                    "uniqueItems": true
+                }
+            },
+            "additionalProperties": false,
+            "anyOf": [
+                { "required": ["id", "name", "date", "location"] },
+                { "required": ["id", "name", "date"] },
+                { "required": ["id", "name", "location"] }
+            ]
+        },
+        "record":{
+            "description":"A record for an entity (e.g. a person, geographic locality, etc)",
+            "type":"object",
+            "properties":{
+                "id":{
+                    "description": "A unique record identifier (counts from zero)",
+                    "type": "integer",
+                    "minimum": 0   
+                },
+                "attributes":{
+                    "description":"Attributes for this record",
+                    "type":"array",
+                    "items":{
+                        "$ref":"#/definitions/attribute"
+                    }
+                },
+                "events": {
+                    "type":"array",
+                    "items":{
+                        "$ref":"#/definitions/event"
+                    }
+                }   
+            },
+            "additionalProperties": false,
+            "anyOf": [
+                { "required": ["id", "attributes"] },
+                { "required": ["id", "events"] }
+            ]
+        }
+    },
+    "type":"object",
+    "properties":{
+        "metadata":{
+            "description":"Attributes for this dataset",
+            "type":"array",
+            "items":{
+                "$ref":"#/definitions/attribute"
+            }
+        },
+        "records":{
+            "type":"array",
+            "items":{
+                "$ref":"#/definitions/record"
+            }
+        }
+    },
+    "additionalProperties": false,
+    "required": ["metadata", "records"]
+}
