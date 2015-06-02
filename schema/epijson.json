@@ -17,7 +17,13 @@
                 },
                 "value":{
                     "description":"The actual value of the attribute",
-                    "type": "string"
+                    "oneOf" : [
+                        { "type": "string" },
+                        { "type": "array",
+                          "minItems": 1,
+                          "items": { "type": "string" },
+                          "uniqueItems": false }
+                    ]
                 }
             },
             "required": [ "name", "type", "value" ],
@@ -36,7 +42,13 @@
                 },
                 "value":{
                     "description":"The actual value of the attribute",
-                    "type":"number"
+                    "oneOf" : [
+                        { "type": "number" },
+                        { "type": "array",
+                          "minItems": 1,
+                          "items": { "type": "number" },
+                          "uniqueItems": false }
+                    ]
                 },
                 "units":{
                     "description":"A string containing the units name, preferably compatible with UDUNITS2",
@@ -59,7 +71,13 @@
                 },
                 "value":{
                     "description":"The actual value of the attribute",
-                    "type":"integer"
+                    "oneOf" : [
+                        { "type": "integer" },
+                        { "type": "array",
+                          "minItems": 1,
+                          "items": { "type": "integer" },
+                          "uniqueItems": false }
+                    ]
                 },
                 "units":{
                     "description":"A string containing the units name, preferably compatible with UDUNITS2",
@@ -82,7 +100,13 @@
                 },
                 "value":{
                     "description":"The actual value of the attribute",
-                    "type":"boolean"
+                    "oneOf" : [
+                        { "type": "boolean" },
+                        { "type": "array",
+                          "minItems": 1,
+                          "items": { "type": "boolean" },
+                          "uniqueItems": false }
+                    ]
                 }
             },
             "required": [ "name", "type", "value" ],
@@ -101,8 +125,13 @@
                 },
                 "value":{
                     "description":"The actual value of the attribute",
-                    "type":"string",
-                    "format": "date-time"
+                    "oneOf" : [
+                        { "type": "string", "format": "date-time" },
+                        { "type": "array",
+                          "minItems": 1,
+                          "items": { "type": "string", "format": "date-time" },
+                          "uniqueItems": false }
+                    ]
                 }
             },
             "required": [ "name", "type", "value" ],
@@ -121,10 +150,16 @@
                 },
                 "value":{
                     "description":"The actual value of the attribute",
-                    "type":"object",
-                    "oneOf": [
-                        { "$ref":"https://raw.githubusercontent.com/Hackout2/EpiJSON/master/schema/geojson/geojson.json" }
+                    "oneOf" : [
+                        { "type": "object", 
+                          "oneOf": [ { "$ref":"https://raw.githubusercontent.com/Hackout2/EpiJSON/master/schema/geojson/geojson.json" } ] },
+                        { "type": "array",
+                          "minItems": 1,
+                          "items": { "type": "object", 
+                                     "oneOf": [ { "$ref":"https://raw.githubusercontent.com/Hackout2/EpiJSON/master/schema/geojson/geojson.json" } ]},
+                          "uniqueItems": false }
                     ]
+                    
                 }
             },
             "required": [ "name", "type", "value" ],
@@ -143,7 +178,13 @@
                 },
                 "value":{
                     "description":"The actual value of the attribute",
-                    "type": "string"
+                    "oneOf" : [
+                        { "type": "string" },
+                        { "type": "array",
+                          "minItems": 1,
+                          "items": { "type": "string" },
+                          "uniqueItems": false }
+                    ]
                 }
             },
             "required": [ "name", "type", "value" ],
@@ -154,7 +195,12 @@
             "type":"object",
             "oneOf":[
                     { "$ref": "#/definitions/stringAttribute" },
-                    { "$ref": "#/definitions/numberAttribute" }
+                    { "$ref": "#/definitions/numberAttribute" },
+                    { "$ref": "#/definitions/integerAttribute" },
+                    { "$ref": "#/definitions/booleanAttribute" },
+                    { "$ref": "#/definitions/dateAttribute" },
+                    { "$ref": "#/definitions/locationAttribute" },
+                    { "$ref": "#/definitions/base64Attribute" }
                 ]
         },
         "event":{
