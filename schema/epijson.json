@@ -1,12 +1,10 @@
 {
     "id": "https://raw.githubusercontent.com/Hackout2/EpiJSON/master/schema/epijson.json",
     "$schema":"http://json-schema.org/draft-04/schema#",
-    "title":"EpiJSON Schema V0.6",
+    "title":"EpiJSON Schema V0.7",
     "description":"Epidemiological data in JSON format",
     "definitions":{
-        "attribute":{
-            "description":"Attribute of the parent",
-            "type":"object",
+                "stringAttribute": {
             "properties":{
                 "name":{
                     "description":"The name of the attribute",
@@ -15,35 +13,152 @@
                 "type":{
                     "description":"The type of the attribute",
                     "type":"string",
-                    "enum":[
-                        "string",
-                        "number",
-                        "integer",
-                        "boolean",
-                        "date",
-                        "location",
-                        "base64"
-                    ]
+                    "pattern": "string"
                 },
                 "value":{
                     "description":"The actual value of the attribute",
-                    "type":[
-                        "string",
-                        "number",
-                        "boolean",
-                        "object"
-                    ]
+                    "type": "string"
+                }
+            },
+            "required": [ "name", "type", "value" ],
+            "additionalProperties": false        
+        },
+        "numberAttribute": {
+            "properties":{
+                "name":{
+                    "description":"The name of the attribute",
+                    "type":"string"
+                },
+                "type":{
+                    "description":"The type of the attribute",
+                    "type":"string",
+                    "pattern":"number"
+                },
+                "value":{
+                    "description":"The actual value of the attribute",
+                    "type":"number"
                 },
                 "units":{
                     "description":"A string containing the units name, preferably compatible with UDUNITS2",
                     "type":"string"
                 }
             },
-            "required": ["name", "type","value"],
-            "additionalProperties":false
+            "required": [ "name", "type", "value" ],
+            "additionalProperties": false
+        },
+        "integerAttribute": {
+            "properties":{
+                "name":{
+                    "description":"The name of the attribute",
+                    "type":"string"
+                },
+                "type":{
+                    "description":"The type of the attribute",
+                    "type":"string",
+                    "pattern":"integer"
+                },
+                "value":{
+                    "description":"The actual value of the attribute",
+                    "type":"integer"
+                },
+                "units":{
+                    "description":"A string containing the units name, preferably compatible with UDUNITS2",
+                    "type":"string"
+                }
+            },
+            "required": [ "name", "type", "value" ],
+            "additionalProperties": false
+        },
+        "booleanAttribute": {
+            "properties":{
+                "name":{
+                    "description":"The name of the attribute",
+                    "type":"string"
+                },
+                "type":{
+                    "description":"The type of the attribute",
+                    "type":"string",
+                    "pattern":"boolean"
+                },
+                "value":{
+                    "description":"The actual value of the attribute",
+                    "type":"boolean"
+                }
+            },
+            "required": [ "name", "type", "value" ],
+            "additionalProperties": false
+        },
+        "dateAttribute": {
+            "properties":{
+                "name":{
+                    "description":"The name of the attribute",
+                    "type":"string"
+                },
+                "type":{
+                    "description":"The type of the attribute",
+                    "type":"string",
+                    "pattern":"string"
+                },
+                "value":{
+                    "description":"The actual value of the attribute",
+                    "type":"string",
+                    "format": "date-time"
+                }
+            },
+            "required": [ "name", "type", "value" ],
+            "additionalProperties": false
+        },
+        "locationAttribute": {
+            "properties":{
+                "name":{
+                    "description":"The name of the attribute",
+                    "type":"string"
+                },
+                "type":{
+                    "description":"The type of the attribute",
+                    "type":"string",
+                    "pattern":"location"
+                },
+                "value":{
+                    "description":"The actual value of the attribute",
+                    "type":"object",
+                    "oneOf": [
+                        { "$ref":"https://raw.githubusercontent.com/Hackout2/EpiJSON/master/schema/geojson/geojson.json" }
+                    ]
+                }
+            },
+            "required": [ "name", "type", "value" ],
+            "additionalProperties": false
+        },
+        "base64Attribute": {
+            "properties":{
+                "name":{
+                    "description":"The name of the attribute",
+                    "type":"string"
+                },
+                "type":{
+                    "description":"The type of the attribute",
+                    "type":"string",
+                    "pattern": "base64"
+                },
+                "value":{
+                    "description":"The actual value of the attribute",
+                    "type": "string"
+                }
+            },
+            "required": [ "name", "type", "value" ],
+            "additionalProperties": false
+        },                
+        "attribute":{
+            "description":"Attribute of the parent",
+            "type":"object",
+            "oneOf":[
+                    { "$ref": "#/definitions/stringAttribute" },
+                    { "$ref": "#/definitions/numberAttribute" }
+                ]
         },
         "event":{
-            "description":"An incident that occured to the parent record",
+            "description":"An incident that occurred to the parent record",
             "type":"object",
             "properties":{
                 "id":{
