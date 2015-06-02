@@ -1,5 +1,5 @@
 {
-    "id": "https://github.com/Hackout2/EpiJSON/blob/master/schema/epijson.json",
+    "id": "https://raw.githubusercontent.com/Hackout2/EpiJSON/master/schema/epijson.json",
     "$schema":"http://json-schema.org/draft-04/schema#",
     "title":"EpiJSON Schema V0.6",
     "description":"Epidemiological data in JSON format",
