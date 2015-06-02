@@ -1,4 +1,5 @@
 {
+    "id": "https://github.com/Hackout2/EpiJSON/blob/master/schema/epijson.json",
     "$schema":"http://json-schema.org/draft-04/schema#",
     "title":"EpiJSON Schema V0.6",
     "description":"Epidemiological data in JSON format",
@@ -58,7 +59,11 @@
                     "format":"date-time"
                 },
                 "location":{
-                    "description":"The place where the event happened (MUST be valid GeoJSON object TODO:Validate against GeoJSON schema)"
+                    "description":"The place where the event happened (MUST be valid GeoJSON object)",
+                    "type": "object",
+                    "oneOf": [
+                        { "$ref":"https://raw.githubusercontent.com/Hackout2/EpiJSON/master/schema/geojson/geojson.json" }
+                    ]
                 },
                 "attributes":{
                     "description":"Attributes of the events",
