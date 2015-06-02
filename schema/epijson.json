@@ -21,6 +21,7 @@
                         "integer",
                         "boolean",
                         "date",
+                        "location",
                         "base64"
                     ]
                 },
@@ -29,7 +30,8 @@
                     "type":[
                         "string",
                         "number",
-                        "boolean"
+                        "boolean",
+                        "object"
                     ]
                 },
                 "units":{
