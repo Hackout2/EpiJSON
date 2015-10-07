@@ -4,7 +4,7 @@
     "title":"EpiJSON Schema V0.7",
     "description":"Epidemiological data in JSON format",
     "definitions":{
-                "stringAttribute": {
+        "stringAttribute": {
             "properties":{
                 "name":{
                     "description":"The name of the attribute",
@@ -208,9 +208,9 @@
             "type":"object",
             "properties":{
                 "id":{
-                    "description": "An integer event number (counts from zero)",
-                    "type": "integer",
-                    "minimum": 0   
+                    "description": "An UUID event id (this must be a valid RFC4122 UUID)",
+                    "type": "string",
+                    "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$"   
                 },
                 "name":{
                     "description":"The event name",
@@ -249,9 +249,9 @@
             "type":"object",
             "properties":{
                 "id":{
-                    "description": "A unique record identifier (counts from zero)",
-                    "type": "integer",
-                    "minimum": 0   
+                    "description": "A unique record identifier (this must be a valid RFC4122 UUID)",
+                    "type": "string",
+                    "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$"
                 },
                 "attributes":{
                     "description":"Attributes for this record",
