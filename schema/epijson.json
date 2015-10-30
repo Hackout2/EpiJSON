@@ -121,7 +121,7 @@
                 "type":{
                     "description":"The type of the attribute",
                     "type":"string",
-                    "pattern":"string"
+                    "pattern":"date"
                 },
                 "value":{
                     "description":"The actual value of the attribute",
