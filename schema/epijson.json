@@ -193,7 +193,7 @@
         "attribute":{
             "description":"Attribute of the parent",
             "type":"object",
-            "oneOf":[
+            "anyOf":[
                     { "$ref": "#/definitions/stringAttribute" },
                     { "$ref": "#/definitions/numberAttribute" },
                     { "$ref": "#/definitions/integerAttribute" },
