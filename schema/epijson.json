@@ -1,7 +1,7 @@
 {
     "id": "https://raw.githubusercontent.com/Hackout2/EpiJSON/master/schema/epijson.json",
     "$schema":"http://json-schema.org/draft-04/schema#",
-    "title":"EpiJSON Schema V0.7",
+    "title":"EpiJSON Schema V0.8",
     "description":"Epidemiological data in JSON format",
     "definitions":{
         "stringAttribute": {
@@ -126,10 +126,60 @@
                 "value":{
                     "description":"The actual value of the attribute",
                     "oneOf" : [
+                        { "type": "string", "format": "^[0-9]{4}-(((0[13578]|(10|12))-(0[1-9]|[1-2][0-9]|3[0-1]))|(02-(0[1-9]|[1-2][0-9]))|((0[469]|11)-(0[1-9]|[1-2][0-9]|30)))$" },
+                        { "type": "array",
+                          "minItems": 1,
+                          "items": { "type": "string", "format": "^[0-9]{4}-(((0[13578]|(10|12))-(0[1-9]|[1-2][0-9]|3[0-1]))|(02-(0[1-9]|[1-2][0-9]))|((0[469]|11)-(0[1-9]|[1-2][0-9]|30)))$" },
+                          "uniqueItems": false }
+                    ]
+                }
+            },
+            "required": [ "name", "type", "value" ],
+            "additionalProperties": false
+        },
+        "dateTimeAttribute": {
+            "properties":{
+                "name":{
+                    "description":"The name of the attribute",
+                    "type":"string"
+                },
+                "type":{
+                    "description":"The type of the attribute",
+                    "type":"string",
+                    "pattern":"date"
+                },
+                "value":{
+                    "description":"The actual value of the attribute",
+                    "oneOf" : [
                         { "type": "string", "format": "date-time" },
                         { "type": "array",
                           "minItems": 1,
                           "items": { "type": "string", "format": "date-time" },
+                          "uniqueItems": false }
+                    ]
+                }
+            },
+            "required": [ "name", "type", "value" ],
+            "additionalProperties": false
+        },
+        "timeAttribute": {
+            "properties":{
+                "name":{
+                    "description":"The name of the attribute",
+                    "type":"string"
+                },
+                "type":{
+                    "description":"The type of the attribute",
+                    "type":"string",
+                    "pattern":"date"
+                },
+                "value":{
+                    "description":"The actual value of the attribute",
+                    "oneOf" : [
+                        { "type": "string", "format": "^([0-1][0-9]|[2][0-3]):([0-5][0-9])$" },
+                        { "type": "array",
+                          "minItems": 1,
+                          "items": { "type": "string", "format": "^([0-1][0-9]|[2][0-3]):([0-5][0-9])$" },
                           "uniqueItems": false }
                     ]
                 }
@@ -199,6 +249,8 @@
                     { "$ref": "#/definitions/integerAttribute" },
                     { "$ref": "#/definitions/booleanAttribute" },
                     { "$ref": "#/definitions/dateAttribute" },
+                    { "$ref": "#/definitions/dateTimeAttribute" },
+                    { "$ref": "#/definitions/timeAttribute" },
                     { "$ref": "#/definitions/locationAttribute" },
                     { "$ref": "#/definitions/base64Attribute" }
                 ]
