@@ -1,7 +1,8 @@
 {
   "id": "https://raw.githubusercontent.com/Hackout2/EpiJSON/master/schema/epijson.json",
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "EpiJSON Schema V0.9",
+  "title": "EpiJSON Schema",
+  "version": "0.91",
   "description": "Epidemiological data in JSON format",
   "definitions": {
     "stringAttribute": {
