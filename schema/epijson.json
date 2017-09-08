@@ -1,347 +1,506 @@
 {
-    "id": "https://raw.githubusercontent.com/Hackout2/EpiJSON/master/schema/epijson.json",
-    "$schema":"http://json-schema.org/draft-04/schema#",
-    "title":"EpiJSON Schema V0.8",
-    "description":"Epidemiological data in JSON format",
-    "definitions":{
-        "stringAttribute": {
-            "properties":{
-                "name":{
-                    "description":"The name of the attribute",
-                    "type":"string"
-                },
-                "type":{
-                    "description":"The type of the attribute",
-                    "type":"string",
-                    "pattern": "string"
-                },
-                "value":{
-                    "description":"The actual value of the attribute",
-                    "oneOf" : [
-                        { "type": "string" },
-                        { "type": "array",
-                          "minItems": 1,
-                          "items": { "type": "string" },
-                          "uniqueItems": false }
-                    ]
-                }
-            },
-            "required": [ "name", "type", "value" ],
-            "additionalProperties": false        
+  "id": "https://raw.githubusercontent.com/Hackout2/EpiJSON/master/schema/epijson.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "EpiJSON Schema V0.9",
+  "description": "Epidemiological data in JSON format",
+  "definitions": {
+    "stringAttribute": {
+      "properties": {
+        "name": {
+          "description": "The name of the attribute",
+          "type": "string"
         },
-        "numberAttribute": {
-            "properties":{
-                "name":{
-                    "description":"The name of the attribute",
-                    "type":"string"
-                },
-                "type":{
-                    "description":"The type of the attribute",
-                    "type":"string",
-                    "pattern":"number"
-                },
-                "value":{
-                    "description":"The actual value of the attribute",
-                    "oneOf" : [
-                        { "type": "number" },
-                        { "type": "array",
-                          "minItems": 1,
-                          "items": { "type": "number" },
-                          "uniqueItems": false }
-                    ]
-                },
-                "units":{
-                    "description":"A string containing the units name, preferably compatible with UDUNITS2",
-                    "type":"string"
-                }
-            },
-            "required": [ "name", "type", "value" ],
-            "additionalProperties": false
+        "type": {
+          "description": "The type of the attribute",
+          "type": "string",
+          "pattern": "string"
         },
-        "integerAttribute": {
-            "properties":{
-                "name":{
-                    "description":"The name of the attribute",
-                    "type":"string"
-                },
-                "type":{
-                    "description":"The type of the attribute",
-                    "type":"string",
-                    "pattern":"integer"
-                },
-                "value":{
-                    "description":"The actual value of the attribute",
-                    "oneOf" : [
-                        { "type": "integer" },
-                        { "type": "array",
-                          "minItems": 1,
-                          "items": { "type": "integer" },
-                          "uniqueItems": false }
-                    ]
-                },
-                "units":{
-                    "description":"A string containing the units name, preferably compatible with UDUNITS2",
-                    "type":"string"
-                }
+        "value": {
+          "description": "The actual value of the attribute",
+          "oneOf": [
+            {
+              "type": "string"
             },
-            "required": [ "name", "type", "value" ],
-            "additionalProperties": false
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string"
+              },
+              "uniqueItems": false
+            }
+          ]
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "numberAttribute": {
+      "properties": {
+        "name": {
+          "description": "The name of the attribute",
+          "type": "string"
         },
-        "booleanAttribute": {
-            "properties":{
-                "name":{
-                    "description":"The name of the attribute",
-                    "type":"string"
-                },
-                "type":{
-                    "description":"The type of the attribute",
-                    "type":"string",
-                    "pattern":"boolean"
-                },
-                "value":{
-                    "description":"The actual value of the attribute",
-                    "oneOf" : [
-                        { "type": "boolean" },
-                        { "type": "array",
-                          "minItems": 1,
-                          "items": { "type": "boolean" },
-                          "uniqueItems": false }
-                    ]
-                }
-            },
-            "required": [ "name", "type", "value" ],
-            "additionalProperties": false
+        "type": {
+          "description": "The type of the attribute",
+          "type": "string",
+          "pattern": "number"
         },
-        "dateAttribute": {
-            "properties":{
-                "name":{
-                    "description":"The name of the attribute",
-                    "type":"string"
-                },
-                "type":{
-                    "description":"The type of the attribute",
-                    "type":"string",
-                    "pattern":"date"
-                },
-                "value":{
-                    "description":"The actual value of the attribute",
-                    "oneOf" : [
-                        { "type": "string", "format": "^[0-9]{4}-(((0[13578]|(10|12))-(0[1-9]|[1-2][0-9]|3[0-1]))|(02-(0[1-9]|[1-2][0-9]))|((0[469]|11)-(0[1-9]|[1-2][0-9]|30)))$" },
-                        { "type": "array",
-                          "minItems": 1,
-                          "items": { "type": "string", "format": "^[0-9]{4}-(((0[13578]|(10|12))-(0[1-9]|[1-2][0-9]|3[0-1]))|(02-(0[1-9]|[1-2][0-9]))|((0[469]|11)-(0[1-9]|[1-2][0-9]|30)))$" },
-                          "uniqueItems": false }
-                    ]
-                }
+        "value": {
+          "description": "The actual value of the attribute",
+          "oneOf": [
+            {
+              "type": "number"
             },
-            "required": [ "name", "type", "value" ],
-            "additionalProperties": false
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "number"
+              },
+              "uniqueItems": false
+            }
+          ]
         },
-        "dateTimeAttribute": {
-            "properties":{
-                "name":{
-                    "description":"The name of the attribute",
-                    "type":"string"
-                },
-                "type":{
-                    "description":"The type of the attribute",
-                    "type":"string",
-                    "pattern":"date"
-                },
-                "value":{
-                    "description":"The actual value of the attribute",
-                    "oneOf" : [
-                        { "type": "string", "format": "date-time" },
-                        { "type": "array",
-                          "minItems": 1,
-                          "items": { "type": "string", "format": "date-time" },
-                          "uniqueItems": false }
-                    ]
-                }
-            },
-            "required": [ "name", "type", "value" ],
-            "additionalProperties": false
+        "units": {
+          "description": "A string containing the units name, preferably compatible with UDUNITS2",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "integerAttribute": {
+      "properties": {
+        "name": {
+          "description": "The name of the attribute",
+          "type": "string"
         },
-        "timeAttribute": {
-            "properties":{
-                "name":{
-                    "description":"The name of the attribute",
-                    "type":"string"
-                },
-                "type":{
-                    "description":"The type of the attribute",
-                    "type":"string",
-                    "pattern":"date"
-                },
-                "value":{
-                    "description":"The actual value of the attribute",
-                    "oneOf" : [
-                        { "type": "string", "format": "^([0-1][0-9]|[2][0-3]):([0-5][0-9])$" },
-                        { "type": "array",
-                          "minItems": 1,
-                          "items": { "type": "string", "format": "^([0-1][0-9]|[2][0-3]):([0-5][0-9])$" },
-                          "uniqueItems": false }
-                    ]
-                }
-            },
-            "required": [ "name", "type", "value" ],
-            "additionalProperties": false
+        "type": {
+          "description": "The type of the attribute",
+          "type": "string",
+          "pattern": "integer"
         },
-        "locationAttribute": {
-            "properties":{
-                "name":{
-                    "description":"The name of the attribute",
-                    "type":"string"
-                },
-                "type":{
-                    "description":"The type of the attribute",
-                    "type":"string",
-                    "pattern":"location"
-                },
-                "value":{
-                    "description":"The actual value of the attribute",
-                    "oneOf" : [
-                        { "type": "object", 
-                          "oneOf": [ { "$ref":"https://raw.githubusercontent.com/Hackout2/EpiJSON/master/schema/geojson/geojson.json" } ] },
-                        { "type": "array",
-                          "minItems": 1,
-                          "items": { "type": "object", 
-                                     "oneOf": [ { "$ref":"https://raw.githubusercontent.com/Hackout2/EpiJSON/master/schema/geojson/geojson.json" } ]},
-                          "uniqueItems": false }
-                    ]
-                    
-                }
+        "value": {
+          "description": "The actual value of the attribute",
+          "oneOf": [
+            {
+              "type": "integer"
             },
-            "required": [ "name", "type", "value" ],
-            "additionalProperties": false
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "integer"
+              },
+              "uniqueItems": false
+            }
+          ]
         },
-        "base64Attribute": {
-            "properties":{
-                "name":{
-                    "description":"The name of the attribute",
-                    "type":"string"
-                },
-                "type":{
-                    "description":"The type of the attribute",
-                    "type":"string",
-                    "pattern": "base64"
-                },
-                "value":{
-                    "description":"The actual value of the attribute",
-                    "oneOf" : [
-                        { "type": "string" },
-                        { "type": "array",
-                          "minItems": 1,
-                          "items": { "type": "string" },
-                          "uniqueItems": false }
-                    ]
-                }
+        "units": {
+          "description": "A string containing the units name, preferably compatible with UDUNITS2",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "booleanAttribute": {
+      "properties": {
+        "name": {
+          "description": "The name of the attribute",
+          "type": "string"
+        },
+        "type": {
+          "description": "The type of the attribute",
+          "type": "string",
+          "pattern": "boolean"
+        },
+        "value": {
+          "description": "The actual value of the attribute",
+          "oneOf": [
+            {
+              "type": "boolean"
             },
-            "required": [ "name", "type", "value" ],
-            "additionalProperties": false
-        },                
-        "attribute":{
-            "description":"Attribute of the parent",
-            "type":"object",
-            "anyOf":[
-                    { "$ref": "#/definitions/stringAttribute" },
-                    { "$ref": "#/definitions/numberAttribute" },
-                    { "$ref": "#/definitions/integerAttribute" },
-                    { "$ref": "#/definitions/booleanAttribute" },
-                    { "$ref": "#/definitions/dateAttribute" },
-                    { "$ref": "#/definitions/dateTimeAttribute" },
-                    { "$ref": "#/definitions/timeAttribute" },
-                    { "$ref": "#/definitions/locationAttribute" },
-                    { "$ref": "#/definitions/base64Attribute" }
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "boolean"
+              },
+              "uniqueItems": false
+            }
+          ]
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "dateAttribute": {
+      "properties": {
+        "name": {
+          "description": "The name of the attribute",
+          "type": "string"
+        },
+        "type": {
+          "description": "The type of the attribute",
+          "type": "string",
+          "pattern": "date"
+        },
+        "value": {
+          "description": "The actual value of the attribute",
+          "oneOf": [
+            {
+              "type": "string",
+              "format": "^[0-9]{4}-(((0[13578]|(10|12))-(0[1-9]|[1-2][0-9]|3[0-1]))|(02-(0[1-9]|[1-2][0-9]))|((0[469]|11)-(0[1-9]|[1-2][0-9]|30)))$"
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string",
+                "format": "^[0-9]{4}-(((0[13578]|(10|12))-(0[1-9]|[1-2][0-9]|3[0-1]))|(02-(0[1-9]|[1-2][0-9]))|((0[469]|11)-(0[1-9]|[1-2][0-9]|30)))$"
+              },
+              "uniqueItems": false
+            }
+          ]
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "dateTimeAttribute": {
+      "properties": {
+        "name": {
+          "description": "The name of the attribute",
+          "type": "string"
+        },
+        "type": {
+          "description": "The type of the attribute",
+          "type": "string",
+          "pattern": "date"
+        },
+        "value": {
+          "description": "The actual value of the attribute",
+          "oneOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "uniqueItems": false
+            }
+          ]
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "timeAttribute": {
+      "properties": {
+        "name": {
+          "description": "The name of the attribute",
+          "type": "string"
+        },
+        "type": {
+          "description": "The type of the attribute",
+          "type": "string",
+          "pattern": "date"
+        },
+        "value": {
+          "description": "The actual value of the attribute",
+          "oneOf": [
+            {
+              "type": "string",
+              "format": "^([0-1][0-9]|[2][0-3]):([0-5][0-9])$"
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string",
+                "format": "^([0-1][0-9]|[2][0-3]):([0-5][0-9])$"
+              },
+              "uniqueItems": false
+            }
+          ]
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "locationAttribute": {
+      "properties": {
+        "name": {
+          "description": "The name of the attribute",
+          "type": "string"
+        },
+        "type": {
+          "description": "The type of the attribute",
+          "type": "string",
+          "pattern": "location"
+        },
+        "value": {
+          "description": "The actual value of the attribute",
+          "oneOf": [
+            {
+              "type": "object",
+              "oneOf": [
+                {
+                  "$ref": "https://raw.githubusercontent.com/Hackout2/EpiJSON/master/schema/geojson/geojson.json"
+                }
+              ]
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "oneOf": [
+                  {
+                    "$ref": "https://raw.githubusercontent.com/Hackout2/EpiJSON/master/schema/geojson/geojson.json"
+                  }
                 ]
-        },
-        "event":{
-            "description":"An incident that occurred to the parent record",
-            "type":"object",
-            "properties":{
-                "id":{
-                    "description": "An UUID event id (this must be a valid RFC4122 UUID)",
-                    "type": "string",
-                    "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$"   
-                },
-                "name":{
-                    "description":"The event name",
-                    "type":"string"
-                },
-                "date":{
-                    "description":"The date and time on which the event occured (in ISO 8601 format)",
-                    "type":"string",
-                    "format":"date-time"
-                },
-                "location":{
-                    "description":"The place where the event happened (MUST be valid GeoJSON object)",
-                    "type": "object",
-                    "oneOf": [
-                        { "$ref":"https://raw.githubusercontent.com/Hackout2/EpiJSON/master/schema/geojson/geojson.json" }
-                    ]
-                },
-                "attributes":{
-                    "description":"Attributes of the events",
-                    "type":"array",
-                    "items":{
-                        "$ref":"#/definitions/attribute"
-                    },
-                    "uniqueItems": true
-                }
-            },
-            "additionalProperties": false,
-            "anyOf": [
-                { "required": ["id", "name", "date", "location"] },
-                { "required": ["id", "name", "date"] },
-                { "required": ["id", "name", "location"] }
-            ]
-        },
-        "record":{
-            "description":"A record for an entity (e.g. a person, geographic locality, etc)",
-            "type":"object",
-            "properties":{
-                "id":{
-                    "description": "A unique record identifier (this must be a valid RFC4122 UUID)",
-                    "type": "string",
-                    "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$"
-                },
-                "attributes":{
-                    "description":"Attributes for this record",
-                    "type":"array",
-                    "items":{
-                        "$ref":"#/definitions/attribute"
-                    }
-                },
-                "events": {
-                    "type":"array",
-                    "items":{
-                        "$ref":"#/definitions/event"
-                    }
-                }   
-            },
-            "additionalProperties": false,
-            "anyOf": [
-                { "required": ["id", "attributes"] },
-                { "required": ["id", "events"] }
-            ]
-        }
-    },
-    "type":"object",
-    "properties":{
-        "metadata":{
-            "description":"Attributes for this dataset",
-            "type":"array",
-            "items":{
-                "$ref":"#/definitions/attribute"
+              },
+              "uniqueItems": false
             }
-        },
-        "records":{
-            "type":"array",
-            "items":{
-                "$ref":"#/definitions/record"
-            }
+          ]
         }
+      },
+      "required": [
+        "name",
+        "type",
+        "value"
+      ],
+      "additionalProperties": false
     },
-    "additionalProperties": false,
-    "required": ["metadata", "records"]
+    "base64Attribute": {
+      "properties": {
+        "name": {
+          "description": "The name of the attribute",
+          "type": "string"
+        },
+        "type": {
+          "description": "The type of the attribute",
+          "type": "string",
+          "pattern": "base64"
+        },
+        "value": {
+          "description": "The actual value of the attribute",
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string"
+              },
+              "uniqueItems": false
+            }
+          ]
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "attribute": {
+      "description": "Attribute of the parent",
+      "type": "object",
+      "anyOf": [
+        {
+          "$ref": "#/definitions/stringAttribute"
+        },
+        {
+          "$ref": "#/definitions/numberAttribute"
+        },
+        {
+          "$ref": "#/definitions/integerAttribute"
+        },
+        {
+          "$ref": "#/definitions/booleanAttribute"
+        },
+        {
+          "$ref": "#/definitions/dateAttribute"
+        },
+        {
+          "$ref": "#/definitions/dateTimeAttribute"
+        },
+        {
+          "$ref": "#/definitions/timeAttribute"
+        },
+        {
+          "$ref": "#/definitions/locationAttribute"
+        },
+        {
+          "$ref": "#/definitions/base64Attribute"
+        }
+      ]
+    },
+    "event": {
+      "description": "An incident that occurred to the parent record",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "An UUID event id (this must be a valid RFC4122 UUID)",
+          "type": "string",
+          "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$"
+        },
+        "name": {
+          "description": "The event name",
+          "type": "string"
+        },
+        "date": {
+          "description": "The date and time on which the event occured (in ISO 8601 format)",
+          "type": "string",
+          "format": "date-time"
+        },
+        "location": {
+          "description": "The place where the event happened (MUST be valid GeoJSON object)",
+          "type": "object",
+          "oneOf": [
+            {
+              "$ref": "https://raw.githubusercontent.com/Hackout2/EpiJSON/master/schema/geojson/geojson.json"
+            }
+          ]
+        },
+        "attributes": {
+          "description": "Attributes of the events",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/attribute"
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false,
+      "anyOf": [
+        {
+          "required": [
+            "id",
+            "name",
+            "date",
+            "location"
+          ]
+        },
+        {
+          "required": [
+            "id",
+            "name",
+            "date"
+          ]
+        },
+        {
+          "required": [
+            "id",
+            "name",
+            "location"
+          ]
+        }
+      ]
+    },
+    "record": {
+      "description": "A record for an entity (e.g. a person, geographic locality, etc)",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "A unique record identifier (this must be a valid RFC4122 UUID)",
+          "type": "string",
+          "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$"
+        },
+        "attributes": {
+          "description": "Attributes for this record",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/attribute"
+          }
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/event"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "anyOf": [
+        {
+          "required": [
+            "id",
+            "attributes"
+          ]
+        },
+        {
+          "required": [
+            "id",
+            "events"
+          ]
+        }
+      ]
+    },
+    "object": {
+      "description": "The full dataset",
+      "type": "object",
+      "properties": {
+        "metadata": {
+          "description": "Attributes for this dataset",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/attribute"
+          }
+        },
+        "records": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/record"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "metadata",
+        "records"
+      ]
+    }
+  },
+  "$ref": "#/definitions/object"
 }
